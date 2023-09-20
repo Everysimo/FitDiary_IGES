@@ -1,24 +1,23 @@
 package it.fitdiary.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -26,7 +25,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class SchedaAllenamento {
+
+    /**
+     * Lunghezza massima campo nome.
+     */
+    private static final int MAX_NAME_LENGTH = 50;
+    private static final int MIN_NAME_LENGTH = 1;
+
     /**
      * Lunghezza massima della frequenza.
      */
@@ -37,35 +44,51 @@ public class SchedaAllenamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Il nome non può essere nullo")
+    @Column(length = MAX_NAME_LENGTH)
+    @Size(min = MIN_NAME_LENGTH, max = MAX_NAME_LENGTH,
+            message = "Lunghezza nome non valida")
+    @NotBlank(message = "Il nome non può essere vuoto")
+    private String nome;
+
     /**
      * frequenza della scheda allenamento.
      */
-    @NotNull(message = "Il frequenza non può essere nullo")
-    @Column(length = MAX_FREQUENZA_LENGTH)
-    @NotBlank(message = "Il frequenza non può essere vuoto")
-    @Size(min = 1, max = MAX_FREQUENZA_LENGTH,
-            message = "Lunghezza frequenza non valida")
-    private String frequenza;
+    @NotNull(message = "La frequenza non può essere nulla")
+    private Integer frequenza;
     /**
-     * lista esercizi scheda allenamento.
+     * lista esercizi scheda esercizi.
      */
-    @OneToMany(mappedBy = "schedaAllenamento")
-    private List<Esercizio> listaEsercizi;
+    @OneToMany(mappedBy = "schedaAllenamento",cascade = CascadeType.ALL)
+
+    private List<IstanzaEsercizio> listaEsercizi;
+
+    @ManyToOne
+    @JoinColumn(name = "utente_id")
+    private Utente preparatore;
+
+
     /**
-     * procotollo a cui è associata la scheda allenamento.
+     * La data creazione della tupla.
      */
-    @OneToOne
-    @JoinColumn(name = "protocollo_id")
-    @JsonIgnore
-    @EqualsAndHashCode.Exclude
-    private Protocollo protocollo;
+    @Column(name = "data_creazione", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime dataCreazione;
+
+    /**
+     * La data aggiornamento della tupla.
+     */
+    @Column(name = "data_aggiornamento")
+    @UpdateTimestamp
+    private LocalDateTime dataAggiornamento;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SchedaAllenamento that = (SchedaAllenamento) o;
-        return Objects.equal(id, that.id) && Objects.equal(frequenza, that.frequenza) && Objects.equal(listaEsercizi, that.listaEsercizi) && Objects.equal(protocollo, that.protocollo);
+        return Objects.equal(id, that.id) && Objects.equal(frequenza, that.frequenza) && Objects.equal(listaEsercizi, that.listaEsercizi);
     }
 
 }

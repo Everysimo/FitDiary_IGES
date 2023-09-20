@@ -140,6 +140,7 @@ export default function Create() {
             objTest.alimento=alimento;
             objTest.pasto=pasto;
             objTest.grammi=grammi;
+            objTest.giornoDellaSettimana=indexGiorno;
 
             let tmp=schedaAlimentare;
             tmp[indexGiorno].push(objTest);
@@ -159,18 +160,24 @@ export default function Create() {
             istanzeAlimenti: [],
         };
 
-        if (inputData && Array.isArray(inputData[0])) {
-            const instances = inputData[0];
-            instances.forEach((instance) => {
-                if (instance && instance.alimento) {
-                    formattedData.istanzeAlimenti.push({
-                        grammi: instance.grammi || 0,
-                        giornoDellaSettimana: instance.giornoDellaSettimana || 0,
-                        pasto: instance.pasto || "0",
-                        idAlimento: instance.alimento.id || 0,
-                    });
-                }
-            });
+        if (inputData && Array.isArray(inputData)) {
+            for(let i=0;i<inputData.length;i++)
+            {
+                const instances = inputData[i];
+                instances.forEach((instance) => {
+                    console.log("Instanza:")
+                    console.log(instance);
+                    if (instance && instance.alimento) {
+                        formattedData.istanzeAlimenti.push({
+                            grammi: instance.grammi || 0,
+                            giornoDellaSettimana: instance.giornoDellaSettimana || 0,
+                            pasto: instance.pasto || "0",
+                            idAlimento: instance.alimento.id || 0,
+                        });
+                    }
+                });
+            }
+
         }
 
         return formattedData;
@@ -198,6 +205,7 @@ export default function Create() {
             let formattedScheda = formatData(schedaAlimentare)
             const {data} = await fetchContext.authAxios.post(urlCreateSchedaALimentare, formattedScheda);
             setSchedaAlimentare([[],[],[],[],[],[],[]]);
+            setNomeScheda("");
             toast(toastParam("Sceheda Alimentare creata con successo", "Scheda aggiunta all'elenco", "success"));
         } catch (error) {
             console.log(error.response.data.message)
@@ -341,7 +349,8 @@ export default function Create() {
 
                         <Accordion allowToggle defaultIndex={[0]} w="full" mt={"60px"}>
                             {days.map((d, i) => {
-                                return (<AccordionItem key={i}>
+                                return (
+                                    <AccordionItem key={i}>
                                         <h2>
                                             <AccordionButton>
                                                 <Box flex='1' textAlign='center' fontWeight={"extrabold"} fontSize={"xl"}>
