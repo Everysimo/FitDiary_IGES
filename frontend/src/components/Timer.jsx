@@ -55,7 +55,7 @@ export function Timer({children, maxSeconds}) {
 
     return (
         <Box align={"center"} width={"full"} bg={"white"}>
-            <Text fontSize={30} fontWeight='bold' align={"center"}>{FormatTime(time)}</Text>
+            <Text fontSize={52} fontWeight='bold' align={"center"}>{FormatTime(time)}</Text>
             {button}
         </Box>
 

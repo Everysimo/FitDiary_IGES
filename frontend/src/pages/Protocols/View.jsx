@@ -158,6 +158,16 @@ export default function View() {
                                             navigate("/reports/create")
                                         }} colorScheme='fitdiary'>Inserisci report</Button>
                                     </Tooltip>
+                                    <Tooltip label="Vuoi inserire una nuova esercitazione?">
+                                        <Button onClick={() => {
+                                            navigate("/allenamenti")
+                                        }} colorScheme='fitdiary'>Inserisci Allenamento</Button>
+                                    </Tooltip>
+                                    <Tooltip label="Vuoi inserire un nuovo reporto sulla dieta?">
+                                        <Button onClick={() => {
+                                            navigate("/dieta")
+                                        }} colorScheme='fitdiary'>Inserisci Giornata Dieta</Button>
+                                    </Tooltip>
                                 </ButtonGroup>
                             </VStack>
                         </Flex>
