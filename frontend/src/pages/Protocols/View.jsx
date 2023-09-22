@@ -160,7 +160,7 @@ export default function View() {
                                     </Tooltip>
                                     <Tooltip label="Vuoi inserire una nuova esercitazione?">
                                         <Button onClick={() => {
-                                            navigate("/allenamenti")
+                                            navigate("/allenamenti/"+protocollo.schedaAllenamento.id)
                                         }} colorScheme='fitdiary'>Inserisci Allenamento</Button>
                                     </Tooltip>
                                     <Tooltip label="Vuoi inserire un nuovo reporto sulla dieta?">

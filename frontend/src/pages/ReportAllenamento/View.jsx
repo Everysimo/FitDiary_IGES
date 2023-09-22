@@ -32,29 +32,26 @@ import {
   VStack
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form"
-import {Link as ReactLink} from "react-router-dom";
 import React, {useCallback, useContext, useEffect, useState} from "react";
-import {useDropzone} from 'react-dropzone';
 import {FetchContext} from "../../context/FetchContext";
-import { GiMeal } from "react-icons/gi";
-import {IoIosFitness} from "react-icons/io";
-import {AddIcon, CloseIcon, InfoIcon, SearchIcon} from "@chakra-ui/icons";
-import Select from "react-select";
 import {GradientBar} from "../../components/GradientBar";
-import {useNavigate} from "react-router";
+import {useNavigate, useParams} from "react-router";
 
-const urlProtocolli = "protocolli";
-const urlUtenti = "utenti";
+const urlScheda = "schedaAllenamento/getSchedaAllenamentoById";
 
 const View = () => {
   const fetchContext = useContext(FetchContext);
   const navigate = useNavigate();
-  const [options, setOptions] = useState([{}]);
+  const { id } = useParams();
+  const [options, setOptions] = useState(null);
   const [isLoading, setisLoading] = useState(false);
+  const [schedaAllenamento, setSchedaAllenamento] = useState({
+    nome:"",
+    listaEsercizi:[]
+  });
   const { register, handleSubmit, setValue, formState: { errors} } = useForm();
   const [toastMessage, setToastMessage] = useState(undefined);
   const [search, setSearch] = useState("");
-
 
 
   function toastParam(title, description, status) {
@@ -91,27 +88,23 @@ const View = () => {
 
   useEffect(() => {
     setisLoading(true);
-    const getUsers = async () => {
+    const getScheda = async () => {
       try {
-        const { data: { data: { clienti } } } = await fetchContext.authAxios(urlUtenti);
-        setOptions(
-          clienti.map((e) => {
-            return { value: e.id, label: e.nome };
-          })
-        );
+        const {data} = await fetchContext.authAxios(urlScheda+"?idScheda="+id);
+        let schedaAll=data.data.scheda_allenamento;
+        console.log(schedaAll);
+        setSchedaAllenamento(schedaAll);
         setisLoading(false);
       } catch (error) {
         setToastMessage({title:"Error",body:error.message,stat:"error"})
       }
     }
-    getUsers();
+    getScheda();
+
   }, [fetchContext])
 
 
   const data = [
-    { id: 1, name: 'Allenamento 1' },
-    { id: 2, name: 'Allenamento 2' },
-    { id: 3, name: 'Allenamento 3' },
   ];
 
 
@@ -126,7 +119,7 @@ const View = () => {
     <>
       <Flex wrap={"wrap"} p={5}>
         <Flex alignItems={"center"} mb={5}>
-          <Heading w={"full"}>Scheda allenamento del GIORNO/MESE</Heading>
+          <Heading w={"full"}>{schedaAllenamento.nome}</Heading>
         </Flex>
         <Box bg={"white"} roundedTop={20} minW={{ base: "100%", xl: "100%" }} h={"full"} >
           <GradientBar />
@@ -144,14 +137,14 @@ const View = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {data.map((item) => (
+                        {schedaAllenamento.listaEsercizi.map((item) => (
                             <Tr>
-                              <Td bg="gray.200" fontWeight={"bold"}>{item.name}</Td>
+                              <Td bg="gray.200" fontWeight={"bold"}>{item.esercizio.nome}</Td>
                               <Td bg="gray.200">
                                 <Flex justifyContent="flex-end">
                                   <Button
                                       onClick={() => {
-                                        navigate("./esegui/"+item.id)
+                                        navigate("../allenamenti/esegui?idIstanzaEsercizio="+item.id+"&idProtocollo="+id);
                                       }}
                                       bg="blue.500"
                                       rounded="full"

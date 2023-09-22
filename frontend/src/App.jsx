@@ -86,8 +86,8 @@ const AppRoutes = () => {
                 <Route path="trainingcards/create" element={<TrainingCardsCreate />} />
                 <Route path="trainingcards/edit/:id" element={<TrainingCardsEdit />} />
 
-                <Route path={"allenamenti"} element={<ReportAllenamentoView/>}/>
-                <Route path={"allenamenti/esegui/:id"} element={<ReportAllenamentoCreate/>}/>
+                <Route path={"allenamenti/:id"} element={<ReportAllenamentoView/>}/>
+                <Route path={"allenamenti/esegui"} element={<ReportAllenamentoCreate/>}/>
 
 
                 <Route path="alimenti" element={<AlimentiIndex />} />

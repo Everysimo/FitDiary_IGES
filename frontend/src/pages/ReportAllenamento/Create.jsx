@@ -2,40 +2,18 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   GridItem,
   Heading,
-  HStack,
   Image,
   Input,
-  InputGroup,
-  InputLeftElement,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   SimpleGrid,
-  Table,
-  TableCaption,
-  Tbody,
-  Td,
   Stack,
   Text,
-  Th,
-  Thead,
-  Tr, useDisclosure,
   useToast,
   VStack
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form"
-import {Link as ReactLink} from "react-router-dom";
 import React, {useCallback, useContext, useEffect, useState} from "react";
-import {useDropzone} from 'react-dropzone';
 import {FetchContext} from "../../context/FetchContext";
 import { GiMeal } from "react-icons/gi";
 import {IoIosFitness} from "react-icons/io";
@@ -112,7 +90,7 @@ const Create = () => {
 
 
     const [exerciseData, setExerciseData] = useState([]);
-    const [newData, setNewData] = useState({ weight: "", sets: "", reps: "" });
+    const [newData, setNewData] = useState({ weight: "", sets: "", reps: "", pauseTime: 0});
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -120,9 +98,9 @@ const Create = () => {
     };
 
     const handleAddData = () => {
-      if (newData.weight && newData.sets && newData.reps) {
+      if (newData.weight && newData.sets && newData.reps && newData.pauseTime) {
         setExerciseData([...exerciseData, newData]);
-        setNewData({ weight: "", sets: "", reps: "" });
+        setNewData({ weight: "", sets: "", reps: "", pauseTime: 0});
       }
     };
 
@@ -162,10 +140,13 @@ const Create = () => {
                           value={newData.reps}
                           onChange={handleInputChange}
                       />
-                      <Button colorScheme="blue" onClick={handleAddData}>
-                        Add
-                      </Button>
                     </Stack>
+                    <Timer onClick={(time)=>{
+                      newData.pauseTime=time;
+                      handleAddData();
+                    }}>
+
+                    </Timer>
                   </GridItem>
                   <GridItem colSpan={1}>
                     <Box p={4}>
@@ -174,14 +155,11 @@ const Create = () => {
                         {exerciseData.map((data, index) => (
                             <Box key={index}>
                               <Text>
-                                Weight: {data.weight} kg, Sets: {data.sets}, Reps: {data.reps}
+                                Peso: {data.weight} kg, Serie: {data.sets}, Ripetizione: {data.reps}, Tempo: {data.pauseTime}s
                               </Text>
                             </Box>
                         ))}
                       </VStack>
-                      <Timer>
-
-                      </Timer>
                     </Box>
 
                   </GridItem>
