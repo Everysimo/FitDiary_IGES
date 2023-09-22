@@ -23,8 +23,8 @@ import {GradientBar} from "../../components/GradientBar";
 import {useNavigate} from "react-router";
 import {Timer} from "../../components/Timer";
 
-const urlProtocolli = "protocolli";
-const urlUtenti = "utenti";
+const urlInfo = "istanzaEserciziEseguiti/VisualizzaIstanzaEsercizio";
+const urlCreazione="istanzaEserciziEseguiti/creaIstanzaEsercizio";
 
 const Create = () => {
   const fetchContext = useContext(FetchContext);
@@ -34,6 +34,10 @@ const Create = () => {
   const { register, handleSubmit, setValue, formState: { errors} } = useForm();
   const [toastMessage, setToastMessage] = useState(undefined);
   const [search, setSearch] = useState("");
+  const [reportAllenamento, setReportAllenamento] = useState({
+    nome:"",
+    cronologia:[]
+  });
 
 
 
@@ -71,21 +75,27 @@ const Create = () => {
 
   useEffect(() => {
     setisLoading(true);
-    const getUsers = async () => {
+    const getInfo = async () => {
       try {
-        const { data: { data: { clienti } } } = await fetchContext.authAxios(urlUtenti);
-        setOptions(
-            clienti.map((e) => {
-              return { value: e.id, label: e.nome };
-            })
-        );
+        const url = new URL(window.location.href);
+
+// Ottenere i parametri dall'URL
+        const idIstanzaEsercizio = url.searchParams.get("idIstanzaEsercizio");
+        const idProtocollo = url.searchParams.get("idProtocollo");
+        const {info} = await fetchContext.authAxios(urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio);
+        console.log(info);
         setisLoading(false);
       } catch (error) {
         setToastMessage({title:"Error",body:error.message,stat:"error"})
       }
     }
-    getUsers();
+    getInfo();
   }, [fetchContext])
+
+
+  function updateAllenamento(){
+    console.log("Ciao");
+  }
 
 
 
@@ -164,7 +174,7 @@ const Create = () => {
 
                   </GridItem>
                   <GridItem colSpan={2} >
-                    <Button colorScheme="fitdiary" type={"submit"} w="full">Completa Esercizio</Button>
+                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={updateAllenamento}>Completa Esercizio</Button>
                   </GridItem>
                 </SimpleGrid>
               </form>
