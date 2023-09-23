@@ -8,6 +8,7 @@ import it.fitdiary.backend.gestioneprotocollo.repository.ProtocolloRepository;
 import it.fitdiary.backend.gestioneschedaallenamento.repository.IstanzaEsercizioRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -53,10 +54,13 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
     @Override
     public List<IstanzaEsercizioEseguito> visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(Long idProtocollo,
                                                                                                            Long idIstanzaEsercizio) {
+        Protocollo protocollo=new Protocollo(idProtocollo,null,null,null,null,null,null,null);
+        IstanzaEsercizio istanza=new IstanzaEsercizio();
+        istanza.setId(idIstanzaEsercizio);
         ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = (ArrayList<IstanzaEsercizioEseguito>)
                 instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
-                        idProtocollo,
-                        idIstanzaEsercizio);
+                        protocollo,
+                        istanza);
         return istanzaEsercizioEseguiti;
     }
 

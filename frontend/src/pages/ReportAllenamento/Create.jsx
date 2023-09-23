@@ -23,7 +23,7 @@ import {GradientBar} from "../../components/GradientBar";
 import {useNavigate} from "react-router";
 import {Timer} from "../../components/Timer";
 
-const urlInfo = "istanzaEserciziEseguiti/VisualizzaIstanzaEsercizio";
+const urlInfo = "istanzaEserciziEseguiti/visualizzaIstanzaEsercizio";
 const urlCreazione="istanzaEserciziEseguiti/creaIstanzaEsercizio";
 
 const Create = () => {
@@ -112,6 +112,7 @@ const Create = () => {
         setExerciseData([...exerciseData, newData]);
         setNewData({ weight: "", sets: "", reps: "", pauseTime: 0});
       }
+      alert("ADD TO DB")
     };
 
   return (
@@ -174,7 +175,8 @@ const Create = () => {
 
                   </GridItem>
                   <GridItem colSpan={2} >
-                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={updateAllenamento}>Completa Esercizio</Button>
+                    {/* eslint-disable-next-line no-restricted-globals */}
+                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Termina Esercizio</Button>
                   </GridItem>
                 </SimpleGrid>
               </form>

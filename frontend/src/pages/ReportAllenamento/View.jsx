@@ -2,9 +2,7 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
+  Select,
   GridItem,
   Heading,
   HStack,
@@ -53,6 +51,9 @@ const View = () => {
   const [toastMessage, setToastMessage] = useState(undefined);
   const [search, setSearch] = useState("");
 
+  const [selectedDay, setSelectedDay] = useState(-1);
+  const [daysAllenamenti,setDaysAllenamenti] = useState([]);
+
 
   function toastParam(title, description, status) {
     return {
@@ -92,8 +93,20 @@ const View = () => {
       try {
         const {data} = await fetchContext.authAxios(urlScheda+"?idScheda="+id);
         let schedaAll=data.data.scheda_allenamento;
+        let vettGiorni=[];
+        for(let i=0;i<schedaAll.listaEsercizi.length;i++)
+        {
+          let obj=schedaAll.listaEsercizi[i];
+          let giorno=obj.giornoDellaSettimana;
+          if(!vettGiorni.includes(giorno))
+          {
+            vettGiorni.push(giorno);
+          }
+        }
+        setDaysAllenamenti(vettGiorni);
         console.log(schedaAll);
         setSchedaAllenamento(schedaAll);
+        setSelectedDay(-1);
         setisLoading(false);
       } catch (error) {
         setToastMessage({title:"Error",body:error.message,stat:"error"})
@@ -103,9 +116,6 @@ const View = () => {
 
   }, [fetchContext])
 
-
-  const data = [
-  ];
 
 
   //Verifica se una data inserita è precedenta alla odierna
@@ -129,6 +139,16 @@ const View = () => {
               <SimpleGrid columns={2} columnGap={5} rowGap={5} pl={[0, 5, 10]} pr={[0, 5, 10]} w="full">
                 <Text fontWeight={"bold"}>Allenamenti</Text>
                   <GridItem colSpan={2}>
+                    <Select
+                        value={selectedDay}
+                        onChange={(e) => setSelectedDay(e.target.value)}
+                        mb={4} // Aggiungi margine inferiore per separare il picker dalla tabella
+                    >
+                      <option value="-1">Seleziona un giorno</option>
+                      {daysAllenamenti.map((giorno)=>(
+                        <option value={giorno}>Giorno #{giorno+1}</option>
+                      ))}
+                    </Select>
                     <Table variant="simple" style={{borderCollapse:"separate", borderSpacing:"0 1em"}}>
                       <Thead>
                         <Tr>
@@ -137,7 +157,7 @@ const View = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {schedaAllenamento.listaEsercizi.map((item) => (
+                        {schedaAllenamento.listaEsercizi.filter((t)=>{return t.giornoDellaSettimana==selectedDay}).map((item) => (
                             <Tr>
                               <Td bg="gray.200" fontWeight={"bold"}>{item.esercizio.nome}</Td>
                               <Td bg="gray.200">
@@ -160,9 +180,6 @@ const View = () => {
                       </Tbody>
                     </Table>
                   </GridItem>
-                <GridItem colSpan={2} >
-                  <Button colorScheme="fitdiary" type={"submit"} w="full">Termina Scheda</Button>
-                </GridItem>
               </SimpleGrid>
             </form>
           </VStack>

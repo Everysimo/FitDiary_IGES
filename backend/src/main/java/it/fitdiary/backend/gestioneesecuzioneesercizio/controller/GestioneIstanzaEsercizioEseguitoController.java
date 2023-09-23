@@ -34,8 +34,8 @@ public class GestioneIstanzaEsercizioEseguitoController {
     private final GestioneProtocolloService gestioneProtocolloService;
     @Autowired
     public GestioneIstanzaEsercizioEseguitoController(
-            final GestioneIstanzaEsercizioEseguitoService gestioneIstanzaEsercizioEseguitoService,
-            final GestioneProtocolloService gestioneProtocolloService){
+            GestioneIstanzaEsercizioEseguitoService gestioneIstanzaEsercizioEseguitoService,
+            GestioneProtocolloService gestioneProtocolloService){
         this.gestioneIstanzaEsercizioEseguitoService = gestioneIstanzaEsercizioEseguitoService;
         this.gestioneProtocolloService = gestioneProtocolloService;
     }
@@ -85,11 +85,10 @@ public class GestioneIstanzaEsercizioEseguitoController {
         }
     }
 
-    @GetMapping("VisualizzaIstanzaEsercizio")
+    @GetMapping("visualizzaIstanzaEsercizio")
     private ResponseEntity<Object> visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(
             @RequestParam("idProtocollo") final Long idProtocollo,
             @RequestParam("idIstanzaEsercizio") final Long idIstanzaEsercizio) {
-
         if ((idProtocollo == null || idIstanzaEsercizio == null))
         {
             return ResponseHandler.generateResponse(BAD_REQUEST, (Object)

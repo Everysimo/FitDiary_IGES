@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface IstanzaEsercizioEseguitoRepository extends JpaRepository<IstanzaEsercizioEseguito, Long> {
 
-    List<IstanzaEsercizioEseguito> findAllByProtocolloAndIstanzaEsercizio(@NotNull(message = "Il protocollo non può essere nullo") Long idProtocollo, @NotNull(message = "L'istanza dell'esercizio non può essere nullo") Long idIstanzaEsercizio);
+    List<IstanzaEsercizioEseguito> findAllByProtocolloAndIstanzaEsercizio(@NotNull(message = "Il protocollo non può essere nullo") Protocollo protocollo, @NotNull(message = "L'istanza dell'esercizio non può essere nullo") IstanzaEsercizio istanzaEsercizio);
 }
