@@ -28,15 +28,10 @@ const urlCreazione="istanzaEserciziEseguiti/creaIstanzaEsercizio";
 
 const Create = () => {
   const fetchContext = useContext(FetchContext);
-  const navigate = useNavigate();
-  const [options, setOptions] = useState([{}]);
   const [isLoading, setisLoading] = useState(false);
-  const { register, handleSubmit, setValue, formState: { errors} } = useForm();
   const [toastMessage, setToastMessage] = useState(undefined);
-  const [search, setSearch] = useState("");
   const [reportAllenamento, setReportAllenamento] = useState({
-    nome:"",
-    cronologia:[]
+    nome:"NOME_ES"
   });
 
 
@@ -79,11 +74,22 @@ const Create = () => {
       try {
         const url = new URL(window.location.href);
 
-// Ottenere i parametri dall'URL
+        // Ottenere i parametri dall'URL
         const idIstanzaEsercizio = url.searchParams.get("idIstanzaEsercizio");
         const idProtocollo = url.searchParams.get("idProtocollo");
         const {info} = await fetchContext.authAxios(urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio);
+        console.log("INFO:");
         console.log(info);
+        let report={};
+        report.nome="NOME_ES";
+
+        let vettTest=[];
+        let objTest={weight: "Ok", sets: "Lol", reps: "xD", pauseTime: 0};
+        vettTest.push(objTest);
+        vettTest.push(objTest);
+
+        setReportAllenamento(report);
+        setExerciseData(vettTest);
         setisLoading(false);
       } catch (error) {
         setToastMessage({title:"Error",body:error.message,stat:"error"})
@@ -92,10 +98,6 @@ const Create = () => {
     getInfo();
   }, [fetchContext])
 
-
-  function updateAllenamento(){
-    console.log("Ciao");
-  }
 
 
 
@@ -111,15 +113,16 @@ const Create = () => {
       if (newData.weight && newData.sets && newData.reps && newData.pauseTime) {
         setExerciseData([...exerciseData, newData]);
         setNewData({ weight: "", sets: "", reps: "", pauseTime: 0});
+
+        alert("ADD TO DB");
       }
-      alert("ADD TO DB")
     };
 
   return (
       <>
         <Flex wrap={"wrap"} p={5}>
           <Flex alignItems={"center"} mb={5}>
-            <Heading w={"full"}>NOME_ESERCIZIO</Heading>
+            <Heading w={"full"}>{reportAllenamento.nome}</Heading>
           </Flex>
           <Box bg={"white"} roundedTop={20} minW={{ base: "100%", xl: "100%" }} h={"full"} >
             <GradientBar />
