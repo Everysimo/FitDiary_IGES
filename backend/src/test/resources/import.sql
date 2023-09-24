@@ -15,6 +15,7 @@ INSERT INTO `utente` (`id`, `attivo`, `cap`, `citta`, `cognome`, `data_aggiornam
 /*Protocolli*/
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (1, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 4, 2);
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (2, '2022-01-11 20:40:59', '2022-01-11 20:41:00', '2024-09-13', 2, 4);
+INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (3, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 7, 2);
 
 
 /*Scheda Alimentare*/
