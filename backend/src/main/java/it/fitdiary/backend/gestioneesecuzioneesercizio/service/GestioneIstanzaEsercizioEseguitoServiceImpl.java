@@ -3,6 +3,7 @@ package it.fitdiary.backend.gestioneesecuzioneesercizio.service;
 import it.fitdiary.backend.entity.IstanzaEsercizio;
 import it.fitdiary.backend.entity.IstanzaEsercizioEseguito;
 import it.fitdiary.backend.entity.Protocollo;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.VisualizzaEserciziDTO;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.repository.IstanzaEsercizioEseguitoRepository;
 import it.fitdiary.backend.gestioneprotocollo.repository.ProtocolloRepository;
 import it.fitdiary.backend.gestioneschedaallenamento.repository.IstanzaEsercizioRepository;
@@ -52,14 +53,25 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
     }
 
     @Override
-    public List<IstanzaEsercizioEseguito> visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(Long idProtocollo,
-                                                                                                           Long idIstanzaEsercizio) {
+    public VisualizzaEserciziDTO visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(Long idProtocollo,
+                                                                                                  Long idIstanzaEsercizio) {
         Protocollo protocollo=new Protocollo(idProtocollo,null,null,null,null,null,null,null);
         IstanzaEsercizio istanza=new IstanzaEsercizio();
         istanza.setId(idIstanzaEsercizio);
-      return instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
+
+        VisualizzaEserciziDTO visualizzaEserciziDTO = new VisualizzaEserciziDTO();
+
+        List<IstanzaEsercizioEseguito> listaEserciziEseguiti = instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
               protocollo,
               istanza);
+        if(!listaEserciziEseguiti.isEmpty()){
+            visualizzaEserciziDTO.setListaEserciziEseguiti(listaEserciziEseguiti);
+        }else{
+            Optional<IstanzaEsercizio> istanzaEsercizio = istanzaEsercizioRepository.findById(idIstanzaEsercizio);
+            visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio.get());
+        }
+
+        return visualizzaEserciziDTO;
     }
 
 

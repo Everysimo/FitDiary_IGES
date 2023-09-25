@@ -4,6 +4,7 @@ import it.fitdiary.backend.entity.IstanzaEsercizioEseguito;
 import it.fitdiary.backend.entity.Protocollo;
 import it.fitdiary.backend.entity.Utente;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.IstanzaEsercizioEseguitoDTO;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.VisualizzaEserciziDTO;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.service.GestioneIstanzaEsercizioEseguitoService;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.service.GestioneIstanzaEsercizioEseguitoServiceImpl;
 import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloService;
@@ -95,12 +96,12 @@ public class GestioneIstanzaEsercizioEseguitoController {
           "idProtocollo e idIstanzaEsercizio non possono essere null ");
     }
     try {
-      List<IstanzaEsercizioEseguito> istanzaEsercizioEseguitoList =
+      VisualizzaEserciziDTO visualizzaEserciziDTO =
           gestioneIstanzaEsercizioEseguitoService.
               visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(idProtocollo,
                   idIstanzaEsercizio);
       return ResponseHandler.generateResponse(HttpStatus.OK,
-          "istanzeEserciziEseguiti", istanzaEsercizioEseguitoList);
+          "istanzeEserciziEseguiti", visualizzaEserciziDTO);
     } catch (IllegalArgumentException e) {
       return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,
           (Object) e.getMessage());
