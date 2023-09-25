@@ -73,7 +73,7 @@ public class GestioneIstanzaEsercizioEseguitoController {
               creazioneIstanzaEsercizio(
                   esercizioEseguitoDTO.getIdProtocollo(),
                   esercizioEseguitoDTO.getIdIstanzaEsercizio(),
-                  esercizioEseguitoDTO.getPesoEsecuzione(), esercizioEseguitoDTO.getData(),
+                  esercizioEseguitoDTO.getPesoEsecuzione(), LocalDate.now(),
                   esercizioEseguitoDTO.getSerie(), esercizioEseguitoDTO.getRipetizioni());
       return ResponseHandler.generateResponse(HttpStatus.CREATED,
           "istanzaEsercizio", newIstanzaEsercizioEseguito);

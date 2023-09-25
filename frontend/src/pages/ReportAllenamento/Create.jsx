@@ -12,15 +12,9 @@ import {
   useToast,
   VStack
 } from "@chakra-ui/react";
-import {useForm} from "react-hook-form"
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FetchContext} from "../../context/FetchContext";
-import { GiMeal } from "react-icons/gi";
-import {IoIosFitness} from "react-icons/io";
-import {AddIcon, CloseIcon, InfoIcon, SearchIcon} from "@chakra-ui/icons";
-import Select from "react-select";
 import {GradientBar} from "../../components/GradientBar";
-import {useNavigate} from "react-router";
 import {Timer} from "../../components/Timer";
 
 const urlInfo = "istanzaEserciziEseguiti/visualizzaIstanzaEsercizio";
@@ -77,19 +71,25 @@ const Create = () => {
         // Ottenere i parametri dall'URL
         const idIstanzaEsercizio = url.searchParams.get("idIstanzaEsercizio");
         const idProtocollo = url.searchParams.get("idProtocollo");
-        const {info} = await fetchContext.authAxios(urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio);
-        console.log("INFO:");
-        console.log(info);
+        let urlAPI=urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio;
+        const {data} = await fetchContext.authAxios(urlAPI);
+        let infoEs=data.data.istanzeEserciziEseguiti;
+        let vettStorico=[];
+        for(let i=0;i<infoEs.length;i++)
+        {
+          let tmp=infoEs[i];
+          let data=tmp.dataEsecuzione;
+          let peso=tmp.pesoEsecuzione;
+          let serie=tmp.numeroSerie;
+          let ripetizioni=tmp.ripetizioni;
+          let obj={weight: peso, sets: serie, reps: ripetizioni, data: data};
+          vettStorico.push(obj);
+        }
         let report={};
-        report.nome="NOME_ES";
-
-        let vettTest=[];
-        let objTest={weight: "Ok", sets: "Lol", reps: "xD", pauseTime: 0};
-        vettTest.push(objTest);
-        vettTest.push(objTest);
+        report.nome="Storico Esercizio";
 
         setReportAllenamento(report);
-        setExerciseData(vettTest);
+        setExerciseData(vettStorico);
         setisLoading(false);
       } catch (error) {
         setToastMessage({title:"Error",body:error.message,stat:"error"})
@@ -102,19 +102,61 @@ const Create = () => {
 
 
     const [exerciseData, setExerciseData] = useState([]);
-    const [newData, setNewData] = useState({ weight: "", sets: "", reps: "", pauseTime: 0});
+    const [newData, setNewData] = useState({ weight: "", sets: "", reps: "", data: "Adesso"});
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setNewData({ ...newData, [name]: value });
     };
 
-    const handleAddData = () => {
-      if (newData.weight && newData.sets && newData.reps && newData.pauseTime) {
-        setExerciseData([...exerciseData, newData]);
-        setNewData({ weight: "", sets: "", reps: "", pauseTime: 0});
+    const handleAddData = async () => {
+      if (newData.weight && newData.sets && newData.reps && newData.data)
+      {
+        if(newData.weight.length>0 && newData.sets.length>0 && newData.reps.length>0)
+        {
+          const url = new URL(window.location.href);
 
-        alert("ADD TO DB");
+          // Ottenere i parametri dall'URL
+          const idIstanzaEsercizio = url.searchParams.get("idIstanzaEsercizio");
+          const idProtocollo = url.searchParams.get("idProtocollo");
+
+          let jsonReq={
+            "idProtocollo":idProtocollo,
+            "idIstanzaEsercizio":idIstanzaEsercizio,
+            "pesoEsecuzione":newData.weight,
+            "serie":newData.sets,
+            "ripetizioni":newData.reps
+          };
+
+          try
+          {
+            const {data} = await fetchContext.authAxios.post(urlCreazione, jsonReq);
+
+            if(data.status === "success")
+            {
+              setToastMessage({title:"Fatto",body:"Esercizio effettuato",stat:"success"});
+
+              setExerciseData([...exerciseData, newData]);
+              setNewData({ weight: "", sets: "", reps: "", data: "Adesso"});
+            }
+            else
+            {
+              setToastMessage({title:"Errore",body:"Errore durante la richiesta",stat:"error"});
+            }
+          }
+          catch (e)
+          {
+            setToastMessage({title:"Errore",body:"Errore durante la richiesta",stat:"error"});
+          }
+        }
+        else
+        {
+          setToastMessage({title:"Attenzione",body:"Inserisci tutti i dati",stat:"warning"});
+        }
+      }
+      else
+      {
+        setToastMessage({title:"Attenzione",body:"Inserisci tutti i dati",stat:"warning"});
       }
     };
 
@@ -154,9 +196,15 @@ const Create = () => {
                           value={newData.reps}
                           onChange={handleInputChange}
                       />
+                      <Input
+                          type="hidden"
+                          name="date"
+                          placeholder="Data"
+                          value={"Oggi"}
+                          onChange={handleInputChange}
+                      />
                     </Stack>
                     <Timer onClick={(time)=>{
-                      newData.pauseTime=time;
                       handleAddData();
                     }}>
 
@@ -168,9 +216,10 @@ const Create = () => {
                       <VStack align="start">
                         {exerciseData.map((data, index) => (
                             <Box key={index}>
-                              <Text>
-                                Peso: {data.weight} kg, Serie: {data.sets}, Ripetizione: {data.reps}, Tempo: {data.pauseTime}s
-                              </Text>
+                              <Flex>
+                                <Text fontWeight="bold">[{data.data}] </Text>
+                                <Text>Peso: {data.weight} kg, Serie: {data.sets}, Ripetizione: {data.reps}</Text>
+                              </Flex>
                             </Box>
                         ))}
                       </VStack>
@@ -179,7 +228,7 @@ const Create = () => {
                   </GridItem>
                   <GridItem colSpan={2} >
                     {/* eslint-disable-next-line no-restricted-globals */}
-                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Termina Esercizio</Button>
+                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Chiudi Scheda</Button>
                   </GridItem>
                 </SimpleGrid>
               </form>

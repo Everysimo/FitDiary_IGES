@@ -50,8 +50,6 @@ public class IstanzaEsercizioEseguito {
      */
     @NotNull(message = "La data dell'esercizio non può essere nullo")
     @Column(name = "data_esecuzione")
-    @Future(message =
-            "La data di esecuzione deve essere successiva alla data odierna")
     private LocalDate dataEsecuzione;
 
     /**
