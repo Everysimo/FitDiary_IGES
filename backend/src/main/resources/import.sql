@@ -61,7 +61,7 @@ INSERT INTO `istanza_esercizio` (`id`,`descrizione`, `giorno_della_settimana`,`r
 
 /* report*/
 INSERT INTO `report` (`id`, `crf_addome`, `crf_bicipite`, `crf_quadricipite`, `data_aggiornamento`, `data_creazione`, `peso`, `peso_stimato`, `cliente_id`) VALUES (1, 30, 30, 30, '2022-01-10 22:36:03', '2022-01-10 22:36:03', 100, 100, 4);
-
+INSERT INTO istanza_esercizio_eseguito(id,peso_esecuzione,numero_serie,ripetizioni,data_esecuzione,protocollo_id,istanza_esercizio_id)VALUES (1,3,4,5,'2023-01-09',1,1);
 /*immaginiReport*/
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (1, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--J9CYotxd--/v1641863408/evssjeyaofzzdrf8yywq.jpg', 1);
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (2, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--XeZpEzAu--/v1641863409/xi8pg8u9y5prdvf69ild.jpg', 1);

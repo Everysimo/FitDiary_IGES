@@ -57,11 +57,9 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
         Protocollo protocollo=new Protocollo(idProtocollo,null,null,null,null,null,null,null);
         IstanzaEsercizio istanza=new IstanzaEsercizio();
         istanza.setId(idIstanzaEsercizio);
-        ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = (ArrayList<IstanzaEsercizioEseguito>)
-                instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
-                        protocollo,
-                        istanza);
-        return istanzaEsercizioEseguiti;
+      return instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
+              protocollo,
+              istanza);
     }
 
 
