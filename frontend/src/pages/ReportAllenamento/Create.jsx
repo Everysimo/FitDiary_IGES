@@ -60,7 +60,7 @@ const Create = () => {
         setToastMessage(undefined);
       },1000);
     }
-  }, [toastMessage, toast]);
+  }, [toastMessage]);
 
   useEffect(() => {
     setisLoading(true);
