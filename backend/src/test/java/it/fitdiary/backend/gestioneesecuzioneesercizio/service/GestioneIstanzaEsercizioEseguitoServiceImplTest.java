@@ -119,7 +119,7 @@ public class GestioneIstanzaEsercizioEseguitoServiceImplTest {
 
 
         when(istanzaEsercizioRepository.findById(istanzaEsercizio.getId())).thenReturn(Optional.ofNullable(istanzaEsercizio));
-        IstanzaEsercizioEseguito istanzaEsercizioEseguito = new IstanzaEsercizioEseguito(1L,2f,3,4, LocalDate.of(2022,12,12),protocollo,istanzaEsercizio);
+        IstanzaEsercizioEseguito istanzaEsercizioEseguito = new IstanzaEsercizioEseguito(1L,2,3,4, LocalDate.of(2022,12,12),protocollo,istanzaEsercizio);
 
         when(istanzaEsercizioEseguitoRepository.save(any())).thenReturn(istanzaEsercizioEseguito);
 
@@ -137,7 +137,7 @@ public class GestioneIstanzaEsercizioEseguitoServiceImplTest {
 
     @Test
     public void visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(){
-        IstanzaEsercizioEseguito istanzaEsercizioEseguito = new IstanzaEsercizioEseguito(1L,2f,3,4, LocalDate.of(2022,12,12),protocollo,istanzaEsercizio);
+        IstanzaEsercizioEseguito istanzaEsercizioEseguito = new IstanzaEsercizioEseguito(1L,2,3,4, LocalDate.of(2022,12,12),protocollo,istanzaEsercizio);
         ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = new ArrayList<>();
         istanzaEsercizioEseguiti.add(istanzaEsercizioEseguito);
         when(istanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(any(),any())).thenReturn(istanzaEsercizioEseguiti);

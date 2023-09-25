@@ -30,7 +30,7 @@ public class IstanzaEsercizioEseguito {
      */
     @NotNull(message = "Il peso dell'esecuzione non può essere nullo")
     @Column(name = "peso_esecuzione")
-    private int pesoEsecuzione;
+    private float pesoEsecuzione;
     /**
      * peso esecuzione.
      */

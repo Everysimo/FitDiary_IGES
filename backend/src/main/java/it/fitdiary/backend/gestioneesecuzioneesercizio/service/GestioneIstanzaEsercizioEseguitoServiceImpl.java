@@ -37,10 +37,10 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
         istanzaEsercizioEseguito.setDataEsecuzione(data);
 
         if(protocollo.isEmpty()){
-            throw new IllegalStateException("uno delle istanze alimento fa riferimento ad un Alimento insesistente");
+            throw new IllegalStateException("uno delle istanze protocollo non può essere null");
         }
         if(istanzaEsercizio.isEmpty()){
-            throw new IllegalStateException("uno delle istanze alimento fa riferimento ad un Alimento insesistente");
+            throw new IllegalStateException("uno delle istanze esercizio non può essere null");
         }
 
         istanzaEsercizioEseguito.setProtocollo(protocollo.get());
