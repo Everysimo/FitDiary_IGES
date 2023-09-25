@@ -169,7 +169,7 @@ export default function View() {
                                         </Tooltip>
                                         <Tooltip label="Allenati con la tua scheda">
                                             <Button onClick={() => {
-                                                navigate("/allenamenti/" + protocollo.schedaAllenamento.id)
+                                                navigate("/allenamenti/"+protocollo.id+"/" + protocollo.schedaAllenamento.id)
                                             }} colorScheme='fitdiary'> Allenati </Button>
                                         </Tooltip>
                                         <Tooltip label="Tieni traccia della tua dieta">

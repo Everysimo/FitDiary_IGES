@@ -28,6 +28,12 @@ const Create = () => {
     nome:"NOME_ES"
   });
 
+  const [infoEs,setInfoEs] = useState({
+    reps:0,
+    serie:0,
+    recupero:0
+  });
+
 
 
   function toastParam(title, description, status) {
@@ -73,18 +79,33 @@ const Create = () => {
         const idProtocollo = url.searchParams.get("idProtocollo");
         let urlAPI=urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio;
         const {data} = await fetchContext.authAxios(urlAPI);
-        let infoEs=data.data.istanzeEserciziEseguiti;
+        let infoEs=data.data.istanzeEserciziEseguiti.listaEserciziEseguiti;
+
+        let info=data.data.istanzeEserciziEseguiti.istanzaEsercizio;
+        console.log(info);
+        let infoObj={
+          reps:info.ripetizioni,
+          serie:info.serie,
+          recupero:info.recupero
+        };
+
+        setInfoEs(infoObj);
+
         let vettStorico=[];
-        for(let i=0;i<infoEs.length;i++)
+        if(infoEs !== null)
         {
-          let tmp=infoEs[i];
-          let data=tmp.dataEsecuzione;
-          let peso=tmp.pesoEsecuzione;
-          let serie=tmp.numeroSerie;
-          let ripetizioni=tmp.ripetizioni;
-          let obj={weight: peso, sets: serie, reps: ripetizioni, data: data};
-          vettStorico.push(obj);
+          for(let i=0;i<infoEs.length;i++)
+          {
+            let tmp=infoEs[i];
+            let data=tmp.dataEsecuzione;
+            let peso=tmp.pesoEsecuzione;
+            let serie=tmp.numeroSerie;
+            let ripetizioni=tmp.ripetizioni;
+            let obj={weight: peso, sets: serie, reps: ripetizioni, data: data};
+            vettStorico.push(obj);
+          }
         }
+
         let report={};
         report.nome="Storico Esercizio";
 
@@ -174,6 +195,25 @@ const Create = () => {
                 <SimpleGrid columns={2} columnGap={5} rowGap={5} pl={[0, 5, 10]} pr={[0, 5, 10]} w="full">
                   <GridItem colSpan={1}>
                     <Image src="../../EserciziPalestra/990x548-410x200.gif" alt="Exercise" maxW="400px" mb={4} />
+                      <Text fontWeight="bold">Informazioni Allenamento</Text>
+                    <Flex>
+                      <Text fontWeight="bold">Ripetizioni:</Text>
+                      <Text>
+                        {infoEs.reps}
+                      </Text>
+                    </Flex>
+                    <Flex>
+                      <Text fontWeight="bold">Serie:</Text>
+                      <Text>
+                        {infoEs.serie}
+                      </Text>
+                    </Flex>
+                    <Flex>
+                      <Text fontWeight="bold">Recupero:</Text>
+                      <Text>
+                        {infoEs.recupero} s
+                      </Text>
+                    </Flex>
                     <Stack direction="row" mt={3} spacing={4}>
                       <Input
                           type="number"
@@ -228,7 +268,7 @@ const Create = () => {
                   </GridItem>
                   <GridItem colSpan={2} >
                     {/* eslint-disable-next-line no-restricted-globals */}
-                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Chiudi Scheda</Button>
+                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Chiudi Esercizio</Button>
                   </GridItem>
                 </SimpleGrid>
               </form>

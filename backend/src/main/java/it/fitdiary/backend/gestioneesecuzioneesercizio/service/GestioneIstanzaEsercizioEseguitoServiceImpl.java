@@ -46,6 +46,7 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
 
         istanzaEsercizioEseguito.setProtocollo(protocollo.get());
         istanzaEsercizioEseguito.setIstanzaEsercizio(istanzaEsercizio.get());
+        istanzaEsercizioEseguito.setPesoEsecuzione(pesoEsecuzione);
         istanzaEsercizioEseguito.setDataEsecuzione(data);
         istanzaEsercizioEseguito.setNumeroSerie(serie);
         istanzaEsercizioEseguito.setRipetizioni(ripetizioni);
@@ -64,12 +65,9 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
         List<IstanzaEsercizioEseguito> listaEserciziEseguiti = instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
               protocollo,
               istanza);
-        if(!listaEserciziEseguiti.isEmpty()){
-            visualizzaEserciziDTO.setListaEserciziEseguiti(listaEserciziEseguiti);
-        }else{
-            Optional<IstanzaEsercizio> istanzaEsercizio = istanzaEsercizioRepository.findById(idIstanzaEsercizio);
-            visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio.get());
-        }
+        visualizzaEserciziDTO.setListaEserciziEseguiti(listaEserciziEseguiti);
+        Optional<IstanzaEsercizio> istanzaEsercizio = istanzaEsercizioRepository.findById(idIstanzaEsercizio);
+        istanzaEsercizio.ifPresent(visualizzaEserciziDTO::setIstanzaEsercizio);
 
         return visualizzaEserciziDTO;
     }
