@@ -13,8 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IstanzaAlimentoConsumatoRepository extends JpaRepository<IstanzaAlimentoConsumato, Long> {
 
-    List<IstanzaAlimentoConsumato> findAllByProtocolloAndIstanzaAlimentoAndDataConsumazione(
+    List<IstanzaAlimentoConsumato> findAllByProtocolloAndDataConsumazione(
         @NotNull(message = "Il protocollo non può essere nullo") Protocollo protocollo,
-        @NotNull(message = "L'istanza dell'alimento non può essere nullo") IstanzaAlimento istanzaAlimento,
         @NotNull(message = "La data dell'esercizio non può essere nullo")  LocalDate dataConsumazione);
 }

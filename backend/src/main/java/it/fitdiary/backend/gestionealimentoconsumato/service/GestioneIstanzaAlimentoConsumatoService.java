@@ -1,7 +1,6 @@
 package it.fitdiary.backend.gestionealimentoconsumato.service;
 
 import it.fitdiary.backend.entity.IstanzaAlimentoConsumato;
-import it.fitdiary.backend.entity.IstanzaEsercizioEseguito;
 import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.CreazioneIstanzaAlimentoConsumatoDto;
 
 import java.time.LocalDate;
@@ -12,6 +11,6 @@ public interface GestioneIstanzaAlimentoConsumatoService {
 
   List<IstanzaAlimentoConsumato> creazioneIstanzeEsercizio(Long protocolloId,List<CreazioneIstanzaAlimentoConsumatoDto> list);
 
-  List<IstanzaAlimentoConsumato> visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(
-      Long idProtocollo, Long idIstanzaEsercizio,LocalDate dataConsumazione);
+  List<IstanzaAlimentoConsumato> visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(
+      Long idProtocollo,LocalDate dataConsumazione);
 }

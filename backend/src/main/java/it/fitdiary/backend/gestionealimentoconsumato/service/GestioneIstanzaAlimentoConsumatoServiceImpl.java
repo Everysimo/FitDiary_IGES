@@ -85,12 +85,10 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
   }
 
   @Override
-  public List<IstanzaAlimentoConsumato> visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(
-      Long idProtocollo, Long idIstanzaAlimento,LocalDate dataConsumazione) {
+  public List<IstanzaAlimentoConsumato> visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(
+      Long idProtocollo,LocalDate dataConsumazione) {
     Protocollo protocollo = new Protocollo();
     protocollo.setId(idProtocollo);
-    IstanzaAlimento istanzaAlimento = new IstanzaAlimento();
-    istanzaAlimento.setId(idIstanzaAlimento);
-    return istanzaAlimentoConsumatoRepository.findAllByProtocolloAndIstanzaAlimentoAndDataConsumazione(protocollo,istanzaAlimento,dataConsumazione);
+    return istanzaAlimentoConsumatoRepository.findAllByProtocolloAndDataConsumazione(protocollo,dataConsumazione);
   }
 }

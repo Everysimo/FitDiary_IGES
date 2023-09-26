@@ -82,12 +82,11 @@ public class GestionIstanzaAlimentiConsumatiController {
   @GetMapping("visualizzaIstanzeAlimentoConsumato")
   private ResponseEntity<Object> visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(
       @RequestParam("idProtocollo") final Long idProtocollo,
-      @RequestParam("idIstanzaAlimento") final Long idIstanzaAlimento,
       @RequestParam("dataConsumazione") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate dataConsumazione) {
 
     try{
       List<IstanzaAlimentoConsumato> istanzaEsercizioEseguitoList = gestioneIstanzaAlimentoConsumatoService.
-          visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(idProtocollo, idIstanzaAlimento,dataConsumazione);
+          visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(idProtocollo,dataConsumazione);
       int somma=0;
       for(IstanzaAlimentoConsumato al:istanzaEsercizioEseguitoList)
       {
