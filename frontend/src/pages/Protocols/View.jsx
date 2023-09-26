@@ -161,12 +161,12 @@ export default function View() {
                                     <Tooltip label="Vuoi inserire una nuova esercitazione?">
                                         <Button onClick={() => {
                                             navigate("/allenamenti/"+protocollo.schedaAllenamento.id)
-                                        }} colorScheme='fitdiary'>Inserisci Allenamento</Button>
+                                        }} colorScheme='fitdiary'>Allenati</Button>
                                     </Tooltip>
                                     <Tooltip label="Vuoi inserire un nuovo reporto sulla dieta?">
                                         <Button onClick={() => {
-                                            navigate("/dieta")
-                                        }} colorScheme='fitdiary'>Inserisci Giornata Dieta</Button>
+                                            navigate("/dieta/"+protocollo.schedaAlimentazione.id)
+                                        }} colorScheme='fitdiary'>Mangia</Button>
                                     </Tooltip>
                                 </ButtonGroup>
                             </VStack>
