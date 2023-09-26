@@ -17,12 +17,13 @@ function Suona() {
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAA")
 }
 
-export function Timer({children, maxSeconds}) {
+export function Timer({onClick, maxSeconds}) {
     const [time, setTime] = useState(0);
     const [isActive, setActive] = useState(false);
     const [hasPlayed, setHasPlayed] = useState(false);
 
     function Reset() {
+        onClick(time);
         setTime(0);
         setActive(false);
         setHasPlayed(false);
@@ -50,12 +51,12 @@ export function Timer({children, maxSeconds}) {
         }
     }, [time]); // ✅ Now count is not a dependency
     const button = isActive ?
-        <Button onClick={ Reset} alignSelf={"center"} colorScheme={"fitdiary"}>Ferma</Button> :
-        <Button onClick={() => setActive(true)} alignSelf={"center"} colorScheme={"fitdiary"}>Avvia</Button>;
+        <Button onClick={Reset} alignSelf={"center"} colorScheme={"yellow"}>Termina Recupero</Button> :
+        <Button onClick={() => setActive(true)} alignSelf={"center"} colorScheme={"green"} id={"btn_Start"}>Avvia Recupero</Button>;
 
     return (
         <Box align={"center"} width={"full"} bg={"white"}>
-            <Text fontSize={30} fontWeight='bold' align={"center"}>{FormatTime(time)}</Text>
+            <Text fontSize={52} fontWeight='bold' align={"center"}>{FormatTime(time)}</Text>
             {button}
         </Box>
 
