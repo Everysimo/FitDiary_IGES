@@ -1,13 +1,12 @@
-package it.fitdiary.backend.gestionealimentoconsumato.controller;
+package it.fitdiary.backend.gestionealimentoconsumato.controller.dto;
 
 import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class CreazioneIstanzaAlimentoConsumatoDto {
 
-  public CreazioneIstanzaAlimentoConsumatoDto(Long protocolloId, Long istanzaAlimentoId, int grammi,
+  public CreazioneIstanzaAlimentoConsumatoDto(Long istanzaAlimentoId, int grammi,
                                               LocalDate data) {
-    this.protocolloId = protocolloId;
     this.istanzaAlimentoId = istanzaAlimentoId;
     this.grammi = grammi;
     this.data = data;
@@ -16,7 +15,6 @@ public class CreazioneIstanzaAlimentoConsumatoDto {
   public CreazioneIstanzaAlimentoConsumatoDto() {
   }
 
-  private Long protocolloId;
 
   private Long istanzaAlimentoId;
 
@@ -25,14 +23,6 @@ public class CreazioneIstanzaAlimentoConsumatoDto {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate data;
 
-
-  public Long getProtocolloId() {
-    return protocolloId;
-  }
-
-  public void setProtocolloId(Long protocolloId) {
-    this.protocolloId = protocolloId;
-  }
 
   public Long getIstanzaAlimentoId() {
     return istanzaAlimentoId;

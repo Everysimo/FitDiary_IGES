@@ -1,15 +1,17 @@
-package it.fitdiary.backend.gestionealimentoconsumato.controller.dto;
+package it.fitdiary.backend.gestionealimentoconsumato.controller;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 import it.fitdiary.backend.entity.IstanzaAlimentoConsumato;
 import it.fitdiary.backend.entity.Protocollo;
-import it.fitdiary.backend.gestionealimentoconsumato.controller.CreazioneIstanzaAlimentoConsumatoDto;
+import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.ListCreazioneIstanzaAlimentoConsumatoDto;
 import it.fitdiary.backend.gestionealimentoconsumato.service.GestioneIstanzaAlimentoConsumatoService;
 import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloService;
 import it.fitdiary.backend.utility.ResponseHandler;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -47,14 +49,14 @@ public class GestionIstanzaAlimentiConsumatiController {
 
   @PostMapping("creaIstanzaAlimentoConsumato")
   private ResponseEntity<Object> creazioneIstanzaAlimentoConsumato(@RequestBody
-                                                                   CreazioneIstanzaAlimentoConsumatoDto creazioneIstanzaAlimentoConsumatoDto) {
+                                                                   ListCreazioneIstanzaAlimentoConsumatoDto creazioneIstanzaAlimentoConsumatoDto) {
 
     HttpServletRequest request = ((ServletRequestAttributes)
         RequestContextHolder.getRequestAttributes()).getRequest();
 
     Long idCliente = Long.parseLong(
         request.getUserPrincipal().getName());
-    Protocollo protocollo = gestioneProtocolloService.getByIdProtocollo(creazioneIstanzaAlimentoConsumatoDto.getProtocolloId());
+    Protocollo protocollo = gestioneProtocolloService.getByIdProtocollo(creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo());
     if(!Objects.equals(protocollo.getCliente().getId(), idCliente)){
       return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,
           "Il cliente non può creare un'istanza di alimento consumato per questo "
@@ -62,9 +64,8 @@ public class GestionIstanzaAlimentiConsumatiController {
     }
 
     try{
-      IstanzaAlimentoConsumato newIstanzaAlimentoConsumato = gestioneIstanzaAlimentoConsumatoService.
-          creazioneIstanzaAlimentoConsumato(
-              creazioneIstanzaAlimentoConsumatoDto.getProtocolloId(), creazioneIstanzaAlimentoConsumatoDto.getIstanzaAlimentoId(), creazioneIstanzaAlimentoConsumatoDto.getGrammi(), creazioneIstanzaAlimentoConsumatoDto.getData());
+      List<IstanzaAlimentoConsumato> newIstanzaAlimentoConsumato = gestioneIstanzaAlimentoConsumatoService.
+              creazioneIstanzeEsercizio(creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),creazioneIstanzaAlimentoConsumatoDto.getListaAlimenti());
       return ResponseHandler.generateResponse(HttpStatus.CREATED,
           "istanzaAlimentoConsumato", newIstanzaAlimentoConsumato);
     } catch (IllegalArgumentException e) {
@@ -72,12 +73,13 @@ public class GestionIstanzaAlimentiConsumatiController {
           (Object) e.getMessage());
     }catch (Exception e)
     {
+      System.out.println(e);
       return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR,
           (Object) e.getMessage());
     }
   }
 
-  @GetMapping("visualizzaIstanzaAlimentoConsumato")
+  @GetMapping("visualizzaIstanzeAlimentoConsumato")
   private ResponseEntity<Object> visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(
       @RequestParam("idProtocollo") final Long idProtocollo,
       @RequestParam("idIstanzaAlimento") final Long idIstanzaAlimento,
@@ -86,8 +88,16 @@ public class GestionIstanzaAlimentiConsumatiController {
     try{
       List<IstanzaAlimentoConsumato> istanzaEsercizioEseguitoList = gestioneIstanzaAlimentoConsumatoService.
           visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(idProtocollo, idIstanzaAlimento,dataConsumazione);
+      int somma=0;
+      for(IstanzaAlimentoConsumato al:istanzaEsercizioEseguitoList)
+      {
+        somma+=al.getGrammiConsumati();
+      }
+      Map<String,Object> map= new HashMap<>();
+      map.put("calorieTotali",somma);
+      map.put("istanzeAlimentiConsumati",istanzaEsercizioEseguitoList);
       return ResponseHandler.generateResponse(HttpStatus.OK,
-          "istanzeAlimentiConsumati", istanzaEsercizioEseguitoList);
+          "result", map);
     }catch (IllegalArgumentException e) {
       return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,
           (Object) e.getMessage());
