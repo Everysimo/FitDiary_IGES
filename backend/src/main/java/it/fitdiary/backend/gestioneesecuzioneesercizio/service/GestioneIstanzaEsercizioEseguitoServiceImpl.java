@@ -67,7 +67,8 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
               istanza);
         visualizzaEserciziDTO.setListaEserciziEseguiti(listaEserciziEseguiti);
         Optional<IstanzaEsercizio> istanzaEsercizio = istanzaEsercizioRepository.findById(idIstanzaEsercizio);
-        istanzaEsercizio.ifPresent(visualizzaEserciziDTO::setIstanzaEsercizio);
+        if(!istanzaEsercizio.isEmpty())
+            visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio.get());
 
         return visualizzaEserciziDTO;
     }

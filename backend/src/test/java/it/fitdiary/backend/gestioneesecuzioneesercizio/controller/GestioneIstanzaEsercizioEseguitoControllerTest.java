@@ -3,6 +3,7 @@ package it.fitdiary.backend.gestioneesecuzioneesercizio.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.fitdiary.backend.entity.*;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.IstanzaEsercizioEseguitoDTO;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.VisualizzaEserciziDTO;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.service.GestioneIstanzaEsercizioEseguitoServiceImpl;
 import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloServiceImpl;
 import it.fitdiary.backend.gestioneschedaalimentare.controller.TestObjectMapperConfig;
@@ -412,12 +413,14 @@ public class GestioneIstanzaEsercizioEseguitoControllerTest {
         ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = new ArrayList<>();
         istanzaEsercizioEseguiti.add(istanzaEsercizioEseguito);
 
-
+        VisualizzaEserciziDTO visualizzaEserciziDTO = new VisualizzaEserciziDTO();
+        visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio);
+        visualizzaEserciziDTO.setListaEserciziEseguiti(istanzaEsercizioEseguiti);
 
         Principal principal = () -> "1";
         when(gestioneProtocolloService.getByIdProtocollo(
                 protocollo.getId())).thenReturn(protocollo);
-        when(gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(anyLong(),anyLong())).thenReturn(istanzaEsercizioEseguiti);
+        when(gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(anyLong(),anyLong())).thenReturn(visualizzaEserciziDTO);
 
         MockHttpServletRequestBuilder requestBuilder =
                 MockMvcRequestBuilders.get(
@@ -475,12 +478,15 @@ public class GestioneIstanzaEsercizioEseguitoControllerTest {
         ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = new ArrayList<>();
         istanzaEsercizioEseguiti.add(istanzaEsercizioEseguito);
 
+        VisualizzaEserciziDTO visualizzaEserciziDTO = new VisualizzaEserciziDTO();
+        visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio);
+        visualizzaEserciziDTO.setListaEserciziEseguiti(istanzaEsercizioEseguiti);
 
 
         Principal principal = () -> "1";
         when(gestioneProtocolloService.getByIdProtocollo(
                 protocollo.getId())).thenReturn(protocollo);
-        when(gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(anyLong(),anyLong())).thenReturn(istanzaEsercizioEseguiti);
+        when(gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(anyLong(),anyLong())).thenReturn(visualizzaEserciziDTO);
 
         MockHttpServletRequestBuilder requestBuilder =
                 MockMvcRequestBuilders.get(
@@ -536,12 +542,15 @@ public class GestioneIstanzaEsercizioEseguitoControllerTest {
         ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = new ArrayList<>();
         istanzaEsercizioEseguiti.add(istanzaEsercizioEseguito);
 
+        VisualizzaEserciziDTO visualizzaEserciziDTO = new VisualizzaEserciziDTO();
+        visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio);
+        visualizzaEserciziDTO.setListaEserciziEseguiti(istanzaEsercizioEseguiti);
 
 
         Principal principal = () -> "1";
         when(gestioneProtocolloService.getByIdProtocollo(
                 protocollo.getId())).thenReturn(protocollo);
-        when(gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(anyLong(),anyLong())).thenReturn(istanzaEsercizioEseguiti);
+        when(gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(anyLong(),anyLong())).thenReturn(visualizzaEserciziDTO);
 
         MockHttpServletRequestBuilder requestBuilder =
                 MockMvcRequestBuilders.get(
