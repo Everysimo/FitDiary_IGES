@@ -117,6 +117,7 @@ public class GestioneIstanzaAlimentiConsumatiController {
       map.put("calorieConsumate", calorieConsumate);
       map.put("calorieAspettate", calorieAspettate);
       map.put("istanzeAlimentiConsumati", istanzaEsercizioEseguitoList);
+      map.put("istanzeAlimenti",istanzeAlimentoDellaGiornata);
 
       return ResponseHandler.generateResponse(HttpStatus.OK,
           "result", map);
