@@ -2,11 +2,15 @@ package it.fitdiary.backend.gestionealimentoconsumato.controller;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+import it.fitdiary.backend.entity.IstanzaAlimento;
 import it.fitdiary.backend.entity.IstanzaAlimentoConsumato;
 import it.fitdiary.backend.entity.Protocollo;
+import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
 import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.ListCreazioneIstanzaAlimentoConsumatoDto;
 import it.fitdiary.backend.gestionealimentoconsumato.service.GestioneIstanzaAlimentoConsumatoService;
 import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloService;
+import it.fitdiary.backend.gestioneschedaalimentare.service.GestioneSchedaAlimentareService;
+import it.fitdiary.backend.gestioneschedaallenamento.service.GestioneSchedaAllenamentoService;
 import it.fitdiary.backend.utility.ResponseHandler;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -36,12 +40,15 @@ public class GestionIstanzaAlimentiConsumatiController {
   public final GestioneIstanzaAlimentoConsumatoService gestioneIstanzaAlimentoConsumatoService;
 
   private final GestioneProtocolloService gestioneProtocolloService;
+
+  private final GestioneSchedaAlimentareService schedaAlimentareService;
   @Autowired
   public GestionIstanzaAlimentiConsumatiController(
-      GestioneIstanzaAlimentoConsumatoService gestioneIstanzaAlimentoConsumatoService,
-      GestioneProtocolloService gestioneProtocolloService){
+          GestioneIstanzaAlimentoConsumatoService gestioneIstanzaAlimentoConsumatoService,
+          GestioneProtocolloService gestioneProtocolloService, GestioneSchedaAlimentareService schedaAlimentareService){
     this.gestioneIstanzaAlimentoConsumatoService = gestioneIstanzaAlimentoConsumatoService;
     this.gestioneProtocolloService = gestioneProtocolloService;
+    this.schedaAlimentareService = schedaAlimentareService;
   }
 
 
@@ -87,13 +94,38 @@ public class GestionIstanzaAlimentiConsumatiController {
     try{
       List<IstanzaAlimentoConsumato> istanzaEsercizioEseguitoList = gestioneIstanzaAlimentoConsumatoService.
           visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(idProtocollo,dataConsumazione);
-      int somma=0;
+
+      float somma=0;
+      float calPrev=0;
+
+      GIORNO_SETTIMANA giornoSettimana = switch (dataConsumazione.getDayOfWeek())
+      {
+          case MONDAY -> GIORNO_SETTIMANA.LUNEDI;
+          case TUESDAY -> GIORNO_SETTIMANA.MARTEDI;
+          case WEDNESDAY -> GIORNO_SETTIMANA.MERCOLEDI;
+          case THURSDAY -> GIORNO_SETTIMANA.GIOVEDI;
+          case FRIDAY -> GIORNO_SETTIMANA.VENERDI;
+          case SATURDAY -> GIORNO_SETTIMANA.SABATO;
+          case SUNDAY -> GIORNO_SETTIMANA.DOMENICA;
+      };
+
+        //Calcolo calorie del giorno
+      Protocollo protocollo=gestioneProtocolloService.getByIdProtocollo(idProtocollo);
+      List<IstanzaAlimento> listAlimentiGiorno=protocollo.getSchedaAlimentare().getListaAlimenti().stream().filter(al->al.getGiornoDellaSettimana() == giornoSettimana).toList();
+      for(IstanzaAlimento al:listAlimentiGiorno)
+      {
+        float calAl=(al.getAlimento().getKcal()/100)*al.getGrammi();
+        calPrev+=calAl;
+      }
+
       for(IstanzaAlimentoConsumato al:istanzaEsercizioEseguitoList)
       {
-        somma+=al.getGrammiConsumati();
+        float calIstanza=(al.getIstanzaAlimento().getAlimento().getKcal()/100)*al.getGrammiConsumati();
+        somma+=calIstanza;
       }
       Map<String,Object> map= new HashMap<>();
-      map.put("calorieTotali",somma);
+      map.put("caloriePreviste",calPrev);
+      map.put("calorieConsumate",somma);
       map.put("istanzeAlimentiConsumati",istanzaEsercizioEseguitoList);
       return ResponseHandler.generateResponse(HttpStatus.OK,
           "result", map);
