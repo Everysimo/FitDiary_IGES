@@ -106,20 +106,20 @@ const Create = () => {
     const formData = new FormData();
     formData.append("dataScadenza", values.dataScadenza)
       if(values.idCliente == null){
-          setToastMessage({title:"Errore",body:"Seleziona un cliente",stat:"error"})
-          return
+        document.getElementById("textErrCliente").style.visibility = "visible"
+        return
       }
     formData.append("idCliente", values.idCliente)
-      if(selectedSchedaAlimentare == null && selectedSchedaAllenamento == null){
-          setToastMessage({title:"Errore",body:"Il protocollo deve avere almeno una scheda",stat:"error"})
+      if(selectedSchedaAlimentare == null) {
+        document.getElementById("textErrAlimentare").style.visibility = "visible";
+        return;
+      }
+      if(selectedSchedaAllenamento == null){
+        document.getElementById("textErrAllenamento").style.visibility = "visible";
           return
       }
-    if (selectedSchedaAlimentare!==null){
-        formData.append("idSchedaAlimentare", selectedSchedaAlimentare.id)
-    }
-    if (selectedSchedaAlimentare!==null){
-        formData.append("idSchedaAllenamento", selectedSchedaAllenamento.id)
-    }
+    formData.append("idSchedaAlimentare", selectedSchedaAlimentare.id)
+    formData.append("idSchedaAllenamento", selectedSchedaAllenamento.id)
     try {
       const { data } = await fetchContext.authAxios.post(urlProtocolli, formData)
       console.log(data)
@@ -172,7 +172,7 @@ const Create = () => {
 
   //Verifica se una data inserita è precedenta alla odierna
   function isValidDate(value) {
-    var date = new Date();
+    let date = new Date();
     date.setHours(23, 59, 59, 59);
     return (!isNaN(Date.parse(value)) && (new Date(value) > date) ? true : "Inserisci una data valida");
   }
@@ -384,9 +384,11 @@ const Create = () => {
                   <FormControl id={"idCliente"}>
                     <FormLabel>Cliente</FormLabel>
                     <Select options={options} isLoading={isLoading} placeholder={"Seleziona un cliente"} onChange={(e) => {
+                      document.getElementById("textErrCliente").style.visibility = "hidden";
                       setValue("idCliente", e.value)
                     }} />
                   </FormControl>
+                  <Text color={"red"} id={"textErrCliente"} style={{visibility:"hidden"}}>La selezione di un cliente è obbligatoria</Text>
                 </GridItem>
                 <GridItem colSpan={2}>
                   <FormControl id={"dataScadenza"} isInvalid={errors.dataScadenza}>
@@ -436,6 +438,7 @@ const Create = () => {
                                 </Button>
                                 <Button background="#8BC0FF" color="white" w="80%" margin="0.1rem"
                                         onClick={() => {
+                                            document.getElementById("textErrAlimentare").style.visibility = "hidden";
                                             onOpenSchedaAlimentare();
                                         }}>
                                     Seleziona esistente
@@ -444,6 +447,7 @@ const Create = () => {
                         </>
                         )}
                     </Box>
+                    <Text color={"red"} id={"textErrAlimentare"} style={{visibility:"hidden"}}>La selezione di una scheda alimentare è obbligatoria</Text>
                   </FormControl>
                 </GridItem>
                 <GridItem colSpan={1}>
@@ -478,6 +482,7 @@ const Create = () => {
                                   </Button>
                                   <Button background="#8BC0FF" color="white" w="80%" margin="0.1rem"
                                           onClick={() => {
+                                              document.getElementById("textErrAllenamento").style.visibility = "hidden";
                                               onOpenSchedaAllenamento();
                                           }}>
                                       Seleziona esistente
@@ -487,6 +492,7 @@ const Create = () => {
                           )}
 
                     </Box>
+                    <Text color={"red"} id={"textErrAllenamento"} style={{visibility:"hidden"}}>La selezione di una scheda allenamento è obbligatoria</Text>
                   </FormControl>
                 </GridItem>
                 <GridItem colSpan={1} >

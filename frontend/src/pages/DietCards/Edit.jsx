@@ -259,8 +259,8 @@ export default function Edit() {
 
     const onSubmit = async (values) => {
         try {
-            if(nomeScheda.length <0){
-                toast(toastParam("Attenzione!", "Inserisci un nome valido", "error"));
+            if(nomeScheda.length <= 0){
+                document.getElementById("textErrNome").style.visibility = "visible";
                 throw new Error()
             }
             let numeroAlimentiScheda = 0
@@ -268,7 +268,7 @@ export default function Edit() {
                 numeroAlimentiScheda += el.length;
             })
             if(numeroAlimentiScheda <= 0) {
-                toast(toastParam("Attenzione!", "Inserisci almeno un alimento", "error"));
+                document.getElementById("textErrCibi").style.visibility = "visible";
                 throw new Error()
             }
         }catch (error) {
@@ -298,15 +298,17 @@ export default function Edit() {
                 <GradientBar/>
                 <Box pl={[0, 5, 20]} pr={[0, 5, 20]} pb={10} pt={5}>
                     <form style={{width: "100%"}} onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl id={"nome"} isInvalid={errors.nome} isRequired={"required"} pt={5}>
+                        <FormControl id={"nome"} pt={5}>
                             <FormLabel htmlFor="nome">Nome delle scheda</FormLabel>
-                            <Input required={"true"} type="text" value={nomeScheda} name={"nome"}
+                            <Input type="text" value={nomeScheda} name={"nome"}
                                    onChange={(e) => {
+                                       document.getElementById("textErrNome").style.visibility = "hidden";
                                        let newNome = e.target.value;
                                        setNomeScheda(newNome)
                                    }}/>
                             <FormErrorMessage>{errors.nome && errors.nome.message}</FormErrorMessage>
                         </FormControl>
+                        <Text color={"red"} id={"textErrNome"} style={{visibility:"hidden"}}>Il nome della scheda è obbligatorio</Text>
 
                         <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={"5xl"}>
                             <ModalOverlay/>
@@ -342,7 +344,8 @@ export default function Edit() {
                                                             {/* Barra di ricerca*/}
                                                             <Text fontWeight={"bold"} mt={"4"} align={"left"}>Seleziona
                                                                 un pasto:</Text>
-                                                            <Select placeholder='Seleziona pasto' id={"selectPasto"}>
+                                                            <Select placeholder='Seleziona pasto' id={"selectPasto"} onChange={event =>
+                                                                    document.getElementById("textErrMod").style.visibility = "hidden"}>
                                                                 <option value='0'>Colazione</option>
                                                                 <option value='1'>Spuntino Mattina</option>
                                                                 <option value='2'>Pranzo</option>
@@ -351,6 +354,7 @@ export default function Edit() {
                                                                 <option value='5'>Spuntino Serale</option>
                                                                 <option value='6'>Extra</option>
                                                             </Select>
+                                                            <Text color={"red"} id={"textErrMod"} style={{visibility:"hidden"}} align={"left"}>La selezione del pasto è obbligatoria</Text>
                                                             {listAlimenti.lista_alimenti.length > 0 ? (<>
                                                                 <Text fontSize="xl" my={5}>
                                                                     Lista degli alimenti
@@ -396,7 +400,7 @@ export default function Edit() {
                                                                                         if (idPasto.length > 0) {
                                                                                             addAlimento(alimento, idPasto, 150);
                                                                                         } else {
-                                                                                            toast(toastParam("Attenzione!", "Seleziona un pasto", "error"))
+                                                                                            document.getElementById("textErrMod").style.visibility = "visible";
                                                                                         }
                                                                                     }}
                                                                                     fontSize={"s"}>
@@ -547,6 +551,7 @@ export default function Edit() {
                                                     w="full"
                                                     colorScheme='fitdiary'
                                                     onClick={() => {
+                                                        document.getElementById("textErrCibi").style.visibility = "hidden";
                                                         onOpen();
                                                         setIndexGiorno(i);
                                                     }}>
@@ -557,6 +562,7 @@ export default function Edit() {
 
                                 )
                             })}
+                            <Text color={"red"} id={"textErrCibi"} style={{visibility:"hidden"}}>Inserire almeno un pasto!</Text>
 
                         </Accordion>
                         <Button w="full" mt={4} colorScheme='fitdiary' isLoading={isSubmitting} type='submit'>
