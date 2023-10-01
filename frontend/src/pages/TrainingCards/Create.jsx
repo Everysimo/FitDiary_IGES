@@ -94,7 +94,6 @@ export default function Create() {
         const loadlistaEsercizi = async () => {
             try {
                 const { data } = await fetchContext.authAxios("esercizi/getAllEsercizi");
-                console.log(data)
                 setEsercizi(data.data);
                 setLoading(false); //viene settato a false per far capire di aver caricato tutti i dati
             } catch (error) {
@@ -138,7 +137,6 @@ export default function Create() {
         {
             toast(toastParam("Attenzione!", "Hai già inserito questo esercizio", "warning"));
         }
-        console.log(schedaAllenamento)
     }
 
     function formatData(inputData) {
@@ -166,8 +164,6 @@ export default function Create() {
                 }
             });
         }
-        console.log("Format: ");
-        console.log(formattedData);
         return formattedData;
     }
 
