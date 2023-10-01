@@ -3,7 +3,7 @@ import {
   Button,
   Flex,
   GridItem,
-  Heading,
+  Heading, HStack,
   Image,
   Input,
   SimpleGrid,
@@ -25,7 +25,7 @@ const Create = () => {
   const [isLoading, setisLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState(undefined);
   const [reportAllenamento, setReportAllenamento] = useState({
-    nome:"NOME_ES"
+    nome:"Esercizio"
   });
 
   const [infoEs,setInfoEs] = useState({
@@ -128,6 +128,18 @@ const Create = () => {
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setNewData({ ...newData, [name]: value });
+      if(e.target.name === "weight")
+      {
+        document.getElementById("textErrPeso").style.visibility = "hidden";
+      }
+      else if(e.target.name === "sets")
+      {
+        document.getElementById("textErrSerie").style.visibility = "hidden";
+      }
+      else if(e.target.name === "reps")
+      {
+        document.getElementById("textErrRipetizioni").style.visibility = "hidden";
+      }
     };
 
     const handleAddData = async () => {
@@ -177,7 +189,18 @@ const Create = () => {
       }
       else
       {
-        setToastMessage({title:"Attenzione",body:"Inserisci tutti i dati",stat:"warning"});
+        if(!newData.weight)
+        {
+          document.getElementById("textErrPeso").style.visibility = "visible";
+        }
+        if(!newData.sets)
+        {
+          document.getElementById("textErrSerie").style.visibility = "visible";
+        }
+        if(!newData.reps)
+        {
+          document.getElementById("textErrRipetizioni").style.visibility = "visible";
+        }
       }
     };
 
@@ -215,27 +238,36 @@ const Create = () => {
                       </Text>
                     </Flex>
                     <Stack direction="row" mt={3} spacing={4}>
-                      <Input
-                          type="number"
-                          name="weight"
-                          placeholder="Peso (kg)"
-                          value={newData.weight}
-                          onChange={handleInputChange}
-                      />
-                      <Input
-                          type="number"
-                          name="sets"
-                          placeholder="Serie"
-                          value={newData.sets}
-                          onChange={handleInputChange}
-                      />
-                      <Input
-                          type="number"
-                          name="reps"
-                          placeholder="Ripetizione"
-                          value={newData.reps}
-                          onChange={handleInputChange}
-                      />
+                      <VStack>
+                        <Input
+                            type="number"
+                            name="weight"
+                            placeholder="Peso (kg)"
+                            value={newData.weight}
+                            onChange={handleInputChange}
+                        />
+                        <Text color={"red"} id={"textErrPeso"} style={{visibility:"hidden"}}>Il peso è obbligatorio</Text>
+                      </VStack>
+                      <VStack>
+                        <Input
+                            type="number"
+                            name="sets"
+                            placeholder="Serie"
+                            value={newData.sets}
+                            onChange={handleInputChange}
+                        />
+                        <Text color={"red"} id={"textErrSerie"} style={{visibility:"hidden"}}>Le serie sono obbligatorie</Text>
+                      </VStack>
+                      <VStack>
+                        <Input
+                            type="number"
+                            name="reps"
+                            placeholder="Ripetizione"
+                            value={newData.reps}
+                            onChange={handleInputChange}
+                        />
+                        <Text color={"red"} id={"textErrRipetizioni"} style={{visibility:"hidden"}}>Le ripetizioni sono obbligatorie</Text>
+                      </VStack>
                       <Input
                           type="hidden"
                           name="date"
