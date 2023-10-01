@@ -1,0 +1,464 @@
+{
+  "id": "713ca2f8-904d-4d71-985e-cf7726551309",
+  "version": "2.0",
+  "name": "Creazione Scheda Alimentare",
+  "url": "http://localhost:3000/DietCards/create",
+  "tests": [{
+    "id": "7a4cc499-9f81-4b6e-8fd1-fd5aed6d8030",
+    "name": "TC_4.1.1",
+    "commands": [{
+      "id": "268a429b-2ab1-4b83-9f16-a869c20dfa86",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/DietCards/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "851c7428-080f-47b8-babe-17f3047b15e1",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1231x977",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d56f25ba-81b9-4b01-ae33-304a62d326cc",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[@type='button'])[7]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:r9:']/div[8]/button", "xpath:idRelative"],
+        ["xpath=//div[8]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi alimenti')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4e1a3298-fba5-4b84-a2db-2de837afc393",
+      "comment": "",
+      "command": "click",
+      "target": "id=selectPasto",
+      "targets": [
+        ["id=selectPasto", "id"],
+        ["css=#selectPasto", "css:finder"],
+        ["xpath=//select[@id='selectPasto']", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/div[2]/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a3fbfe57-b409-40b3-8f60-d4b1d944d37b",
+      "comment": "",
+      "command": "select",
+      "target": "id=selectPasto",
+      "targets": [],
+      "value": "label=Colazione"
+    }, {
+      "id": "9d79c39e-15e8-4c7b-91db-1a3f02416427",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[21]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6e5c9834-57d2-48a4-8af4-cc0a2254d183",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[21]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "09b149e8-28ce-42f7-bb29-e10492e37cbb",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[22]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1aed3c4f-d7b9-4829-8343-e262652c3a67",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[20]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-:r8:']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a48699f7-7dc8-4082-9885-5f4c9528ace7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f71a4391-4c34-4363-bc7c-0a9adf436aab",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdce93c5-ef40-4f4e-b543-4b9e83cc26e5",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bfcdec0e-df2b-4ace-abff-c0449789e935",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//p[contains(.,'Il nome della scheda è obbligatorio')]",
+      "targets": [
+        ["id=textErrNome", "id"],
+        ["css=#textErrNome", "css:finder"],
+        ["xpath=//p[@id='textErrNome']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/p", "xpath:idRelative"],
+        ["xpath=//form/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Il nome della scheda è obbligatorio')]", "xpath:innerText"]
+      ],
+      "value": "Il nome della scheda è obbligatorio"
+    }]
+  }, {
+    "id": "fd549b35-2520-4e8e-849e-eea1fd9a067b",
+    "name": "TC_4.1.2",
+    "commands": [{
+      "id": "ee91a3f1-cc0b-44e1-be05-434e979963ba",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/DietCards/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d620581e-92d2-4be5-beb5-9ded1ffc92a3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1231x977",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "923c1c6c-abdc-4e25-b87a-185b6d79c1ed",
+      "comment": "",
+      "command": "click",
+      "target": "id=textNomeScheda",
+      "targets": [
+        ["id=textNomeScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textNomeScheda", "css:finder"],
+        ["xpath=//input[@id='textNomeScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b97a69e0-2f2c-464a-b1e0-72181d1cfbed",
+      "comment": "",
+      "command": "type",
+      "target": "id=textNomeScheda",
+      "targets": [
+        ["id=textNomeScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textNomeScheda", "css:finder"],
+        ["xpath=//input[@id='textNomeScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Dieta di Martina"
+    }, {
+      "id": "c2b971a0-ad0f-4f50-8ad2-4c023b2af261",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "488534cd-4ead-4859-b7de-2d102f9ff775",
+      "comment": "",
+      "command": "assertText",
+      "target": "xpath=//p[contains(.,'Inserire almeno un pasto!')]",
+      "targets": [
+        ["id=textErrCibi", "id"],
+        ["css=#textErrCibi", "css:finder"],
+        ["xpath=//p[@id='textErrCibi']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/p", "xpath:idRelative"],
+        ["xpath=//form/div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Inserire almeno un pasto!')]", "xpath:innerText"]
+      ],
+      "value": "Inserire almeno un pasto!"
+    }]
+  }, {
+    "id": "20c96a5e-76a8-435b-8b86-0bfa7cf30740",
+    "name": "TC_4.1.3",
+    "commands": [{
+      "id": "fa79cc7f-042b-461f-b829-01df36ce6540",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/DietCards/create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "4f72030c-bf40-4cd1-a1b5-f927f2161efb",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1455x923",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "534d3ff5-c15e-4c6f-b9c3-3251bc5ff7a2",
+      "comment": "",
+      "command": "click",
+      "target": "id=textNomeScheda",
+      "targets": [
+        ["id=textNomeScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textNomeScheda", "css:finder"],
+        ["xpath=//input[@id='textNomeScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "fe74edcb-5aa5-426c-901c-be4da0606626",
+      "comment": "",
+      "command": "type",
+      "target": "id=textNomeScheda",
+      "targets": [
+        ["id=textNomeScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textNomeScheda", "css:finder"],
+        ["xpath=//input[@id='textNomeScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Dieta di Martina"
+    }, {
+      "id": "6e893ae8-56b1-42fc-ab10-5fabcfefa7f5",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[@type='button'])[7]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:r9:']/div[8]/button", "xpath:idRelative"],
+        ["xpath=//div[8]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi alimenti')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f7370a55-5e3a-412c-ba85-f62710fef474",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "xpath=(//button[@type='button'])[7]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:r9:']/div[8]/button", "xpath:idRelative"],
+        ["xpath=//div[8]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi alimenti')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "230545c5-9c74-45e4-b49e-050e31718e2c",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "xpath=(//button[@type='button'])[7]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:r9:']/div[8]/button", "xpath:idRelative"],
+        ["xpath=//div[8]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi alimenti')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "07c16cf8-e1f3-46e3-9e7b-0a0ae3689e51",
+      "comment": "",
+      "command": "click",
+      "target": "id=selectPasto",
+      "targets": [
+        ["id=selectPasto", "id"],
+        ["css=#selectPasto", "css:finder"],
+        ["xpath=//select[@id='selectPasto']", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/div[2]/select", "xpath:idRelative"],
+        ["xpath=//select", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "62d6d7b7-d995-43e9-8b82-e8aa4e8095f1",
+      "comment": "",
+      "command": "select",
+      "target": "id=selectPasto",
+      "targets": [],
+      "value": "label=Colazione"
+    }, {
+      "id": "98fa6c11-ced1-4fa0-8dc7-7dcc759620c3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[21]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7dd1a2be-29c9-47ec-8b94-fb546c8231e8",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[21]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ab74030f-ae1b-4177-94b9-a15d2d6d12fe",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[22]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "59dbeb85-37c0-4bd0-8e4e-319b8c93a205",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(4) > .css-xumdn4:nth-child(7)",
+      "targets": [
+        ["css=.css-0:nth-child(4) > .css-xumdn4:nth-child(7)", "css:finder"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr[4]/td[7]", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[7]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4869103b-faf4-4324-af3a-765577c66c1b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(4) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(4) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[24]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr[4]/td[7]/button", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bac00b7f-8e3f-4da5-b1f2-2b77beaf4747",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(4) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(4) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[24]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr[4]/td[7]/button", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "29de96be-da27-461c-a783-2a49a41f7f33",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(4) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(4) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[25]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r8:']/div/div/div/div/div/div[2]/table/tbody/tr[4]/td[7]/button", "xpath:idRelative"],
+        ["xpath=//tr[4]/td[7]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de82e035-e8db-4d8d-941a-b5af8ec72129",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn > .chakra-icon",
+      "targets": [
+        ["css=.chakra-modal__close-btn > .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "253ec2bc-cffa-47fb-b6c2-248572fb6c7a",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.chakra-modal__close-btn > .chakra-icon",
+      "targets": [
+        ["css=.chakra-modal__close-btn > .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "73bab0fc-b58d-4cc0-9f4a-c9b8cb272c28",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "730c5e24-2f99-40df-b478-f7ad9dc08b9b",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=toast-3-title",
+      "targets": [],
+      "value": "Sceheda Alimentare creata con successo"
+    }]
+  }],
+  "suites": [{
+    "id": "0ca7170c-f81d-4e24-80f2-686dd3ab049d",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["7a4cc499-9f81-4b6e-8fd1-fd5aed6d8030"]
+  }],
+  "urls": ["http://localhost:3000/DietCards/create"],
+  "plugins": []
+}

@@ -1,0 +1,494 @@
+{
+  "id": "eb25e7bf-f20a-4c55-aa91-7788cd967754",
+  "version": "2.0",
+  "name": "Esecuzione esercizio",
+  "url": "http://localhost:3000/allenamenti/esegui?idIstanzaEsercizio=1&idProtocollo=1",
+  "tests": [{
+    "id": "b9268621-9571-477c-846b-883bf23c51c2",
+    "name": "TC_6.1.1",
+    "commands": [{
+      "id": "13064bbb-b482-4e30-8ed8-6a9399a69b0f",
+      "comment": "",
+      "command": "open",
+      "target": "/allenamenti/esegui?idIstanzaEsercizio=1&idProtocollo=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "53399f84-b097-4c66-98f7-58cf931d1a77",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1241x983",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "810fc844-33e6-474a-a4d5-0ca07dd4dc52",
+      "comment": "",
+      "command": "click",
+      "target": "name=sets",
+      "targets": [
+        ["name=sets", "name"],
+        ["css=.chakra-stack:nth-child(2) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='sets']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "97ffc547-1385-4631-a337-d1b34d02343f",
+      "comment": "",
+      "command": "type",
+      "target": "name=sets",
+      "targets": [
+        ["name=sets", "name"],
+        ["css=.chakra-stack:nth-child(2) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='sets']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "27a68736-ff9c-476d-99b1-3dc6fb70819c",
+      "comment": "",
+      "command": "click",
+      "target": "name=reps",
+      "targets": [
+        ["name=reps", "name"],
+        ["css=.chakra-stack:nth-child(3) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='reps']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "ea29134f-5585-4157-ad52-f2d0d4a0f8b4",
+      "comment": "",
+      "command": "type",
+      "target": "name=reps",
+      "targets": [
+        ["name=reps", "name"],
+        ["css=.chakra-stack:nth-child(3) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='reps']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "4fb6d6b4-a892-49b3-957e-e20ab6c8b148",
+      "comment": "",
+      "command": "click",
+      "target": "id=btn_Start",
+      "targets": [
+        ["id=btn_Start", "id"],
+        ["css=#btn_Start", "css:finder"],
+        ["xpath=//button[@id='btn_Start']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Avvia Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dd2717a0-c25a-4638-8812-fbf3e9767f4b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-jsc65o",
+      "targets": [
+        ["css=.css-jsc65o", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Termina Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "70a809f9-94b4-41c7-9caf-c84eff838baa",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrPeso",
+      "targets": [
+        ["id=textErrPeso", "id"],
+        ["css=#textErrPeso", "css:finder"],
+        ["xpath=//p[@id='textErrPeso']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/p", "xpath:idRelative"],
+        ["xpath=//div[4]/div/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Il peso è obbligatorio')]", "xpath:innerText"]
+      ],
+      "value": "Il peso è obbligatorio"
+    }]
+  }, {
+    "id": "359694c3-f9b2-4ac9-94a8-3f24a2d8b843",
+    "name": "TC_6.1.2",
+    "commands": [{
+      "id": "3e069497-f68d-473d-86ed-117041fd9d47",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/allenamenti/esegui?idIstanzaEsercizio=1&idProtocollo=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f5fd1a6d-c629-4834-9d22-fa260fba5229",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1241x983",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b3a28e59-a8e7-406f-b5e2-0fcf60a9d858",
+      "comment": "",
+      "command": "click",
+      "target": "name=weight",
+      "targets": [
+        ["name=weight", "name"],
+        ["css=.chakra-stack:nth-child(1) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='weight']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8ae698a9-5c6c-43d5-aa30-dd039b4b0734",
+      "comment": "",
+      "command": "type",
+      "target": "name=weight",
+      "targets": [
+        ["name=weight", "name"],
+        ["css=.chakra-stack:nth-child(1) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='weight']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "10"
+    }, {
+      "id": "e85e8f61-8f14-493e-b1dd-37013f92ee14",
+      "comment": "",
+      "command": "click",
+      "target": "name=sets",
+      "targets": [
+        ["name=sets", "name"],
+        ["css=.chakra-stack:nth-child(2) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='sets']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5086e684-e003-4f1e-82e3-f291f19ba737",
+      "comment": "",
+      "command": "type",
+      "target": "name=sets",
+      "targets": [
+        ["name=sets", "name"],
+        ["css=.chakra-stack:nth-child(2) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='sets']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "4"
+    }, {
+      "id": "c84aeded-0cc7-4790-a64f-587f299278ec",
+      "comment": "",
+      "command": "click",
+      "target": "id=btn_Start",
+      "targets": [
+        ["id=btn_Start", "id"],
+        ["css=#btn_Start", "css:finder"],
+        ["xpath=//button[@id='btn_Start']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Avvia Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2e94c412-da5e-470e-bf41-4cc4764612fd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-jsc65o",
+      "targets": [
+        ["css=.css-jsc65o", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Termina Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4f661f50-3042-4a3a-8885-b7a7aee6ff66",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrRipetizioni",
+      "targets": [
+        ["id=textErrRipetizioni", "id"],
+        ["css=#textErrRipetizioni", "css:finder"],
+        ["xpath=//p[@id='textErrRipetizioni']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/p", "xpath:idRelative"],
+        ["xpath=//div[4]/div[3]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Le ripetizioni sono obbligatorie')]", "xpath:innerText"]
+      ],
+      "value": "Le ripetizioni sono obbligatorie"
+    }]
+  }, {
+    "id": "217d2e2a-84ad-4387-86cc-7e81533820e3",
+    "name": "TC_6.1.3",
+    "commands": [{
+      "id": "56c380e5-4c77-40e1-b55d-f0077c00afa0",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/allenamenti/esegui?idIstanzaEsercizio=1&idProtocollo=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "de28cbe8-c04b-460c-ac28-29b3ac802518",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1241x983",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7a2d3559-ab57-4524-9f69-b7ab6e032eba",
+      "comment": "",
+      "command": "click",
+      "target": "name=weight",
+      "targets": [
+        ["name=weight", "name"],
+        ["css=.chakra-stack:nth-child(1) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='weight']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5ecc33dc-169b-4855-9657-b68bba0bfbfc",
+      "comment": "",
+      "command": "type",
+      "target": "name=weight",
+      "targets": [
+        ["name=weight", "name"],
+        ["css=.chakra-stack:nth-child(1) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='weight']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "11"
+    }, {
+      "id": "8516cf42-6c44-49b3-b620-c5669c6304e2",
+      "comment": "",
+      "command": "click",
+      "target": "name=reps",
+      "targets": [
+        ["name=reps", "name"],
+        ["css=.chakra-stack:nth-child(3) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='reps']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "df826138-12fa-47ab-aa17-792b9fd71e6d",
+      "comment": "",
+      "command": "type",
+      "target": "name=reps",
+      "targets": [
+        ["name=reps", "name"],
+        ["css=.chakra-stack:nth-child(3) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='reps']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "180d21e4-f208-40eb-93b8-48bd5846197c",
+      "comment": "",
+      "command": "click",
+      "target": "id=btn_Start",
+      "targets": [
+        ["id=btn_Start", "id"],
+        ["css=#btn_Start", "css:finder"],
+        ["xpath=//button[@id='btn_Start']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Avvia Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d5324ca-d78d-4694-9bc8-b61ed63090d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-jsc65o",
+      "targets": [
+        ["css=.css-jsc65o", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Termina Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0be69c69-306c-46c9-a81f-45e09b30de05",
+      "comment": "",
+      "command": "click",
+      "target": "id=textErrSerie",
+      "targets": [
+        ["id=textErrSerie", "id"],
+        ["css=#textErrSerie", "css:finder"],
+        ["xpath=//p[@id='textErrSerie']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/p", "xpath:idRelative"],
+        ["xpath=//div[4]/div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Le serie sono obbligatorie')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a771ee22-0c52-48a4-ba7f-8e9b8e2c67ce",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrSerie",
+      "targets": [
+        ["id=textErrSerie", "id"],
+        ["css=#textErrSerie", "css:finder"],
+        ["xpath=//p[@id='textErrSerie']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/p", "xpath:idRelative"],
+        ["xpath=//div[4]/div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Le serie sono obbligatorie')]", "xpath:innerText"]
+      ],
+      "value": "Le serie sono obbligatorie"
+    }]
+  }, {
+    "id": "8046661b-de7f-4a5b-88a8-32efe80c7628",
+    "name": "TC_6.1.4",
+    "commands": [{
+      "id": "0e319659-2e33-4245-b236-c4f797050e7c",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/allenamenti/esegui?idIstanzaEsercizio=1&idProtocollo=1",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f273529-8758-494b-ba17-a5c71018571b",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1241x983",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "38271380-0e62-406a-afa7-bb6d992d9bac",
+      "comment": "",
+      "command": "click",
+      "target": "name=weight",
+      "targets": [
+        ["name=weight", "name"],
+        ["css=.chakra-stack:nth-child(1) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='weight']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c16addff-24a1-43e8-a60e-7e13f96939b3",
+      "comment": "",
+      "command": "type",
+      "target": "name=weight",
+      "targets": [
+        ["name=weight", "name"],
+        ["css=.chakra-stack:nth-child(1) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='weight']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "10"
+    }, {
+      "id": "07936da1-802b-43fd-be75-da40c8967907",
+      "comment": "",
+      "command": "click",
+      "target": "name=sets",
+      "targets": [
+        ["name=sets", "name"],
+        ["css=.chakra-stack:nth-child(2) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='sets']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d683b59-7ab0-4072-8df4-0f161e220fd3",
+      "comment": "",
+      "command": "type",
+      "target": "name=sets",
+      "targets": [
+        ["name=sets", "name"],
+        ["css=.chakra-stack:nth-child(2) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='sets']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "5"
+    }, {
+      "id": "8b6f5f96-5c1d-4765-8504-9690fbdd24a1",
+      "comment": "",
+      "command": "click",
+      "target": "name=reps",
+      "targets": [
+        ["name=reps", "name"],
+        ["css=.chakra-stack:nth-child(3) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='reps']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "43c175da-c280-455e-ac58-d5f6e04490e3",
+      "comment": "",
+      "command": "type",
+      "target": "name=reps",
+      "targets": [
+        ["name=reps", "name"],
+        ["css=.chakra-stack:nth-child(3) > .chakra-input", "css:finder"],
+        ["xpath=//input[@name='reps']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[4]/div[3]/input", "xpath:idRelative"],
+        ["xpath=//div[3]/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "b7c40bd0-08ad-4e33-88f7-53d14c5dc5af",
+      "comment": "",
+      "command": "click",
+      "target": "id=btn_Start",
+      "targets": [
+        ["id=btn_Start", "id"],
+        ["css=#btn_Start", "css:finder"],
+        ["xpath=//button[@id='btn_Start']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Avvia Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c369d38d-448c-4131-a7c8-831e135c81a5",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-jsc65o",
+      "targets": [
+        ["css=.css-jsc65o", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/div/div[5]/button", "xpath:idRelative"],
+        ["xpath=//div[5]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Termina Recupero')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7fc5c373-955c-4c9c-bc58-d529f58e5119",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=toast-1-description",
+      "targets": [],
+      "value": "Esercizio effettuato"
+    }]
+  }],
+  "suites": [{
+    "id": "dba05a7b-69dc-410c-aed3-87d681de4a06",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["b9268621-9571-477c-846b-883bf23c51c2"]
+  }],
+  "urls": ["http://localhost:3000/", "http://localhost:3000/allenamenti/esegui?idIstanzaEsercizio=1&idProtocollo=1"],
+  "plugins": []
+}

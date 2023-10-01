@@ -1,0 +1,279 @@
+{
+  "id": "9d4a282e-0198-480f-b71e-0efae56bffa8",
+  "version": "2.0",
+  "name": "Modifica Scheda Alimentare",
+  "url": "http://localhost:3000/dietcards/edit/3",
+  "tests": [{
+    "id": "1d83706b-7f8a-40ca-b353-c9a0ed79d717",
+    "name": "TC_4.2.1",
+    "commands": [{
+      "id": "ec058e1c-d440-4eeb-b29d-d7ce9f6b3c01",
+      "comment": "",
+      "command": "open",
+      "target": "/dietcards/edit/3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "29a2001b-d40a-4782-abc2-1f87f7c0cb54",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1240x923",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a2bce639-5a14-4efe-97ec-21c4ab42d33c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-79t4dk",
+      "targets": [
+        ["css=.css-79t4dk", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0e69e07d-d289-41c9-b2f3-02a996e13845",
+      "comment": "",
+      "command": "type",
+      "target": "id=nome",
+      "targets": [
+        ["id=nome", "id"],
+        ["name=nome", "name"],
+        ["css=#nome", "css:finder"],
+        ["xpath=//input[@id='nome']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6c6f0db5-37cf-451a-908e-cfc91075b8b0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "efe57c28-cbd5-4b9c-a969-3bd14d8e0742",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrNome",
+      "targets": [
+        ["id=textErrNome", "id"],
+        ["css=#textErrNome", "css:finder"],
+        ["xpath=//p[@id='textErrNome']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/p", "xpath:idRelative"],
+        ["xpath=//form/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Il nome della scheda è obbligatorio')]", "xpath:innerText"]
+      ],
+      "value": "Il nome della scheda è obbligatorio"
+    }]
+  }, {
+    "id": "195511f1-b823-4fa9-9bed-33577a6b1239",
+    "name": "TC_4.2.2",
+    "commands": [{
+      "id": "7c37fb9a-2467-4801-a45a-3cdcdb788572",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/dietcards/edit/3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "80be5fab-1f4d-43c6-9b3b-8934ff84b1b4",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1357x923",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ef6e9e64-7a54-4467-a0ea-24d287e307cf",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "bd458908-0465-49eb-ac28-1f3d85a52ff3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-table:nth-child(2) .chakra-button",
+      "targets": [
+        ["css=.chakra-table:nth-child(2) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:r9:']/div/table/tbody/tr/td[8]/button", "xpath:idRelative"],
+        ["xpath=//td[8]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "995682b6-8739-453c-824b-733f7b5ffaad",
+      "comment": "",
+      "command": "assertConfirmation",
+      "target": "Sei sicuro di voler eliminare l'alimento?",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1b6bb4fb-1460-445e-8ab2-d6720b0aaa47",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b0774236-f70a-497c-8e89-5053bc277acd",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "380e1e5c-c723-4ffb-9857-2601df850033",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1kcf87u",
+      "targets": [
+        ["css=.css-1kcf87u", "css:finder"],
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:r9:']/div/table/tbody/tr/td[8]/button", "xpath:idRelative"],
+        ["xpath=//td[8]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "927ef6d6-4d3a-4850-a11d-81624033b188",
+      "comment": "",
+      "command": "assertConfirmation",
+      "target": "Sei sicuro di voler eliminare l'alimento?",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e43c1ec8-1f50-4228-bfc9-60c380e73ea9",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c3f07cd3-31dc-4eb0-9184-5d97bfb3c899",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3f2d048a-3287-40f2-800c-fdc9e1ff1f71",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrCibi",
+      "targets": [
+        ["id=textErrCibi", "id"],
+        ["css=#textErrCibi", "css:finder"],
+        ["xpath=//p[@id='textErrCibi']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/p", "xpath:idRelative"],
+        ["xpath=//form/div[2]/p", "xpath:position"],
+        ["xpath=//p[contains(.,'Inserire almeno un pasto!')]", "xpath:innerText"]
+      ],
+      "value": "Inserire almeno un pasto!"
+    }]
+  }, {
+    "id": "d13f48dd-54c7-4288-8bc2-66bab4c1fa15",
+    "name": "TC_4.2.3",
+    "commands": [{
+      "id": "5df0d2fd-64c0-480e-8727-e9ac45b5c446",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/dietcards/edit/3",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "429302e6-b110-4014-b00e-2679b2c6ccaf",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1455x923",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ce6e78c2-02a0-4bef-bd1b-2fdcec85d7da",
+      "comment": "",
+      "command": "chooseOkOnNextConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "190015d7-bfc0-429b-92cb-db447d13364b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-table:nth-child(2) .chakra-icon",
+      "targets": [
+        ["css=.chakra-table:nth-child(2) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "c46515a2-bcbc-4c90-a25f-82768e7a4482",
+      "comment": "",
+      "command": "assertConfirmation",
+      "target": "Sei sicuro di voler eliminare l'alimento?",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5ab667d3-73bd-4908-b79c-ae90cc20f355",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d5e19ba5-d8f2-424f-9284-944120c1c791",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "db45b282-215c-4d89-9b04-ddd836d9b72d",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,528)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "47ced2a4-91c7-4cd2-9570-ff9490b7ab88",
+      "comment": "",
+      "command": "click",
+      "target": "id=toast-1-description",
+      "targets": [
+        ["id=toast-1-description", "id"],
+        ["css=#toast-1-description", "css:finder"],
+        ["xpath=//div[@id='toast-1-description']", "xpath:attributes"],
+        ["xpath=//div[@id='toast-1']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "Scheda modificata!"
+    }]
+  }],
+  "suites": [{
+    "id": "88f4b9b1-e174-4cd5-90c3-37fb05381075",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1d83706b-7f8a-40ca-b353-c9a0ed79d717"]
+  }],
+  "urls": ["http://localhost:3000/", "http://localhost:3000/dietcards/edit/3"],
+  "plugins": []
+}
