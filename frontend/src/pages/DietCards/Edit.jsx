@@ -61,10 +61,9 @@ export default function Edit() {
     const {authState} = authContext;
     const [search, setSearch] = useState("");
     const [fetchCompleted, setFetchCompleted] = useState(false); // Nuovo stato
-    const [schedaAlimentare, setSchedaAlimentare] = useState([[], [], [], [], [], [], []]);
+    let [schedaAlimentare, setSchedaAlimentare] = useState([[], [], [], [], [], [], []]);
     const [indexGiorno, setIndexGiorno] = useState(0);
     const [nomeScheda, setNomeScheda] = useState("");
-    const [kcalAssunte, setkcalAssunte] = useState(0);
 
     const onChange = (e) => {
         setSearch(e.target.value); // e evento target chi lancia l'evento e il value è il valore
@@ -129,8 +128,6 @@ export default function Edit() {
                     return 5;
                 case "DOMENICA":
                     return 6;
-
-
             }
             return -1;
         }
@@ -141,9 +138,7 @@ export default function Edit() {
                     const {data} = await fetchContext.authAxios("schedaalimentare/getSchedaAlimentareById?idScheda=" + id);
                     let scheda=data.data.scheda_alimentare;
                     let nome=scheda.nome;
-                    let kcalAssunte=scheda.kcalAssunte;
                     setNomeScheda(nome);
-                    setkcalAssunte(kcalAssunte);
                     let tmpList=data.data.scheda_alimentare.listaAlimenti;
 
                     const raggruppatoPerGiorno = [[],[],[],[],[],[],[]];
@@ -211,12 +206,42 @@ export default function Edit() {
         {
             let objTest={};
             objTest.alimento=alimento;
-            objTest.pasto=pasto;
+            objTest.pasto=vettPasti[pasto].Key;
             objTest.grammi=grammi;
-            objTest.giornoDellaSettimana=indexGiorno;
 
+            switch (indexGiorno)
+            {
+                case 0:
+                    objTest.giornoDellaSettimana="LUNEDI";
+                    break;
+                case 1:
+                    objTest.giornoDellaSettimana="MARTEDI";
+                    break;
+                case 2:
+                    objTest.giornoDellaSettimana="MERCOLEDI";
+                    break;
+                case 3:
+                    objTest.giornoDellaSettimana="GIOVEDI";
+                    break;
+                case 4:
+                    objTest.giornoDellaSettimana="VENERDI";
+                    break;
+                case 5:
+                    objTest.giornoDellaSettimana="SABATO";
+                    break;
+                case 6:
+                    objTest.giornoDellaSettimana="DOMENICA";
+                    break;
+                default:
+                    objTest.giornoDellaSettimana="LUNEDI"
+                    break;
+            }
+
+            console.log(schedaAlimentare);
             let tmp=schedaAlimentare;
             tmp[indexGiorno].push(objTest);
+            console.log(tmp);
+
             setSchedaAlimentare(tmp);
 
             toast(toastParam("Operazione eseguita!", "Alimento aggiunto con successo", "success"));
@@ -280,7 +305,7 @@ export default function Edit() {
             const {data} = await fetchContext.authAxios.post(urlCreateSchedaALimentare, formattedScheda);
             setSchedaAlimentare([[],[],[],[],[],[],[]]);
             setNomeScheda("");
-            toast(toastParam("Sceheda Alimentare modificata con successo", "Scheda modificata!", "success"));
+            toast(toastParam("Scheda alimentare modificata con successo", "Scheda modificata!", "success"));
         } catch (error) {
             console.log(error.response.data.message)
             toast({
@@ -552,8 +577,8 @@ export default function Edit() {
                                                     colorScheme='fitdiary'
                                                     onClick={() => {
                                                         document.getElementById("textErrCibi").style.visibility = "hidden";
-                                                        onOpen();
                                                         setIndexGiorno(i);
+                                                        onOpen();
                                                     }}>
                                                     Aggiungi alimenti</Button>
                                             </Flex>
