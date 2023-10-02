@@ -172,6 +172,8 @@ const Create = () => {
 
   //Verifica se una data inserita è precedenta alla odierna
   function isValidDate(value) {
+    if(!/^\d{4}-\d{1,2}-\d{1,2}$/.test(value))
+      return "Inserisci una data valida";
     let date = new Date();
     date.setHours(23, 59, 59, 59);
     return (!isNaN(Date.parse(value)) && (new Date(value) > date) ? true : "Inserisci una data valida");

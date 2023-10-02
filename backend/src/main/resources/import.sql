@@ -83,6 +83,7 @@ INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (7, 'https://res
 
 
 INSERT INTO `istanza_esercizio` (`id`, `giorno_della_settimana`, `serie`, `ripetizioni`, `recupero`,`descrizione`,`esercizio_id`,`scheda_allenamento_id`) VALUES (1,4, 2, 1, 1,'istanza ese',1,1);
+INSERT INTO `istanza_esercizio` (`id`, `giorno_della_settimana`, `serie`, `ripetizioni`, `recupero`,`descrizione`,`esercizio_id`,`scheda_allenamento_id`) VALUES (2,4, 2, 1, 1,'istanza ese',1,3);
 
 INSERT INTO istanza_esercizio_eseguito(`id`,`peso_esecuzione`,`numero_serie`,`ripetizioni`,`data_esecuzione`,`protocollo_id`,`istanza_esercizio_id`)VALUES (1,3,4,5,'2023-01-09',1,1);
 INSERT INTO istanza_esercizio_eseguito(`id`,`peso_esecuzione`,`numero_serie`,`ripetizioni`,`data_esecuzione`,`protocollo_id`,`istanza_esercizio_id`)VALUES (2,3,4,5,'2023-01-09',1,1);

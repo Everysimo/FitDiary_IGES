@@ -1,0 +1,268 @@
+{
+  "id": "39f01735-1324-4021-b80b-50d4fa9565ba",
+  "version": "2.0",
+  "name": "GestioneSchedaAllenamento",
+  "url": "http://localhost:3000/trainingcards",
+  "tests": [{
+    "id": "1badda74-4f8f-48dd-9f9c-4b5ac6de73e7",
+    "name": "TC_5.2.1",
+    "commands": [{
+      "id": "fac22470-cd4b-40b6-a600-51d0dab574c2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/trainingcards",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d23110b2-2566-4960-a1b6-0b1bfd02d879",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1051x846",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "511ad00a-ed0a-4a90-a0aa-0e49197c244d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) path",
+      "targets": [
+        ["css=.css-0:nth-child(1) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3f7ab810-4b3f-4678-8d74-33b399ef9ba9",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-1vk069l",
+      "targets": [
+        ["css=.css-1vk069l", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/a/button", "xpath:idRelative"],
+        ["xpath=//div[2]/a/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "952adc74-e5ba-4682-869a-3397215d25e4",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-1vk069l",
+      "targets": [
+        ["css=.css-1vk069l", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/a/button", "xpath:idRelative"],
+        ["xpath=//div[2]/a/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c0a6352-586c-4a92-8111-a9cc4f11a7d9",
+      "comment": "",
+      "command": "click",
+      "target": "css=g:nth-child(1) > path:nth-child(2)",
+      "targets": [
+        ["css=g:nth-child(1) > path:nth-child(2)", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3d8c2c13-9d9e-4237-9d2c-d68fcc262d14",
+      "comment": "",
+      "command": "click",
+      "target": "id=textScheda",
+      "targets": [
+        ["id=textScheda", "id"],
+        ["css=#textScheda", "css:finder"],
+        ["xpath=//input[@id='textScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c303849e-e702-42ef-ba4a-a2e90dae859c",
+      "comment": "",
+      "command": "type",
+      "target": "id=textScheda",
+      "targets": [
+        ["id=textScheda", "id"],
+        ["css=#textScheda", "css:finder"],
+        ["xpath=//input[@id='textScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "d634fe39-dd0a-4a8e-84a2-6993c50164d9",
+      "comment": "",
+      "command": "click",
+      "target": "css=form",
+      "targets": [
+        ["css=form", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "05dd4d5a-ee90-4f80-ac6e-b7e2dec4df4a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d2906ce9-aca1-409e-bf46-8ecca824078c",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrNome",
+      "targets": [],
+      "value": "Il nome della scheda è obbligatorio"
+    }]
+  }, {
+    "id": "03341608-d932-40b6-bd78-54ad789a2236",
+    "name": "TC_5.2.2",
+    "commands": [{
+      "id": "80371b99-eaf0-415a-9df0-db132b919d3f",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/trainingcards",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b4322823-6159-495a-b727-edbfa0276358",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1054x848",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8d73ee4d-f447-4f18-b5a1-b24b8158f9ca",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) path",
+      "targets": [
+        ["css=.css-0:nth-child(1) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "2998d96f-28d3-4ee9-bd52-f8c5e9770c51",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-button > .chakra-icon",
+      "targets": [
+        ["css=.chakra-button > .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0abb76dd-63b5-4093-b17f-76b514bf7cb1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8bc191a3-31b8-42ae-9e33-6078ca612af1",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrEsGio",
+      "targets": [],
+      "value": "Inserisci almeno un esercizio per ogni giorno!"
+    }]
+  }, {
+    "id": "72a43bcd-198b-43f7-89e5-59ac372f2021",
+    "name": "TC_5.2.3",
+    "commands": [{
+      "id": "6857c18b-9d5a-4dea-8b4c-9c3cee062ec8",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/trainingcards",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "51571db0-a77e-4cb0-b8c6-da369b284696",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) path",
+      "targets": [
+        ["css=.css-0:nth-child(1) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "4bac7e4d-79f1-481c-90fb-4daaba6c1c9d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1vk069l",
+      "targets": [
+        ["css=.css-1vk069l", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/div/div/div[2]/div/div[2]/a/button", "xpath:idRelative"],
+        ["xpath=//div[2]/a/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f09f3274-d834-4786-ba81-1606ed8fbeef",
+      "comment": "",
+      "command": "click",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4660a041-03e6-4f20-b527-65ff670d1d2d",
+      "comment": "",
+      "command": "type",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "1"
+    }, {
+      "id": "de6f9615-c10a-49b2-a88b-20aebb69e71d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "0f7c99e3-f42e-45d8-960f-cf9d513adbb0",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=toast-1-description",
+      "targets": [],
+      "value": "Scheda aggiunta all'elenco"
+    }]
+  }],
+  "suites": [{
+    "id": "ee005b9e-54b3-47ec-9590-d4bacc6be809",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1badda74-4f8f-48dd-9f9c-4b5ac6de73e7"]
+  }],
+  "urls": ["http://localhost:3000/trainingcards"],
+  "plugins": []
+}

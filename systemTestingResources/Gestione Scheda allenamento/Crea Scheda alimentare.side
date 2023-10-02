@@ -1,0 +1,703 @@
+{
+  "id": "39f01735-1324-4021-b80b-50d4fa9565ba",
+  "version": "2.0",
+  "name": "GestioneSchedaAllenamento",
+  "url": "http://localhost:3000/trainingcards",
+  "tests": [{
+    "id": "1badda74-4f8f-48dd-9f9c-4b5ac6de73e7",
+    "name": "TC_5.1.1",
+    "commands": [{
+      "id": "42c00b51-c24f-49bd-ae9e-ea8f91ab18b6",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/trainingcards",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a88a1a56-868c-4e3f-825c-5040ed7d9f21",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e58c2ddc-bedf-4a42-929c-8b6318241dd1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-5lu1h0",
+      "targets": [
+        ["css=.css-5lu1h0", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div/a/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/a/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Crea Scheda Allenamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6ba3a08a-f197-46e6-af21-db66866de856",
+      "comment": "",
+      "command": "click",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["name=frequenzaScheda", "name"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "89357f0e-3ba9-4494-bc1c-71f69dec992d",
+      "comment": "",
+      "command": "type",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["name=frequenzaScheda", "name"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "9ebb5eb0-2537-4979-960b-e4ad34ee06ad",
+      "comment": "",
+      "command": "click",
+      "target": "css=form",
+      "targets": [
+        ["css=form", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9bed3315-738e-4b74-8417-aac39bfc4464",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[@type='button'])[7]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:ra:']/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Esercizi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "36100574-c611-44e3-8e80-1fa40af44fc6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r9:']/div/div/div/div/div[2]/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f89296ff-c7f8-403f-a20a-05f3996281a1",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r9:']/div/div/div/div/div[2]/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "75133d02-b8f3-4bb7-a993-aeb30a90a2af",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[14]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r9:']/div/div/div/div/div[2]/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f5286be9-2ede-4f33-a0e0-f86021c8ebbd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[12]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-:r9:']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "8f28d4f0-fdd9-4b92-acf6-650b12bb14d3",
+      "comment": "",
+      "command": "click",
+      "target": "css=#accordion-button-\\3Arc\\3A > .css-1ek6wx9",
+      "targets": [
+        ["css=#accordion-button-\\3Arc\\3A > .css-1ek6wx9", "css:finder"],
+        ["xpath=//button[@id='accordion-button-:rc:']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/h2/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "34ed77a1-cb7b-4470-9631-5d58f29a9673",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[@type='button'])[10]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[10]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:rc:']/div/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "af862927-7b9c-47d5-829c-e7107c510abc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd2b31b1-c549-465f-b092-d8494c07456f",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "d0339708-b91b-4ea1-a09a-5d1df6175c09",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "6384c62e-713b-4fd9-9089-c98c4faf08a8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-:r9:']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "892b249a-0f27-4c43-93b9-5508b2c261f3",
+      "comment": "",
+      "command": "click",
+      "target": "css=#accordion-button-\\3Are\\3A > .css-1ek6wx9",
+      "targets": [
+        ["css=#accordion-button-\\3Are\\3A > .css-1ek6wx9", "css:finder"],
+        ["xpath=//button[@id='accordion-button-:re:']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/h2/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "964b83cc-7ffc-4f5a-85aa-38a4cefc51a9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1eq1yw8:nth-child(1) > .chakra-button",
+      "targets": [
+        ["css=.css-1eq1yw8:nth-child(1) > .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:re:']/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f4c5c235-70f4-485f-be64-11e14e554473",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(3) .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(3) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "13835fc2-2236-4f22-8ff7-f149c5851f64",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(3) .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(3) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0405136a-3d3c-4e81-8801-19c0045871ff",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(3) .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(3) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "feb2aafb-f6ac-4399-8cd6-ccc4c6981e22",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn path",
+      "targets": [
+        ["css=.chakra-modal__close-btn path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "e8919ae4-2eb2-40d9-a703-7c62eb45fc39",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "3162a9f9-606e-4594-9af1-0a0e54d30d56",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrNome",
+      "targets": [],
+      "value": "Il nome della scheda è obbligatorio"
+    }]
+  }, {
+    "id": "03341608-d932-40b6-bd78-54ad789a2236",
+    "name": "TC_5.1.2",
+    "commands": [{
+      "id": "f36129cd-26c9-4ad5-bbce-219fc8714866",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/trainingcards",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "520bbf1a-4677-441c-a77c-3342bbb94410",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "04b739b2-c47b-4436-a3b8-5403920228d6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-5lu1h0",
+      "targets": [
+        ["css=.css-5lu1h0", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div/a/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/a/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Crea Scheda Allenamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "da6ef6b7-c380-4853-a0cc-43659a817dda",
+      "comment": "",
+      "command": "click",
+      "target": "id=textScheda",
+      "targets": [
+        ["id=textScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textScheda", "css:finder"],
+        ["xpath=//input[@id='textScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "609eeb1d-7b00-40dd-846a-01b9f1d868dd",
+      "comment": "",
+      "command": "type",
+      "target": "id=textScheda",
+      "targets": [
+        ["id=textScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textScheda", "css:finder"],
+        ["xpath=//input[@id='textScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Scheda pettorali e deltoidi"
+    }, {
+      "id": "366f59fd-cca2-41b3-af6d-5e1f642865e0",
+      "comment": "",
+      "command": "click",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["name=frequenzaScheda", "name"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "13b0b5e6-fa95-413b-a6e4-62feab3cf5d7",
+      "comment": "",
+      "command": "type",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["name=frequenzaScheda", "name"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "2"
+    }, {
+      "id": "1678a7a2-8369-42bf-a5ea-e4b5daacc93a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c9343aa5-3624-4747-8960-9737e9ed3b08",
+      "comment": "",
+      "command": "click",
+      "target": "css=form",
+      "targets": [
+        ["css=form", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6cdb2610-4b68-40c5-bd84-76ae50b64197",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=textErrEsGio",
+      "targets": [],
+      "value": "Inserisci almeno un esercizio per ogni giorno!"
+    }]
+  }, {
+    "id": "72a43bcd-198b-43f7-89e5-59ac372f2021",
+    "name": "TC_5.1.3",
+    "commands": [{
+      "id": "a9e4af3b-af2e-4974-98cc-5704fcbf3a00",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/trainingcards",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "7d8b043c-8be9-46f5-9a9c-66cdec609aca",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "0006bc61-e86a-4352-a7ce-87ac4f23c645",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-5lu1h0",
+      "targets": [
+        ["css=.css-5lu1h0", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div/a/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/a/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Crea Scheda Allenamento')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7faf357a-d5b1-4fb5-8553-f7c9d527684f",
+      "comment": "",
+      "command": "click",
+      "target": "id=textScheda",
+      "targets": [
+        ["id=textScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textScheda", "css:finder"],
+        ["xpath=//input[@id='textScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bfbd123a-a982-4299-9ea3-7df00a16d4e4",
+      "comment": "",
+      "command": "type",
+      "target": "id=textScheda",
+      "targets": [
+        ["id=textScheda", "id"],
+        ["name=nome", "name"],
+        ["css=#textScheda", "css:finder"],
+        ["xpath=//input[@id='textScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "Scheda pettorali e deltoidi"
+    }, {
+      "id": "8df92274-9a74-4eae-aada-e9abfe659b29",
+      "comment": "",
+      "command": "click",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["name=frequenzaScheda", "name"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "74c8fbe4-a5f6-41cf-985b-df5a1b9068a1",
+      "comment": "",
+      "command": "type",
+      "target": "id=frequenzaScheda",
+      "targets": [
+        ["id=frequenzaScheda", "id"],
+        ["name=frequenzaScheda", "name"],
+        ["css=#frequenzaScheda", "css:finder"],
+        ["xpath=//input[@id='frequenzaScheda']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/div[2]/input", "xpath:idRelative"],
+        ["xpath=//div[2]/input", "xpath:position"]
+      ],
+      "value": "3"
+    }, {
+      "id": "c3191ccd-a942-49b7-a773-9263a17e63d9",
+      "comment": "",
+      "command": "click",
+      "target": "css=form",
+      "targets": [
+        ["css=form", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form", "xpath:idRelative"],
+        ["xpath=//form", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "efe60492-b477-4c2c-8118-c2c9a0aefd1f",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[@type='button'])[7]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:ra:']/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Aggiungi Esercizi')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "57f68b6c-e206-4e79-acee-cf2a7342a916",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r9:']/div/div/div/div/div[2]/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7a946e9b-1301-4e8b-8a32-ee98bd2d4612",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r9:']/div/div/div/div/div[2]/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "510bd037-21e8-4a47-ac35-709a9d165d3d",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(1) .chakra-button",
+      "targets": [
+        ["css=.css-0:nth-child(1) .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[14]", "xpath:attributes"],
+        ["xpath=//div[@id='chakra-modal--body-:r9:']/div/div/div/div/div[2]/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "272dbb86-8dbc-4c99-8395-a0b2f7ecf45b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[12]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-:r9:']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "7ac43d7d-4135-44f2-89dc-7efb00babe8b",
+      "comment": "",
+      "command": "click",
+      "target": "css=#accordion-button-\\3Arc\\3A > .css-1ek6wx9",
+      "targets": [
+        ["css=#accordion-button-\\3Arc\\3A > .css-1ek6wx9", "css:finder"],
+        ["xpath=//button[@id='accordion-button-:rc:']/div", "xpath:idRelative"],
+        ["xpath=//div[2]/h2/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "83fcc757-1c25-4e3d-a7da-4dacb4b274e1",
+      "comment": "",
+      "command": "click",
+      "target": "xpath=(//button[@type='button'])[10]",
+      "targets": [
+        ["xpath=(//button[@type='button'])[10]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:rc:']/div/button", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2331b2c1-0654-40c7-9c5b-5f48e504826d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f78651d3-ea36-48e7-b410-793d91e3d04f",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9ee61f0-5729-4dea-b5b7-21befdb85b71",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(2) > .css-xumdn4 .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "7184bd3a-e1bd-46f6-9ea4-9a2c578d0895",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn",
+      "targets": [
+        ["css=.chakra-modal__close-btn", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//section[@id='chakra-modal-:r9:']/button", "xpath:idRelative"],
+        ["xpath=//section/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "02c0ae5a-dbd1-4ac6-9fc1-19c4f04c059c",
+      "comment": "",
+      "command": "click",
+      "target": "css=#accordion-button-\\3Are\\3A > .css-1ek6wx9",
+      "targets": [
+        ["css=#accordion-button-\\3Are\\3A > .css-1ek6wx9", "css:finder"],
+        ["xpath=//button[@id='accordion-button-:re:']/div", "xpath:idRelative"],
+        ["xpath=//div[3]/h2/button/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "35affcbc-0d99-4837-87c1-1fd2312245ff",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1eq1yw8:nth-child(1) > .chakra-button",
+      "targets": [
+        ["css=.css-1eq1yw8:nth-child(1) > .chakra-button", "css:finder"],
+        ["xpath=(//button[@type='button'])[13]", "xpath:attributes"],
+        ["xpath=//div[@id='accordion-panel-:re:']/div/button", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "df8cc128-9892-4569-b07a-25fa7009b399",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-0:nth-child(3) .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(3) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "42219b4e-aa34-4aea-8828-a97b740c6ddd",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.css-0:nth-child(3) .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(3) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f08d7374-5907-4124-bcb3-57e87feadd02",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.css-0:nth-child(3) .chakra-icon",
+      "targets": [
+        ["css=.css-0:nth-child(3) .chakra-icon", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "56c38603-adef-4a7a-9b1c-93f80f9a9b35",
+      "comment": "",
+      "command": "click",
+      "target": "css=.chakra-modal__close-btn path",
+      "targets": [
+        ["css=.chakra-modal__close-btn path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "413a468f-a5a4-4e10-a31d-732bb3298fde",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-1caq6fh",
+      "targets": [
+        ["css=.css-1caq6fh", "css:finder"],
+        ["xpath=//button[@type='submit']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[3]/div/div[2]/div[2]/form/button", "xpath:idRelative"],
+        ["xpath=//form/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Salva Scheda')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a31152cd-0d2d-4d43-8353-550817e7a015",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=toast-3-title",
+      "targets": [],
+      "value": "Operazione eseguita!"
+    }]
+  }],
+  "suites": [{
+    "id": "ee005b9e-54b3-47ec-9590-d4bacc6be809",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["1badda74-4f8f-48dd-9f9c-4b5ac6de73e7"]
+  }],
+  "urls": ["http://localhost:3000/trainingcards"],
+  "plugins": []
+}

@@ -103,7 +103,7 @@ export default function Create() {
         }
         loadlistaEsercizi();
     }, [fetchContext]);
-    
+
     function addEsercizio(esercizio, serie, ripetizioni,recupero, descrizione) {
         let esiste=false;
         let i=0;
@@ -242,6 +242,7 @@ export default function Create() {
                                            newValue=7
                                        }
                                        if(newValue < 1) {
+                                           e.target.value=1
                                            newValue=1
                                        }
                                        setFrequenzaScheda(newValue)
