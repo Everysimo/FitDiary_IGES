@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestioneProtocolloController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">it.fitdiary.backend.gestioneprotocollo.controller</a> &gt; <span class="el_source">GestioneProtocolloController.java</span></div><h1>GestioneProtocolloController.java</h1><pre class="source lang-java linenums">package it.fitdiary.backend.gestioneprotocollo.controller;
+
+import it.fitdiary.backend.entity.Protocollo;
+import it.fitdiary.backend.entity.Ruolo;
+import it.fitdiary.backend.entity.Utente;
+import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloService;
+import it.fitdiary.backend.gestioneutenza.service.GestioneUtenzaService;
+import it.fitdiary.backend.utility.FileUtility;
+import it.fitdiary.backend.utility.ResponseHandler;
+import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.OK;
+
+@RestController
+<span class="fc" id="L38">@Slf4j</span>
+@RequestMapping(path = &quot;api/v1/protocolli&quot;)
+public class GestioneProtocolloController {
+    /**
+     * max byte per la dimensione dei file.
+     */
+    public static final int MAX_FILE_UPLOAD = 52428800;
+    /**
+     * Service di gestione protocollo.
+     */
+    private final GestioneProtocolloService gestioneProtocolloService;
+    /**
+     * Service di gestione utenza.
+     */
+    private final GestioneUtenzaService gestioneUtenzaService;
+
+    /**
+     * @param gestioneProtocolloServ
+     * @param gestioneUtenzaServ
+     */
+    @Autowired
+    public GestioneProtocolloController(
+            final GestioneProtocolloService gestioneProtocolloServ,
+<span class="fc" id="L61">            final GestioneUtenzaService gestioneUtenzaServ) {</span>
+<span class="fc" id="L62">        this.gestioneProtocolloService = gestioneProtocolloServ;</span>
+<span class="fc" id="L63">        this.gestioneUtenzaService = gestioneUtenzaServ;</span>
+<span class="fc" id="L64">    }</span>
+
+    @PostMapping
+    private ResponseEntity&lt;Object&gt; creazioneProtocollo(
+            @RequestParam(&quot;dataScadenza&quot;)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            final LocalDate dataScadenza,
+            @RequestParam(&quot;idCliente&quot;) final Long idCliente,
+            @RequestParam(name=&quot;idSchedaAlimentare&quot;, required = false) final Long idSchedaAlimentare,
+            @RequestParam(name=&quot;idSchedaAllenamento&quot;, required = false)
+            final Long idSchedaAllenamento) {
+        HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L76">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+
+<span class="fc" id="L78">        Long idPreparatore = Long.parseLong(</span>
+<span class="fc" id="L79">                request.getUserPrincipal().getName());</span>
+
+<span class="fc" id="L81">        Utente preparatore = gestioneUtenzaService.getById(idPreparatore);</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        if (!gestioneUtenzaService.existsByPreparatoreAndId(</span>
+                preparatore, idCliente)) {
+<span class="fc" id="L84">            return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,</span>
+                    &quot;Il preparatore non può creare &quot;
+                            + &quot;un protocollo per questo cliente&quot;);
+        }
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        if ((idSchedaAllenamento == null &amp;&amp; idSchedaAlimentare == null))</span>
+        {
+<span class="fc" id="L90">            return ResponseHandler.generateResponse(BAD_REQUEST, (Object)</span>
+                    &quot;IdSchedaAllenamento e idSchedaAlimentare non possono essere null &quot;);
+        }
+
+<span class="fc" id="L94">        Utente cliente = gestioneUtenzaService.getById(idCliente);</span>
+//        File schedaAllenamentoFile;
+//        try {
+//            schedaAllenamentoFile =
+//                    FileUtility.getFile(schedaAllenamentoMultipartFile);
+//           if ((schedaAllenamentoFile != null)
+//                    &amp;&amp; (schedaAllenamentoFile.length() &gt; MAX_FILE_UPLOAD)) {
+//                return ResponseHandler.generateResponse(
+//                        HttpStatus.BAD_REQUEST,
+//                        (Object) &quot;il file &quot; + schedaAllenamentoFile
+//                                .getName()
+//                                + &quot; ha dimensioni elevate&quot;);
+//            }
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse(
+//                    HttpStatus.INTERNAL_SERVER_ERROR,
+//                    &quot;errore nella lettura dei file&quot;);
+//        }
+        try {
+<span class="fc" id="L113">            Protocollo newProtocollo =</span>
+<span class="fc" id="L114">                    gestioneProtocolloService.creazioneProtocollo(dataScadenza,cliente,preparatore,</span>
+                            idSchedaAlimentare, idSchedaAllenamento);
+<span class="fc" id="L116">            return ResponseHandler.generateResponse(HttpStatus.CREATED,</span>
+                    &quot;protocollo&quot;, newProtocollo);
+<span class="nc" id="L118">        } catch (IOException e) {</span>
+<span class="nc" id="L119">            return ResponseHandler.generateResponse(</span>
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    &quot;Errore nella lettura dei file&quot;);
+<span class="nc" id="L122">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L123">            return ResponseHandler.generateResponse(BAD_REQUEST,</span>
+<span class="nc" id="L124">                    (Object) e.getMessage());</span>
+<span class="nc" id="L125">        }catch (Exception e)</span>
+        {
+<span class="nc" id="L127">            return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR,</span>
+<span class="nc" id="L128">                (Object) e.getMessage());</span>
+        }
+    }
+
+    @PutMapping(&quot;{idProtocollo}&quot;)
+    private ResponseEntity&lt;Object&gt; modificaProtocollo(
+            @PathVariable(&quot;idProtocollo&quot;) final Long idProtocollo,
+            @RequestParam(name=&quot;idSchedaAlimentare&quot;, required = false) final Long idSchedaAlimentare,
+            @RequestParam(name = &quot;idSchedaAllenamento&quot;, required = false)
+            final Long idSchedaAllenamento) {
+        HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L139">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+
+<span class="fc" id="L141">        Long idPreparatore = Long.parseLong(</span>
+<span class="fc" id="L142">                request.getUserPrincipal().getName());</span>
+<span class="fc" id="L143">        Utente preparatore = gestioneUtenzaService.getById(idPreparatore);</span>
+<span class="fc" id="L144">        Protocollo protocollo = null;</span>
+        try {
+<span class="fc" id="L146">            protocollo =</span>
+<span class="fc" id="L147">                    gestioneProtocolloService.getByIdProtocollo(idProtocollo);</span>
+<span class="nc" id="L148">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L149">            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+                    (Object)
+                            &quot;Il protocollo da modificare non esiste&quot;);
+<span class="fc" id="L152">        }</span>
+<span class="fc" id="L153">        Long idCliente = protocollo.getCliente().getId();</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">        if (!gestioneUtenzaService.existsByPreparatoreAndId(preparatore,</span>
+                idCliente)) {
+<span class="fc" id="L156">            return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,</span>
+                    (Object)
+                            &quot;Il preparatore non può modificare &quot;
+                            + &quot;un protocollo per questo cliente&quot;);
+        }
+<span class="fc bfc" id="L161" title="All 4 branches covered.">        if ((idSchedaAllenamento == null &amp;&amp; idSchedaAlimentare == null))</span>
+        {
+<span class="fc" id="L163">            return ResponseHandler.generateResponse(BAD_REQUEST, (Object)</span>
+                    &quot;IdSchedaAllenamento e idSchedaAlimentare non possono essere null &quot;);
+        }
+
+//        File schedaAllenamentoFile;
+//        try {
+//            schedaAllenamentoFile = FileUtility.getFile(schedaAllenamentoMultipartFile);
+//            if ((schedaAllenamentoFile != null)
+//                    &amp;&amp; (schedaAllenamentoFile.length() &gt; MAX_FILE_UPLOAD)) {
+//                return ResponseHandler.generateResponse(
+//                        HttpStatus.BAD_REQUEST,
+//                        (Object) &quot;il file &quot; + schedaAllenamentoFile
+//                                .getName()
+//                                + &quot; ha dimensioni elevate&quot;);
+//            }
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse(
+//                    HttpStatus.INTERNAL_SERVER_ERROR,
+//                    &quot;errore nella lettura dei file&quot;);
+//        }
+        try {
+<span class="fc bfc" id="L184" title="All 2 branches covered.">            if (idSchedaAlimentare != null) {</span>
+<span class="fc" id="L185">                gestioneProtocolloService.modificaSchedaAlimentare(</span>
+                        protocollo,
+                        idSchedaAlimentare);
+            }
+<span class="fc bfc" id="L189" title="All 2 branches covered.">            if (idSchedaAllenamento != null) {</span>
+<span class="fc" id="L190">                gestioneProtocolloService.modificaSchedaAllenamento(</span>
+                        protocollo,
+                        idSchedaAllenamento);
+            }
+<span class="fc" id="L194">            return ResponseHandler.generateResponse(HttpStatus.CREATED,</span>
+                    &quot;protocollo&quot;, protocollo);
+<span class="nc" id="L196">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L197">            return ResponseHandler.generateResponse(BAD_REQUEST,</span>
+                    &quot;protocollo&quot;,
+<span class="nc" id="L199">                    e.getMessage());</span>
+        }
+    }
+
+    /**
+     * Questa funzione permette di visualizzare
+     * un proprio protocollo da parte di un cliente.
+     *
+     * @param id indica l' identificativo del protocollo
+     * @return protocollo selezionato
+     * @throws IOException
+     */
+    @GetMapping(&quot;{id}&quot;)
+    public ResponseEntity&lt;Object&gt; visualizzaProtocollo(
+            @PathVariable(&quot;id&quot;) final Long id)
+            throws IOException {
+        var request = ((ServletRequestAttributes)
+<span class="fc" id="L216">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+<span class="fc" id="L217">        var principal =</span>
+<span class="fc" id="L218">                Long.parseLong(request.getUserPrincipal().getName());</span>
+        Protocollo protocollo;
+        try {
+<span class="fc" id="L221">            protocollo =</span>
+<span class="fc" id="L222">                    gestioneProtocolloService.getByIdProtocollo(id);</span>
+<span class="nc" id="L223">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L224">            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+                    (Object)
+                            &quot;Il protocollo non esiste&quot;);
+<span class="fc" id="L227">        }</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">        if (protocollo.getCliente().getId() == principal</span>
+<span class="pc bpc" id="L229" title="1 of 2 branches missed.">                || protocollo.getPreparatore().getId() == principal) {</span>
+<span class="fc" id="L230">            return ResponseHandler.generateResponse(HttpStatus.OK,</span>
+                    &quot;protocollo&quot;,
+                    protocollo);
+        }
+<span class="fc" id="L234">        return ResponseHandler.generateResponse(BAD_REQUEST,</span>
+                (Object) &quot;l'utente non ha accesso a questo protocollo&quot;);
+    }
+
+
+    /**
+     * Questa funzione permette di visualizzare una lista di protocolli.
+     *
+     * @param idCliente indica l' identificativo del cliente
+     * @param page      indica la pagina della lista di protocolli da prendere
+     * @return lista protocolli
+     */
+    @GetMapping
+    public ResponseEntity&lt;Object&gt; visualizzaStoricoProtocolli(
+            @RequestParam(name =
+                    &quot;clienteId&quot;, required = false) final Long idCliente,
+            @RequestParam(name = &quot;page&quot;, required = false) final Integer page) {
+        HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L252">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+<span class="fc" id="L253">        Long idUtente = Long.parseLong(</span>
+<span class="fc" id="L254">                request.getUserPrincipal().getName());</span>
+
+<span class="fc bfc" id="L256" title="All 2 branches covered.">        if (idCliente != null) {</span>
+<span class="fc" id="L257">            return visualizzaStoricoProtocolliPreparatore(idCliente);</span>
+        } else {
+            Utente user;
+            try {
+<span class="fc" id="L261">                user = gestioneUtenzaService.getById(idUtente);</span>
+<span class="fc" id="L262">            } catch (IllegalArgumentException e) {</span>
+<span class="fc" id="L263">                return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+<span class="fc" id="L264">                        (Object) e.getMessage());</span>
+<span class="fc" id="L265">            }</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">            if (user.getRuolo().getNome().equals(</span>
+                    Ruolo.RUOLOCLIENTE)) {
+<span class="fc" id="L268">                return visualizzaStoricoProtocolliClienti();</span>
+            } else {
+<span class="pc bpc" id="L270" title="1 of 2 branches missed.">                return visualizzaListaProtocollo(page == null ? 1 : page);</span>
+            }
+        }
+    }
+
+
+    private ResponseEntity&lt;Object&gt; visualizzaListaProtocollo(final int page) {
+        HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L278">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+
+<span class="fc" id="L280">        Long idPreparatore = Long.parseLong(</span>
+<span class="fc" id="L281">                request.getUserPrincipal().getName());</span>
+<span class="fc" id="L282">        Utente preparatore = gestioneUtenzaService.getById(idPreparatore);</span>
+<span class="fc" id="L283">        return ResponseHandler.generateResponse(HttpStatus.OK,</span>
+                &quot;protocollo&quot;,
+<span class="fc" id="L285">                gestioneProtocolloService.getAllProtocolliPreparatore(</span>
+                        preparatore, page));
+    }
+
+    /**
+     * @param idCliente id del cliente di
+     *                  cui si vuole visualizzare il protocollo
+     * @return lista di protocolli del cliente vuota o piena
+     */
+    public ResponseEntity&lt;Object&gt; visualizzaStoricoProtocolliPreparatore(
+            final Long idCliente) {
+        HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L297">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+
+<span class="fc" id="L299">        Long idPreparatore = Long.parseLong(</span>
+<span class="fc" id="L300">                request.getUserPrincipal().getName());</span>
+<span class="fc" id="L301">        Utente preparatore = gestioneUtenzaService.getById(idPreparatore);</span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">        if (!gestioneUtenzaService.existsByPreparatoreAndId(</span>
+                preparatore, idCliente)) {
+<span class="nc" id="L304">            return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,</span>
+                    (Object)
+                            &quot;Il preparatore non può vedere &quot;
+                            + &quot;la lista dei protocolli per questo cliente&quot;);
+        }
+        try {
+<span class="fc" id="L310">            Utente utenteCliente = gestioneUtenzaService.getById(idCliente);</span>
+<span class="fc" id="L311">            List&lt;Protocollo&gt; protocolloList = gestioneProtocolloService</span>
+<span class="fc" id="L312">                .visualizzaStoricoProtocolliCliente(</span>
+                    utenteCliente);
+<span class="fc" id="L314">            return ResponseHandler.generateResponse(HttpStatus.OK,</span>
+                    &quot;protocollo&quot;, protocolloList);
+<span class="nc" id="L316">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L317">            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+<span class="nc" id="L318">                    (Object) e.getMessage());</span>
+        }
+    }
+
+
+    /**
+     * @return storico dei protocolli del cliente autenticato
+     */
+    public ResponseEntity&lt;Object&gt; visualizzaStoricoProtocolliClienti() {
+        HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L328">                RequestContextHolder.getRequestAttributes()).getRequest();</span>
+<span class="fc" id="L329">        Long idCliente = Long.parseLong(</span>
+<span class="fc" id="L330">                request.getUserPrincipal().getName());</span>
+<span class="fc" id="L331">        Utente cliente = null;</span>
+        try {
+<span class="fc" id="L333">            cliente = gestioneUtenzaService.getById(idCliente);</span>
+<span class="fc" id="L334">            return ResponseHandler.generateResponse(HttpStatus.OK,</span>
+                    &quot;protocollo&quot;,
+                    gestioneProtocolloService
+<span class="fc" id="L337">                            .visualizzaStoricoProtocolliCliente(</span>
+                                    cliente));
+<span class="nc" id="L339">        } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L340">            return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+<span class="nc" id="L341">                    (Object) e.getMessage());</span>
+        }
+    }
+
+    /**
+     * cattura dell'errore MissingServletRequestPartException.
+     *
+     * @param ex errore
+     * @return messaggio di errore formato jsend
+     */
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity&lt;Object&gt; handleMissingRequestBody(
+            final MissingServletRequestPartException ex) {
+<span class="nc" id="L354">        return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+                (Object) &quot;file richiesto&quot;);
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -146,7 +146,7 @@ public class GestioneIstanzaEsercizioEseguitoServiceImplTest {
                 gestioneIstanzaEsercizioEseguitoService.visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(
                         1l,
                         1l
-                ));
+                ).getListaEserciziEseguiti());
     }
 
 }

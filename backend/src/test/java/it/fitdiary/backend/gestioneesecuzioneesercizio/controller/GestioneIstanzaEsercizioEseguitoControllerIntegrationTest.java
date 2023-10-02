@@ -124,8 +124,9 @@ public class GestioneIstanzaEsercizioEseguitoControllerIntegrationTest {
         istanzaEsercizioEseguitoDTO.setData(LocalDate.of(2023,12,12));
         istanzaEsercizioEseguitoDTO.setRipetizioni(3);
         istanzaEsercizioEseguitoDTO.setSerie(3);
-        istanzaEsercizioEseguitoDTO.setIdProtocollo(4L);
+        istanzaEsercizioEseguitoDTO.setIdProtocollo(3L);
         istanzaEsercizioEseguitoDTO.setPesoEsecuzione(3F);
+        headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<IstanzaEsercizioEseguitoDTO> entity = new HttpEntity<>(istanzaEsercizioEseguitoDTO, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(

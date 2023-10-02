@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestioneSchedaAlimentareServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">it.fitdiary.backend.gestioneschedaalimentare.service</a> &gt; <span class="el_source">GestioneSchedaAlimentareServiceImpl.java</span></div><h1>GestioneSchedaAlimentareServiceImpl.java</h1><pre class="source lang-java linenums">package it.fitdiary.backend.gestioneschedaalimentare.service;
+
+import it.fitdiary.backend.entity.Alimento;
+import it.fitdiary.backend.entity.IstanzaAlimento;
+import it.fitdiary.backend.entity.SchedaAlimentare;
+import it.fitdiary.backend.entity.Utente;
+import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
+import it.fitdiary.backend.gestionealimento.repository.AlimentoRepository;
+import it.fitdiary.backend.gestioneschedaalimentare.controller.dto.IstanzaAlimentoDTO;
+import it.fitdiary.backend.gestioneschedaalimentare.repository.IstanzaAlimentoRepository;
+import it.fitdiary.backend.gestioneschedaalimentare.repository.SchedaAlimentareRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import javax.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L23">@RequiredArgsConstructor</span>
+<span class="fc" id="L24">@Slf4j</span>
+@Transactional
+public class GestioneSchedaAlimentareServiceImpl implements GestioneSchedaAlimentareService{
+
+  private final SchedaAlimentareRepository schedaAlimentareRepository;
+  private final IstanzaAlimentoRepository istanzaAlimentoRepository;
+  private final AlimentoRepository alimentoRepository;
+
+  @Transactional
+  @Override
+  public SchedaAlimentare creaSchedaAlimentare(List&lt;IstanzaAlimentoDTO&gt; istanzeAlimentoDto, String name,
+                                               Long idPreparatore) {
+<span class="fc" id="L36">    SchedaAlimentare schedaAlimentare = new SchedaAlimentare();</span>
+<span class="fc" id="L37">    schedaAlimentare.setNome(name);</span>
+<span class="fc" id="L38">    List&lt;IstanzaAlimento&gt; istanzeAlimento = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">    for (IstanzaAlimentoDTO istanzaAlimentoDTO: istanzeAlimentoDto) {</span>
+<span class="fc" id="L40">      IstanzaAlimento istanzaAlimento = new IstanzaAlimento();</span>
+<span class="fc" id="L41">      Optional&lt;Alimento&gt; alimento = alimentoRepository.findById(istanzaAlimentoDTO.getIdAlimento());</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">      if(alimento.isEmpty())</span>
+      {
+<span class="nc" id="L44">        throw new IllegalStateException(&quot;uno delle istanze alimento fa riferimento ad un Alimento insesistente&quot;);</span>
+      }
+<span class="fc" id="L46">      istanzaAlimento.setAlimento(alimento.get());</span>
+<span class="fc" id="L47">      istanzaAlimento.setGrammi(istanzaAlimentoDTO.getGrammi());</span>
+<span class="fc" id="L48">      istanzaAlimento.setPasto(istanzaAlimentoDTO.getPasto());</span>
+<span class="fc" id="L49">      istanzaAlimento.setGiornoDellaSettimana(istanzaAlimentoDTO.getGiornoDellaSettimana());</span>
+<span class="fc" id="L50">      istanzaAlimento.setSchedaAlimentare(schedaAlimentare);</span>
+<span class="fc" id="L51">      istanzeAlimento.add(istanzaAlimento);</span>
+
+<span class="fc" id="L53">    }</span>
+<span class="fc" id="L54">    schedaAlimentare.setListaAlimenti(istanzeAlimento);</span>
+<span class="fc" id="L55">    Utente creatore = new Utente();</span>
+<span class="fc" id="L56">    creatore.setId(idPreparatore);</span>
+<span class="fc" id="L57">    schedaAlimentare.setPreparatore(creatore);</span>
+<span class="fc" id="L58">    float kcalTotali = 0;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">    for (IstanzaAlimento istanzaAlimento: istanzeAlimento) {</span>
+<span class="fc" id="L60">      kcalTotali += istanzaAlimento.getGrammi() * istanzaAlimento.getAlimento().getKcal()/100;</span>
+<span class="fc" id="L61">    }</span>
+<span class="fc" id="L62">    schedaAlimentare.setKcalAssunte(kcalTotali);</span>
+<span class="fc" id="L63">    return schedaAlimentareRepository.save(schedaAlimentare);</span>
+  }
+
+  @Transactional
+  @Override
+  public SchedaAlimentare modificaSchedaAlimentare(List&lt;IstanzaAlimentoDTO&gt; istanzeAlimentoDTO,
+                                                   String name, Long idPreparatoreRichiedente,
+                                                   Long idScheda) {
+<span class="fc" id="L71">    Optional&lt;SchedaAlimentare&gt; schedaAlimentareDaModificareOptional = schedaAlimentareRepository.findById(idScheda);</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">    if(schedaAlimentareDaModificareOptional.isEmpty())</span>
+    {
+<span class="nc" id="L74">      throw new IllegalStateException(&quot;scheda da modifcare con id &quot; + idScheda + &quot; non esiste&quot;);</span>
+    }
+<span class="fc" id="L76">    SchedaAlimentare schedaAlimentareDaModificare = schedaAlimentareDaModificareOptional.get();</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    if(!Objects.equals(schedaAlimentareDaModificare.getPreparatore().getId(),</span>
+        idPreparatoreRichiedente))
+    {
+<span class="nc" id="L80">      throw new IllegalStateException(&quot;non hai i permessi per modificare la scheda con id &quot; + idScheda);</span>
+    }
+<span class="fc" id="L82">    schedaAlimentareDaModificare.setNome(name);</span>
+
+<span class="fc" id="L84">    List&lt;IstanzaAlimento&gt; istanzeAlimento = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">    for (IstanzaAlimentoDTO istanzaAlimentoDTO: istanzeAlimentoDTO) {</span>
+<span class="fc" id="L86">      IstanzaAlimento istanzaAlimento = new IstanzaAlimento();</span>
+<span class="fc" id="L87">      Optional&lt;Alimento&gt; alimento = alimentoRepository.findById(istanzaAlimentoDTO.getIdAlimento());</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">      if(alimento.isEmpty())</span>
+      {
+<span class="nc" id="L90">        throw new IllegalStateException(&quot;uno delle istanze alimento fa riferimento ad un Alimento insesistente&quot;);</span>
+      }
+<span class="fc" id="L92">      istanzaAlimento.setAlimento(alimento.get());</span>
+<span class="fc" id="L93">      istanzaAlimento.setGrammi(istanzaAlimentoDTO.getGrammi());</span>
+<span class="fc" id="L94">      istanzaAlimento.setPasto(istanzaAlimentoDTO.getPasto());</span>
+<span class="fc" id="L95">      istanzaAlimento.setGiornoDellaSettimana(istanzaAlimentoDTO.getGiornoDellaSettimana());</span>
+<span class="fc" id="L96">      istanzaAlimento.setSchedaAlimentare(schedaAlimentareDaModificare);</span>
+<span class="fc" id="L97">      istanzeAlimento.add(istanzaAlimento);</span>
+
+<span class="fc" id="L99">    }</span>
+<span class="fc" id="L100">    istanzaAlimentoRepository.deleteAll(schedaAlimentareDaModificare.getListaAlimenti());</span>
+<span class="fc" id="L101">    schedaAlimentareDaModificare.setListaAlimenti(istanzeAlimento);</span>
+<span class="fc" id="L102">    float kcalTotali = 0;</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">    for (IstanzaAlimento istanzaAlimento: istanzeAlimento) {</span>
+<span class="fc" id="L104">      kcalTotali += istanzaAlimento.getGrammi() * istanzaAlimento.getAlimento().getKcal()/100;</span>
+<span class="fc" id="L105">    }</span>
+<span class="fc" id="L106">    schedaAlimentareDaModificare.setKcalAssunte(kcalTotali);</span>
+<span class="fc" id="L107">    return schedaAlimentareRepository.save(schedaAlimentareDaModificare);</span>
+  }
+
+  @Override
+  public List&lt;SchedaAlimentare&gt; getSchedeAlimentariByPreparaore(Long idPreparatoreRichiedente) {
+<span class="fc" id="L112">    return schedaAlimentareRepository.findAllByPreparatoreId(idPreparatoreRichiedente);</span>
+  }
+
+  @Override
+  public SchedaAlimentare getSchedeAlimentariById(Long idScheda) {
+<span class="nc" id="L117">    Optional&lt;SchedaAlimentare&gt; schedaAlimentareOptional = schedaAlimentareRepository.findById(idScheda);</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">    if(schedaAlimentareOptional.isEmpty())</span>
+    {
+<span class="nc" id="L120">      throw new IllegalStateException(&quot;scheda alimentare con id &quot; + idScheda + &quot; non trovata&quot;);</span>
+    }
+<span class="nc" id="L122">    return schedaAlimentareOptional.get();</span>
+  }
+
+  @Override
+  public List&lt;IstanzaAlimento&gt; getAlimentiBySchedaAlimentareAndGiornoDellaSettimana(
+      SchedaAlimentare schedaAlimentare, GIORNO_SETTIMANA giornoDellaSettimana) {
+<span class="nc" id="L128">    return istanzaAlimentoRepository.findAllBySchedaAlimentareAndGiornoDellaSettimana(schedaAlimentare,giornoDellaSettimana);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

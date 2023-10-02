@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.GATEWAY_TIMEOUT;
 
 @RestController
 @Slf4j
@@ -53,20 +54,28 @@ public class GestioneIstanzaEsercizioEseguitoController {
     HttpServletRequest request = ((ServletRequestAttributes)
         RequestContextHolder.getRequestAttributes()).getRequest();
 
+
+
     Long idCliente = Long.parseLong(
         request.getUserPrincipal().getName());
+
+
     Protocollo protocollo =
         gestioneProtocolloService.getByIdProtocollo(esercizioEseguitoDTO.getIdProtocollo());
+
+
     if (!Objects.equals(protocollo.getCliente().getId(), idCliente)) {
       return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,
           "Il cliente non può creare un'istanza di esercizio per questo "
               + "protocollo poichè non gli appartiene");
     }
+
     if ((esercizioEseguitoDTO.getIdProtocollo() == null ||
         esercizioEseguitoDTO.getIdIstanzaEsercizio() == null)) {
       return ResponseHandler.generateResponse(BAD_REQUEST, (Object)
           "idProtocollo e idIstanzaEsercizio non possono essere null ");
     }
+
 
     try {
       IstanzaEsercizioEseguito newIstanzaEsercizioEseguito =

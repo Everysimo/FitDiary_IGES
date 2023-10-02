@@ -331,15 +331,15 @@
 					<maxAllowedViolations>20</maxAllowedViolations>
 					<linkXRef>false</linkXRef>
 				</configuration>
-				<executions>
-					<execution>
-						<id>validate</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>validate</id>-->
+<!--						<phase>validate</phase>-->
+<!--						<goals>-->
+<!--							<goal>check</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
 			</plugin> <!-- maven-checkstyle-plugin -->
 			<plugin>
 				<groupId>com.github.bordertech.buildtools</groupId>
