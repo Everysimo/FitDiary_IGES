@@ -39,49 +39,27 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 
-const urlScheda = "schedaAllenamento/getSchedaAllenamentoById";
+const urlScheda = "istanzaAlimentiConsumati/visualizzaIstanzeAlimentoConsumato";
 const Index = () => {
   const fetchContext = useContext(FetchContext);
   const navigate = useNavigate();
-  const { id } = useParams();
-  const [options, setOptions] = useState(null);
   const [isLoading, setisLoading] = useState(false);
-  const [schedaAllenamento, setSchedaAllenamento] = useState({
-    nome:"",
-    listaEsercizi:[]
-  });
-  const { register, handleSubmit, setValue, formState: { errors} } = useForm();
+  const [idProtocollo, setIdProtocollo] = useState(false);
   const [toastMessage, setToastMessage] = useState(undefined);
-  const [search, setSearch] = useState("");
-
-  const [selectedDay, setSelectedDay] = useState(-1);
-  const [daysAllenamenti,setDaysAllenamenti] = useState([]);
 
   const localizer = momentLocalizer(moment);
 
   const [giorniScheda, setGiorniScheda] = useState([
     {
-      title: 'Evento 1',
+      title: "",
       kcalConsumate:0,
-      kcalPreviste:10,
+      kcalPreviste:0,
       start: moment().toDate(),
-      end: moment().add(1, 'hour').toDate(),
-    },
-    {
-      title: 'Evento 2',
-      kcalConsumate:0,
-      kcalPreviste:10,
-      start: moment().add(1, 'day').toDate(),
-      end: moment().add(1, 'day').toDate(),
-    },
+      end: moment().toDate(),
+    }
   ]);
 
 
-  function toastParam(title, description, status) {
-    return {
-      title: title, description: description, status: status
-    };
-  }
   const toast = useToast({
     duration: 3000,
     isClosable: true,
@@ -110,38 +88,63 @@ const Index = () => {
   }, [toastMessage, toast]);
 
   useEffect(() => {
+    const url = new URL(window.location.href);
+    setIdProtocollo(url.searchParams.get("idProtocollo"));
+    const currentDate = moment(); // Ottieni la data corrente
+    const daysInMonth = currentDate.daysInMonth(); // Ottieni il numero di giorni nel mese corrente
+    const promises = [];
+
     setisLoading(true);
-    const getScheda = async () => {
-      try {
-        const {data} = await fetchContext.authAxios(urlScheda+"?idScheda="+id);
-        let schedaAll=data.data.scheda_allenamento;
-        let vettGiorni=[];
-        for(let i=0;i<schedaAll.listaEsercizi.length;i++)
-        {
-          let obj=schedaAll.listaEsercizi[i];
-          let giorno=obj.giornoDellaSettimana;
-          if(!vettGiorni.includes(giorno))
-          {
-            vettGiorni.push(giorno);
-          }
-        }
-        setDaysAllenamenti(vettGiorni);
-        console.log(schedaAll);
-        setSchedaAllenamento(schedaAll);
-        setSelectedDay(-1);
-        setisLoading(false);
-      } catch (error) {
-        setToastMessage({title:"Error",body:error.message,stat:"error"})
-      }
+
+    // Cicla attraverso tutti i giorni del mese
+    for (let i = 1; i <= daysInMonth; i++) {
+      const date = currentDate.clone().date(i);
+      const formattedDate = date.format("YYYY-MM-DD");
+      console.log(formattedDate)
+      const promise = fetchContext.authAxios(`${urlScheda}?idProtocollo=${url.searchParams.get("idProtocollo")}&dataConsumazione=${formattedDate}`)
+          .then((response) => response.data)
+          .then((data) => {
+            console.log(data)
+            if(data.data.result.calorieConsumate === 0){
+              return {
+                title: 'Vuoto',
+                start: formattedDate,
+                end: formattedDate,
+              };
+            }
+            return {
+              title: "Ciao",
+              kcalConsumate: data.data.result.calorieConsumate,
+              kcalPreviste: data.data.result.calorieAspettate,
+              start: formattedDate,
+              end: formattedDate,
+            };
+          })
+          .catch((error) => {
+            console.error(`Errore nella richiesta API per ${formattedDate}: ${error.message}`);
+            return null;
+          });
+
+      promises.push(promise);
     }
-    getScheda();
 
-  }, [fetchContext])
-
+    // Esegui tutte le chiamate API in parallelo
+    Promise.all(promises)
+        .then((results) => {
+          // Filtra i risultati non nulli
+          const filteredResults = results.filter((result) => result !== null);
+          setGiorniScheda(filteredResults);
+          setisLoading(false);
+        })
+        .catch((error) => {
+          console.error(`Errore nella gestione delle promesse: ${error.message}`);
+          setisLoading(false);
+        });
+  }, [fetchContext]);
 
   // Funzione per gestire il clic su un evento
   const handleEventClick = (event) => {
-    alert(`Hai cliccato su: ${event.title}`);
+    navigate("../dieta/esegui?dataConsumazione="+event.start+"&idProtocollo="+idProtocollo);
   };
 
   const CustomEvent = ({ event }) => (
@@ -150,7 +153,11 @@ const Index = () => {
       >
         <VStack>
           <Text>{event.title}</Text>
-          <Text>{event.kcalConsumate}/{event.kcalPreviste} kcal</Text>
+          {event.kcalConsumate > 0 && (
+              <Text>
+                {event.kcalConsumate}/{event.kcalPreviste} kcal
+              </Text>
+          )}
         </VStack>
 
       </div>
@@ -160,7 +167,7 @@ const Index = () => {
     <>
       <Flex wrap={"wrap"} p={5}>
         <Flex alignItems={"center"} mb={5}>
-          <Heading w={"full"}>{schedaAllenamento.nome}</Heading>
+          <Heading w={"full"}>{"I miei progressi alimentari"}</Heading>
         </Flex>
         <Box bg={"white"} roundedTop={20} minW={{ base: "100%", xl: "100%" }} h={"full"}>
           <GradientBar />
@@ -173,7 +180,8 @@ const Index = () => {
                   events={giorniScheda}
                   startAccessor="start"
                   endAccessor="end"
-                  style={{ width: '100%' }}ù
+
+                  style={{ width: '100%' }}
                   components={{
                     event: CustomEvent, // Utilizza il componente personalizzato per gli eventi
                   }}
@@ -182,7 +190,6 @@ const Index = () => {
               />
             </div>
           </div>
-          );
         </Box>
       </Flex>
     </>

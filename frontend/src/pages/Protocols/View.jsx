@@ -165,7 +165,7 @@ export default function View() {
                                     </Tooltip>
                                     <Tooltip label="Vuoi inserire un nuovo reporto sulla dieta?">
                                         <Button onClick={() => {
-                                            navigate("/dieta/"+protocollo.schedaAlimentazione.id)
+                                            navigate("/dieta/?idProtocollo="+protocollo.id+"&idSchedaAlimentare="+protocollo.schedaAlimentare.id)
                                         }} colorScheme='fitdiary'>Mangia</Button>
                                     </Tooltip>
                                 </ButtonGroup>

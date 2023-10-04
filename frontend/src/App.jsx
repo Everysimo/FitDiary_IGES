@@ -92,10 +92,8 @@ const AppRoutes = () => {
                 <Route path={"allenamenti/:id"} element={<ReportAllenamentoView/>}/>
                 <Route path={"allenamenti/esegui"} element={<ReportAllenamentoCreate/>}/>
 
-                <Route path={"dieta/:id"} element={<ActiveDietCardIndex/>}/>
-                <Route path={"dieta/esegui"} element={<ReportAllenamentoCreate/>}/>
-
-
+                <Route path={"dieta/"} element={<ActiveDietCardIndex/>}/>
+                <Route path={"dieta/esegui"} element={<ActiveDietCardCreate/>}/>
 
                 <Route path="alimenti" element={<AlimentiIndex />} />
                 <Route path="esercizi" element={<EserciziIndex />} />

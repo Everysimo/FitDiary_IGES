@@ -12,15 +12,9 @@ import {
   useToast,
   VStack
 } from "@chakra-ui/react";
-import {useForm} from "react-hook-form"
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {FetchContext} from "../../context/FetchContext";
-import { GiMeal } from "react-icons/gi";
-import {IoIosFitness} from "react-icons/io";
-import {AddIcon, CloseIcon, InfoIcon, SearchIcon} from "@chakra-ui/icons";
-import Select from "react-select";
 import {GradientBar} from "../../components/GradientBar";
-import {useNavigate} from "react-router";
 import {Timer} from "../../components/Timer";
 
 const urlInfo = "istanzaEserciziEseguiti/visualizzaIstanzaEsercizio";
