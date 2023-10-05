@@ -27,7 +27,7 @@ import {
   Thead,
   Tr, useDisclosure,
   useToast,
-  VStack
+  VStack, background
 } from "@chakra-ui/react";
 import {useForm} from "react-hook-form"
 import React, {useCallback, useContext, useEffect, useState} from "react";
@@ -113,7 +113,6 @@ const Index = () => {
               };
             }
             return {
-              title: "Ciao",
               kcalConsumate: data.data.result.calorieConsumate,
               kcalPreviste: data.data.result.calorieAspettate,
               start: formattedDate,
@@ -151,12 +150,17 @@ const Index = () => {
       <div
           onClick={() => handleEventClick(event)}
       >
-        <VStack>
-          <Text>{event.title}</Text>
+        <VStack >
+          {event.title && (
+              <Text>{event.title}</Text>
+          )}
           {event.kcalConsumate > 0 && (
-              <Text>
-                {event.kcalConsumate}/{event.kcalPreviste} kcal
-              </Text>
+              <VStack >
+                <Text >
+                  {event.kcalConsumate}/{event.kcalPreviste}
+                </Text>
+                <Text> kcal </Text>
+              </VStack>
           )}
         </VStack>
 

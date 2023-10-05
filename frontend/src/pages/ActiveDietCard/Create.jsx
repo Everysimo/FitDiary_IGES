@@ -49,6 +49,7 @@ import {useParams} from "react-router";
 
 export default function Edit() {
     const urlGetIstanzeAlimentiConsumati = "istanzaAlimentiConsumati/visualizzaIstanzeAlimentoConsumato";
+    const urlCreaIstanzeAlimentiConsumati = "istanzaAlimentiConsumati/creaIstanzaAlimentoConsumato";
     const fetchContext = useContext(FetchContext);
     const {isOpen, onOpen, onClose} = useDisclosure()
     const {handleSubmit, formState: {errors, isSubmitting}} = useForm();
@@ -61,15 +62,13 @@ export default function Edit() {
     const authContext = useContext(AuthContext)
     const {authState} = authContext;
     const [search, setSearch] = useState("");
-    const [fetchCompleted, setFetchCompleted] = useState(false); // Nuovo stato
     const [listaAlimentiConsumati, setListaAlimentiConsumati] = useState([]);
     const [listaAlimentiScheda, setListaAlimentiScheda] = useState([]);
-    const [indexGiorno, setIndexGiorno] = useState(0);
-    const [nomeScheda, setNomeScheda] = useState("");
-    const [kcalAssunte, setkcalAssunte] = useState(0);
+
 
     const [isLoading, setisLoading] = useState(false);
     const [idProtocollo, setIdProtocollo] = useState(false);
+    const [dataConsumazione, setDataConsumazione] = useState(false);
 
     const onChange = (e) => {
         setSearch(e.target.value);
@@ -106,11 +105,11 @@ export default function Edit() {
             try {
                 const url = new URL(window.location.href);
                 setIdProtocollo(url.searchParams.get("idProtocollo"));
-                const dataConsumazione = url.searchParams.get("dataConsumazione");
+                setDataConsumazione(url.searchParams.get("dataConsumazione"))
 
-                console.log(`${urlGetIstanzeAlimentiConsumati}?idProtocollo=${url.searchParams.get("idProtocollo")}&dataConsumazione=${dataConsumazione}`)
+                console.log(`${urlGetIstanzeAlimentiConsumati}?idProtocollo=${url.searchParams.get("idProtocollo")}&dataConsumazione=${url.searchParams.get("dataConsumazione")}`)
 
-                const {data} = await fetchContext.authAxios(`${urlGetIstanzeAlimentiConsumati}?idProtocollo=${url.searchParams.get("idProtocollo")}&dataConsumazione=${dataConsumazione}`)
+                const {data} = await fetchContext.authAxios(`${urlGetIstanzeAlimentiConsumati}?idProtocollo=${url.searchParams.get("idProtocollo")}&dataConsumazione=${url.searchParams.get("dataConsumazione")}`)
 
                 console.log(data.data.result)
 
@@ -173,24 +172,20 @@ export default function Edit() {
 
     function formatData(inputData) {
         const formattedData = {
-            schedaId: id, name: nomeScheda, istanzeAlimenti: [],
+            idProtocollo: idProtocollo,
+            listaAlimenti: [],
         };
-
+        console.log(inputData)
         if (inputData && Array.isArray(inputData)) {
             for (let i = 0; i < inputData.length; i++) {
-                const instances = inputData[i];
-                instances.forEach((instance) => {
-                    console.log("Instanza:")
-                    console.log(instance);
-                    if (instance && instance.alimento) {
-                        formattedData.istanzeAlimenti.push({
-                            grammi: instance.grammi || 0,
-                            giornoDellaSettimana: instance.giornoDellaSettimana || 0,
-                            pasto: instance.pasto || "0",
-                            idAlimento: instance.alimento.id || 0,
-                        });
-                    }
-                });
+                const instance = inputData[i];
+                if (instance && instance.alimento) {
+                    formattedData.listaAlimenti.push({
+                        grammi: instance.grammi || 0,
+                        istanzaAlimentoId: instance.alimento.id || 0,
+                        data: dataConsumazione|| 0,
+                    });
+                }
             }
 
         }
@@ -201,7 +196,7 @@ export default function Edit() {
     const onSubmit = async (values) => {
         try {
 
-            let numeroAlimentiScheda = 0
+            let numeroAlimentiScheda = listaAlimentiConsumati.length
             if (numeroAlimentiScheda <= 0) {
                 toast(toastParam("Attenzione!", "Inserisci almeno un alimento", "error"));
                 throw new Error()
@@ -211,6 +206,8 @@ export default function Edit() {
         }
 
         try {
+            let formattedScheda = formatData(listaAlimentiConsumati)
+            const {data} = await fetchContext.authAxios.post(urlCreaIstanzeAlimentiConsumati, formattedScheda);
             toast(toastParam("Sceheda Alimentare modificata con successo", "Scheda modificata!", "success"));
         } catch (error) {
             console.log(error.response.data.message)
