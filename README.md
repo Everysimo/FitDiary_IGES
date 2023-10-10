@@ -8,20 +8,20 @@
 ![Branch Coverage](.github/badges/branches.svg)
 ![Checkstyle](.github/badges/checkstyle-result.svg)
 
-> Progetto realizzato per i corsi di Gestione dei Progetti Software e Ingegneria del Software - Università degli studi di Salerno 2021/22
+> Progetto realizzato per il corso di Ingegneria Gestione ed Evoluzione del Software - Università degli Studi di Salerno 2022/23
 
 ## Partecipanti
 
-| Project Managers | Team Members |
-|---|---|
-| [Salvatore Fasano](https://github.com/fasanosalvatore) | [Daniele De Marco](https://github.com/dany98sa)|
-| [Gianluca Spinelli](https://github.com/GianlucaSpinelli) | [Ilaria De Sio](https://github.com/iladesio) |
-|   | [Rebecca Di Matteo](https://github.com/rebeccadimatteo) |
-|   | [Daniele Giaquinto](https://github.com/exSnake) |
-|   | [Davide La Gamba](https://github.com/davide-lagamba) |
-|   | [Leonardo Monaco](https://github.com/lnrdmnc) |
-|   | [Simone Spera](https://github.com/Everysimo) |
-|   | [Antonio Trapanese](https://github.com/MastAntonio) |
+| Project Managers                                         | Team Members                                            | Maintainers                                       |
+|----------------------------------------------------------|---------------------------------------------------------|---------------------------------------------------|
+| [Salvatore Fasano](https://github.com/fasanosalvatore)   | [Daniele De Marco](https://github.com/dany98sa)         | [Raffaele Sais](https://github.com/DrLele08)      |
+| [Gianluca Spinelli](https://github.com/GianlucaSpinelli) | [Ilaria De Sio](https://github.com/iladesio)            | [Simone Spera](https://github.com/Everysimo)      |
+|                                                          | [Rebecca Di Matteo](https://github.com/rebeccadimatteo) | [Otino Pio Santosuosso](https://github.com/Pio57) |
+|                                                          | [Daniele Giaquinto](https://github.com/exSnake)         | [Aurelio Sepe](https://github.com/AurySepe)       |
+|                                                          | [Davide La Gamba](https://github.com/davide-lagamba)    |
+|                                                          | [Leonardo Monaco](https://github.com/lnrdmnc)           |
+|                                                          | [Simone Spera](https://github.com/Everysimo)            |
+|                                                          | [Antonio Trapanese](https://github.com/MastAntonio)     |
 
 ## Documentazione
 

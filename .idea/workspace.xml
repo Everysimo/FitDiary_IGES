@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="018ca594-3d1b-4ed0-a662-33ecf0037b6b" name="Changes" comment="feat: implemented edit of diet">
-      <change afterPath="$PROJECT_DIR$/1553722826500.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +44,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "dev__cr3",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/drlele08/Desktop/FitDiary_IGES",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -84,6 +82,7 @@
       <workItem from="1695122430991" duration="154000" />
       <workItem from="1695122606132" duration="68000" />
       <workItem from="1695388691829" duration="35000" />
+      <workItem from="1696978281350" duration="224000" />
     </task>
     <servers />
   </component>
