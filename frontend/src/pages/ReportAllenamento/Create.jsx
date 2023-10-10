@@ -3,7 +3,7 @@ import {
   Button,
   Flex,
   GridItem,
-  Heading,
+  Heading, HStack,
   Image,
   Input,
   SimpleGrid,
@@ -25,7 +25,13 @@ const Create = () => {
   const [isLoading, setisLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState(undefined);
   const [reportAllenamento, setReportAllenamento] = useState({
-    nome:"NOME_ES"
+    nome:"Esercizio"
+  });
+
+  const [infoEs,setInfoEs] = useState({
+    reps:0,
+    serie:0,
+    recupero:0
   });
 
 
@@ -60,7 +66,7 @@ const Create = () => {
         setToastMessage(undefined);
       },1000);
     }
-  }, [toastMessage, toast]);
+  }, [toastMessage]);
 
   useEffect(() => {
     setisLoading(true);
@@ -71,19 +77,40 @@ const Create = () => {
         // Ottenere i parametri dall'URL
         const idIstanzaEsercizio = url.searchParams.get("idIstanzaEsercizio");
         const idProtocollo = url.searchParams.get("idProtocollo");
-        const {info} = await fetchContext.authAxios(urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio);
-        console.log("INFO:");
-        console.log(info);
-        let report={};
-        report.nome="NOME_ES";
+        let urlAPI=urlInfo+"?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio;
+        const {data} = await fetchContext.authAxios(urlAPI);
+        let infoEs=data.data.istanzeEserciziEseguiti.listaEserciziEseguiti;
 
-        let vettTest=[];
-        let objTest={weight: "Ok", sets: "Lol", reps: "xD", pauseTime: 0};
-        vettTest.push(objTest);
-        vettTest.push(objTest);
+        let info=data.data.istanzeEserciziEseguiti.istanzaEsercizio;
+        console.log(info);
+        let infoObj={
+          reps:info.ripetizioni,
+          serie:info.serie,
+          recupero:info.recupero
+        };
+
+        setInfoEs(infoObj);
+
+        let vettStorico=[];
+        if(infoEs !== null)
+        {
+          for(let i=0;i<infoEs.length;i++)
+          {
+            let tmp=infoEs[i];
+            let data=tmp.dataEsecuzione;
+            let peso=tmp.pesoEsecuzione;
+            let serie=tmp.numeroSerie;
+            let ripetizioni=tmp.ripetizioni;
+            let obj={weight: peso, sets: serie, reps: ripetizioni, data: data};
+            vettStorico.push(obj);
+          }
+        }
+
+        let report={};
+        report.nome="Storico Esercizio";
 
         setReportAllenamento(report);
-        setExerciseData(vettTest);
+        setExerciseData(vettStorico);
         setisLoading(false);
       } catch (error) {
         setToastMessage({title:"Error",body:error.message,stat:"error"})
@@ -96,19 +123,84 @@ const Create = () => {
 
 
     const [exerciseData, setExerciseData] = useState([]);
-    const [newData, setNewData] = useState({ weight: "", sets: "", reps: "", pauseTime: 0});
+    const [newData, setNewData] = useState({ weight: "", sets: "", reps: "", data: "Adesso"});
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setNewData({ ...newData, [name]: value });
+      if(e.target.name === "weight")
+      {
+        document.getElementById("textErrPeso").style.visibility = "hidden";
+      }
+      else if(e.target.name === "sets")
+      {
+        document.getElementById("textErrSerie").style.visibility = "hidden";
+      }
+      else if(e.target.name === "reps")
+      {
+        document.getElementById("textErrRipetizioni").style.visibility = "hidden";
+      }
     };
 
-    const handleAddData = () => {
-      if (newData.weight && newData.sets && newData.reps && newData.pauseTime) {
-        setExerciseData([...exerciseData, newData]);
-        setNewData({ weight: "", sets: "", reps: "", pauseTime: 0});
+    const handleAddData = async () => {
+      if (newData.weight && newData.sets && newData.reps && newData.data)
+      {
+        if(newData.weight.length>0 && newData.sets.length>0 && newData.reps.length>0)
+        {
+          const url = new URL(window.location.href);
 
-        alert("ADD TO DB");
+          // Ottenere i parametri dall'URL
+          const idIstanzaEsercizio = url.searchParams.get("idIstanzaEsercizio");
+          const idProtocollo = url.searchParams.get("idProtocollo");
+
+          let jsonReq={
+            "idProtocollo":idProtocollo,
+            "idIstanzaEsercizio":idIstanzaEsercizio,
+            "pesoEsecuzione":newData.weight,
+            "serie":newData.sets,
+            "ripetizioni":newData.reps
+          };
+
+          try
+          {
+            const {data} = await fetchContext.authAxios.post(urlCreazione, jsonReq);
+
+            if(data.status === "success")
+            {
+              setToastMessage({title:"Fatto",body:"Esercizio effettuato",stat:"success"});
+
+              setExerciseData([...exerciseData, newData]);
+              setNewData({ weight: "", sets: "", reps: "", data: "Adesso"});
+            }
+            else
+            {
+              setToastMessage({title:"Errore",body:"Errore durante la richiesta",stat:"error"});
+            }
+          }
+          catch (e)
+          {
+            setToastMessage({title:"Errore",body:"Errore durante la richiesta",stat:"error"});
+          }
+        }
+        else
+        {
+          setToastMessage({title:"Attenzione",body:"Inserisci tutti i dati",stat:"warning"});
+        }
+      }
+      else
+      {
+        if(!newData.weight)
+        {
+          document.getElementById("textErrPeso").style.visibility = "visible";
+        }
+        if(!newData.sets)
+        {
+          document.getElementById("textErrSerie").style.visibility = "visible";
+        }
+        if(!newData.reps)
+        {
+          document.getElementById("textErrRipetizioni").style.visibility = "visible";
+        }
       }
     };
 
@@ -126,31 +218,65 @@ const Create = () => {
                 <SimpleGrid columns={2} columnGap={5} rowGap={5} pl={[0, 5, 10]} pr={[0, 5, 10]} w="full">
                   <GridItem colSpan={1}>
                     <Image src="../../EserciziPalestra/990x548-410x200.gif" alt="Exercise" maxW="400px" mb={4} />
+                      <Text fontWeight="bold">Informazioni Allenamento</Text>
+                    <Flex>
+                      <Text fontWeight="bold">Ripetizioni:</Text>
+                      <Text>
+                        {infoEs.reps}
+                      </Text>
+                    </Flex>
+                    <Flex>
+                      <Text fontWeight="bold">Serie:</Text>
+                      <Text>
+                        {infoEs.serie}
+                      </Text>
+                    </Flex>
+                    <Flex>
+                      <Text fontWeight="bold">Recupero:</Text>
+                      <Text>
+                        {infoEs.recupero} s
+                      </Text>
+                    </Flex>
                     <Stack direction="row" mt={3} spacing={4}>
+                      <VStack>
+                        <Input
+                            type="number"
+                            name="weight"
+                            placeholder="Peso (kg)"
+                            value={newData.weight}
+                            onChange={handleInputChange}
+                        />
+                        <Text color={"red"} id={"textErrPeso"} style={{visibility:"hidden"}}>Il peso è obbligatorio</Text>
+                      </VStack>
+                      <VStack>
+                        <Input
+                            type="number"
+                            name="sets"
+                            placeholder="Serie"
+                            value={newData.sets}
+                            onChange={handleInputChange}
+                        />
+                        <Text color={"red"} id={"textErrSerie"} style={{visibility:"hidden"}}>Le serie sono obbligatorie</Text>
+                      </VStack>
+                      <VStack>
+                        <Input
+                            type="number"
+                            name="reps"
+                            placeholder="Ripetizione"
+                            value={newData.reps}
+                            onChange={handleInputChange}
+                        />
+                        <Text color={"red"} id={"textErrRipetizioni"} style={{visibility:"hidden"}}>Le ripetizioni sono obbligatorie</Text>
+                      </VStack>
                       <Input
-                          type="number"
-                          name="weight"
-                          placeholder="Peso (kg)"
-                          value={newData.weight}
-                          onChange={handleInputChange}
-                      />
-                      <Input
-                          type="number"
-                          name="sets"
-                          placeholder="Serie"
-                          value={newData.sets}
-                          onChange={handleInputChange}
-                      />
-                      <Input
-                          type="number"
-                          name="reps"
-                          placeholder="Ripetizione"
-                          value={newData.reps}
+                          type="hidden"
+                          name="date"
+                          placeholder="Data"
+                          value={"Oggi"}
                           onChange={handleInputChange}
                       />
                     </Stack>
                     <Timer onClick={(time)=>{
-                      newData.pauseTime=time;
                       handleAddData();
                     }}>
 
@@ -162,9 +288,10 @@ const Create = () => {
                       <VStack align="start">
                         {exerciseData.map((data, index) => (
                             <Box key={index}>
-                              <Text>
-                                Peso: {data.weight} kg, Serie: {data.sets}, Ripetizione: {data.reps}, Tempo: {data.pauseTime}s
-                              </Text>
+                              <Flex>
+                                <Text fontWeight="bold">[{data.data}] </Text>
+                                <Text>Peso: {data.weight} kg, Serie: {data.sets}, Ripetizione: {data.reps}</Text>
+                              </Flex>
                             </Box>
                         ))}
                       </VStack>
@@ -173,7 +300,7 @@ const Create = () => {
                   </GridItem>
                   <GridItem colSpan={2} >
                     {/* eslint-disable-next-line no-restricted-globals */}
-                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Termina Esercizio</Button>
+                    <Button colorScheme="fitdiary" type={"button"} w="full" onClick={()=>{history.back();}}>Chiudi Esercizio</Button>
                   </GridItem>
                 </SimpleGrid>
               </form>

@@ -94,7 +94,6 @@ export default function Create() {
         const loadlistaEsercizi = async () => {
             try {
                 const { data } = await fetchContext.authAxios("esercizi/getAllEsercizi");
-                console.log(data)
                 setEsercizi(data.data);
                 setLoading(false); //viene settato a false per far capire di aver caricato tutti i dati
             } catch (error) {
@@ -104,7 +103,7 @@ export default function Create() {
         }
         loadlistaEsercizi();
     }, [fetchContext]);
-    
+
     function addEsercizio(esercizio, serie, ripetizioni,recupero, descrizione) {
         let esiste=false;
         let i=0;
@@ -138,7 +137,6 @@ export default function Create() {
         {
             toast(toastParam("Attenzione!", "Hai già inserito questo esercizio", "warning"));
         }
-        console.log(schedaAllenamento)
     }
 
     function formatData(inputData) {
@@ -166,24 +164,23 @@ export default function Create() {
                 }
             });
         }
-        console.log("Format: ");
-        console.log(formattedData);
         return formattedData;
     }
 
     const onSubmit = async (values) => {
         let filterScheda=[];
-        console.log(schedaAllenamento);
         for(let i=0;i<frequenzaScheda;i++)
         {
             filterScheda.push(schedaAllenamento[i]);
         }
-        console.log("Ciao");
-        console.log(filterScheda);
         try {
-            if(nomeScheda.length <0){
-                toast(toastParam("Attenzione!", "Inserisci un nome valido", "error"));
+            if(nomeScheda.length <= 0){
+                document.getElementById("textErrNome").style.visibility = "visible";
                 throw new Error()
+            }
+            if(frequenzaScheda <= 0 || frequenzaScheda>7) {
+                document.getElementById("textErrFre").style.visibility = "visible";
+                throw new Error();
             }
             let numeroEserciziScheda = 0
             let numGiorni=0;
@@ -196,25 +193,21 @@ export default function Create() {
             })
             if(numGiorni != frequenzaScheda)
             {
-                throw new Error("Inserisci almeno un allenamento per ogni giorno");
+                document.getElementById("textErrEsGio").style.visibility = "visible";
+                throw new Error();
             }
             if(numeroEserciziScheda <= 0) {
-                toast(toastParam("Attenzione!", "Inserisci almeno un esercizio", "error"));
+                document.getElementById("textErrEsGio").style.visibility = "visible";
                 throw new Error()
             }
 
-            console.log("Non forma");
-            console.log(filterScheda);
             let formattedScheda = formatData(filterScheda)
-            console.log("Formatted:");
-            console.log(formattedScheda);
             const {data} = await fetchContext.authAxios.post(urlCreateSchedaAllenamento, formattedScheda);
             setSchedaAllenamento([[],[],[],[],[],[],[]]);
             document.getElementById("textScheda").value="";
             toast(toastParam("Sceheda Allenamento creata con successo", "Scheda aggiunta all'elenco", "success"));
         }
         catch (error) {
-            alert(error);
         }
     }
 
@@ -227,31 +220,36 @@ export default function Create() {
                 <GradientBar/>
                 <Box pl={[0, 5, 20]} pr={[0, 5, 20]} pb={10} pt={5}>
                     <form style={{width: "100%"}} onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl id={"nome"} isInvalid={errors.nome} isRequired={"required"} pt={5}>
+                        <FormControl id={"nome"} pt={5}>
                             <FormLabel htmlFor="nome">Nome delle scheda</FormLabel>
-                            <Input required={"true"} type="text" id={"textScheda"} placeholder="Scheda pettorali e deltoidi" name={"nome"}
+                            <Input type="text" id={"textScheda"} placeholder="Scheda pettorali e deltoidi" name={"nome"}
                                    onChange={(e) => {
+                                       document.getElementById("textErrNome").style.visibility = "hidden";
                                        let newNome = e.target.value;
                                        setNomeScheda(newNome)
                                    }}/>
                             <FormErrorMessage>{errors.nome && errors.nome.message}</FormErrorMessage>
                         </FormControl>
-                        <FormControl id={"frequenzaScheda"} isInvalid={errors.nome} isRequired={"required"} pt={5}>
+                        <Text color={"red"} id={"textErrNome"} style={{visibility:"hidden"}}>Il nome della scheda è obbligatorio</Text>
+                        <FormControl id={"frequenzaScheda"} pt={5}>
                             <FormLabel htmlFor="frequenzaScheda">Frequenza Settiamanale</FormLabel>
-                            <Input required={"true"} type="number" min={1} max={7} placeholder="3" defaultValue={3} name={"frequenzaScheda"}
+                            <Input type="number" min={1} max={7} placeholder="3" name={"frequenzaScheda"}
                                    onChange={(e) => {
+                                       document.getElementById("textErrFre").style.visibility = "hidden";
                                        let newValue = e.target.value;
                                        if(newValue > 7) {
                                            e.target.value=7
                                            newValue=7
                                        }
                                        if(newValue < 1) {
+                                           e.target.value=1
                                            newValue=1
                                        }
                                        setFrequenzaScheda(newValue)
                                    }}/>
                             <FormErrorMessage>{errors.nome && errors.nome.message}</FormErrorMessage>
                         </FormControl>
+                        <Text color={"red"} id={"textErrFre"} style={{visibility:"hidden"}}>La frequenza della scheda è obbligatoria</Text>
 
                         <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={"5xl"}>
                             <ModalOverlay/>
@@ -489,6 +487,7 @@ export default function Create() {
                                                     w="full"
                                                     colorScheme='fitdiary'
                                                     onClick={() => {
+                                                        document.getElementById("textErrEsGio").style.visibility = "hidden";
                                                         onOpen();
                                                         setIndexGiorno(d);
                                                     }}>
@@ -498,6 +497,8 @@ export default function Create() {
                                     </AccordionItem>
                                 )
                             })}
+
+                            <Text color={"red"} id={"textErrEsGio"} style={{visibility:"hidden"}}>Inserisci almeno un esercizio per ogni giorno!</Text>
 
                         </Accordion>
                         <Button w="full" mt={4} colorScheme='fitdiary' isLoading={isSubmitting} type='submit'>

@@ -40,7 +40,7 @@ const urlScheda = "schedaAllenamento/getSchedaAllenamentoById";
 const View = () => {
   const fetchContext = useContext(FetchContext);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id,idProtocollo } = useParams();
   const [options, setOptions] = useState(null);
   const [isLoading, setisLoading] = useState(false);
   const [schedaAllenamento, setSchedaAllenamento] = useState({
@@ -164,7 +164,7 @@ const View = () => {
                                 <Flex justifyContent="flex-end">
                                   <Button
                                       onClick={() => {
-                                        navigate("../allenamenti/esegui?idIstanzaEsercizio="+item.id+"&idProtocollo="+id);
+                                        navigate("../allenamenti/esegui?idIstanzaEsercizio="+item.id+"&idProtocollo="+idProtocollo);
                                       }}
                                       bg="blue.500"
                                       rounded="full"

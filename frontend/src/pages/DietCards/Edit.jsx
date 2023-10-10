@@ -61,10 +61,9 @@ export default function Edit() {
     const {authState} = authContext;
     const [search, setSearch] = useState("");
     const [fetchCompleted, setFetchCompleted] = useState(false); // Nuovo stato
-    const [schedaAlimentare, setSchedaAlimentare] = useState([[], [], [], [], [], [], []]);
+    let [schedaAlimentare, setSchedaAlimentare] = useState([[], [], [], [], [], [], []]);
     const [indexGiorno, setIndexGiorno] = useState(0);
     const [nomeScheda, setNomeScheda] = useState("");
-    const [kcalAssunte, setkcalAssunte] = useState(0);
 
     const onChange = (e) => {
         setSearch(e.target.value); // e evento target chi lancia l'evento e il value è il valore
@@ -129,8 +128,6 @@ export default function Edit() {
                     return 5;
                 case "DOMENICA":
                     return 6;
-
-
             }
             return -1;
         }
@@ -141,9 +138,7 @@ export default function Edit() {
                     const {data} = await fetchContext.authAxios("schedaalimentare/getSchedaAlimentareById?idScheda=" + id);
                     let scheda=data.data.scheda_alimentare;
                     let nome=scheda.nome;
-                    let kcalAssunte=scheda.kcalAssunte;
                     setNomeScheda(nome);
-                    setkcalAssunte(kcalAssunte);
                     let tmpList=data.data.scheda_alimentare.listaAlimenti;
 
                     const raggruppatoPerGiorno = [[],[],[],[],[],[],[]];
@@ -211,12 +206,42 @@ export default function Edit() {
         {
             let objTest={};
             objTest.alimento=alimento;
-            objTest.pasto=pasto;
+            objTest.pasto=vettPasti[pasto].Key;
             objTest.grammi=grammi;
-            objTest.giornoDellaSettimana=indexGiorno;
 
+            switch (indexGiorno)
+            {
+                case 0:
+                    objTest.giornoDellaSettimana="LUNEDI";
+                    break;
+                case 1:
+                    objTest.giornoDellaSettimana="MARTEDI";
+                    break;
+                case 2:
+                    objTest.giornoDellaSettimana="MERCOLEDI";
+                    break;
+                case 3:
+                    objTest.giornoDellaSettimana="GIOVEDI";
+                    break;
+                case 4:
+                    objTest.giornoDellaSettimana="VENERDI";
+                    break;
+                case 5:
+                    objTest.giornoDellaSettimana="SABATO";
+                    break;
+                case 6:
+                    objTest.giornoDellaSettimana="DOMENICA";
+                    break;
+                default:
+                    objTest.giornoDellaSettimana="LUNEDI"
+                    break;
+            }
+
+            console.log(schedaAlimentare);
             let tmp=schedaAlimentare;
             tmp[indexGiorno].push(objTest);
+            console.log(tmp);
+
             setSchedaAlimentare(tmp);
 
             toast(toastParam("Operazione eseguita!", "Alimento aggiunto con successo", "success"));
@@ -259,8 +284,8 @@ export default function Edit() {
 
     const onSubmit = async (values) => {
         try {
-            if(nomeScheda.length <0){
-                toast(toastParam("Attenzione!", "Inserisci un nome valido", "error"));
+            if(nomeScheda.length <= 0){
+                document.getElementById("textErrNome").style.visibility = "visible";
                 throw new Error()
             }
             let numeroAlimentiScheda = 0
@@ -268,7 +293,7 @@ export default function Edit() {
                 numeroAlimentiScheda += el.length;
             })
             if(numeroAlimentiScheda <= 0) {
-                toast(toastParam("Attenzione!", "Inserisci almeno un alimento", "error"));
+                document.getElementById("textErrCibi").style.visibility = "visible";
                 throw new Error()
             }
         }catch (error) {
@@ -280,7 +305,7 @@ export default function Edit() {
             const {data} = await fetchContext.authAxios.post(urlCreateSchedaALimentare, formattedScheda);
             setSchedaAlimentare([[],[],[],[],[],[],[]]);
             setNomeScheda("");
-            toast(toastParam("Sceheda Alimentare modificata con successo", "Scheda modificata!", "success"));
+            toast(toastParam("Scheda alimentare modificata con successo", "Scheda modificata!", "success"));
         } catch (error) {
             console.log(error.response.data.message)
             toast({
@@ -298,15 +323,17 @@ export default function Edit() {
                 <GradientBar/>
                 <Box pl={[0, 5, 20]} pr={[0, 5, 20]} pb={10} pt={5}>
                     <form style={{width: "100%"}} onSubmit={handleSubmit(onSubmit)}>
-                        <FormControl id={"nome"} isInvalid={errors.nome} isRequired={"required"} pt={5}>
+                        <FormControl id={"nome"} pt={5}>
                             <FormLabel htmlFor="nome">Nome delle scheda</FormLabel>
-                            <Input required={"true"} type="text" value={nomeScheda} name={"nome"}
+                            <Input type="text" value={nomeScheda} name={"nome"}
                                    onChange={(e) => {
+                                       document.getElementById("textErrNome").style.visibility = "hidden";
                                        let newNome = e.target.value;
                                        setNomeScheda(newNome)
                                    }}/>
                             <FormErrorMessage>{errors.nome && errors.nome.message}</FormErrorMessage>
                         </FormControl>
+                        <Text color={"red"} id={"textErrNome"} style={{visibility:"hidden"}}>Il nome della scheda è obbligatorio</Text>
 
                         <Modal isOpen={isOpen} onClose={onClose} isCentered={true} size={"5xl"}>
                             <ModalOverlay/>
@@ -342,7 +369,8 @@ export default function Edit() {
                                                             {/* Barra di ricerca*/}
                                                             <Text fontWeight={"bold"} mt={"4"} align={"left"}>Seleziona
                                                                 un pasto:</Text>
-                                                            <Select placeholder='Seleziona pasto' id={"selectPasto"}>
+                                                            <Select placeholder='Seleziona pasto' id={"selectPasto"} onChange={event =>
+                                                                    document.getElementById("textErrMod").style.visibility = "hidden"}>
                                                                 <option value='0'>Colazione</option>
                                                                 <option value='1'>Spuntino Mattina</option>
                                                                 <option value='2'>Pranzo</option>
@@ -351,6 +379,7 @@ export default function Edit() {
                                                                 <option value='5'>Spuntino Serale</option>
                                                                 <option value='6'>Extra</option>
                                                             </Select>
+                                                            <Text color={"red"} id={"textErrMod"} style={{visibility:"hidden"}} align={"left"}>La selezione del pasto è obbligatoria</Text>
                                                             {listAlimenti.lista_alimenti.length > 0 ? (<>
                                                                 <Text fontSize="xl" my={5}>
                                                                     Lista degli alimenti
@@ -396,7 +425,7 @@ export default function Edit() {
                                                                                         if (idPasto.length > 0) {
                                                                                             addAlimento(alimento, idPasto, 150);
                                                                                         } else {
-                                                                                            toast(toastParam("Attenzione!", "Seleziona un pasto", "error"))
+                                                                                            document.getElementById("textErrMod").style.visibility = "visible";
                                                                                         }
                                                                                     }}
                                                                                     fontSize={"s"}>
@@ -547,8 +576,9 @@ export default function Edit() {
                                                     w="full"
                                                     colorScheme='fitdiary'
                                                     onClick={() => {
-                                                        onOpen();
+                                                        document.getElementById("textErrCibi").style.visibility = "hidden";
                                                         setIndexGiorno(i);
+                                                        onOpen();
                                                     }}>
                                                     Aggiungi alimenti</Button>
                                             </Flex>
@@ -557,6 +587,7 @@ export default function Edit() {
 
                                 )
                             })}
+                            <Text color={"red"} id={"textErrCibi"} style={{visibility:"hidden"}}>Inserire almeno un pasto!</Text>
 
                         </Accordion>
                         <Button w="full" mt={4} colorScheme='fitdiary' isLoading={isSubmitting} type='submit'>

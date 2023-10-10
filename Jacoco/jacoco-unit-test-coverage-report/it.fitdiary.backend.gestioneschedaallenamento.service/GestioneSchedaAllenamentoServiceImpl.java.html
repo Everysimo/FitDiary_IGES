@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestioneSchedaAllenamentoServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">it.fitdiary.backend.gestioneschedaallenamento.service</a> &gt; <span class="el_source">GestioneSchedaAllenamentoServiceImpl.java</span></div><h1>GestioneSchedaAllenamentoServiceImpl.java</h1><pre class="source lang-java linenums">package it.fitdiary.backend.gestioneschedaallenamento.service;
+
+import it.fitdiary.backend.entity.*;
+import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
+import it.fitdiary.backend.gestioneesercizio.repository.EsercizioRepository;
+import it.fitdiary.backend.gestioneschedaallenamento.controller.dto.IstanzaEsercizioDTO;
+import it.fitdiary.backend.gestioneschedaallenamento.repository.IstanzaEsercizioRepository;
+import it.fitdiary.backend.gestioneschedaallenamento.repository.SchedaAllenamentoRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+@Service
+<span class="fc" id="L20">@RequiredArgsConstructor</span>
+<span class="fc" id="L21">@Slf4j</span>
+@Transactional
+public class GestioneSchedaAllenamentoServiceImpl implements GestioneSchedaAllenamentoService{
+    private final IstanzaEsercizioRepository istanzaEsercizioRepository;
+    private final SchedaAllenamentoRepository schedaAllenamentoRepository;
+    private final EsercizioRepository esercizioRepository;
+
+    @Transactional
+    @Override
+    public SchedaAllenamento creaSchedaAllenamento(List&lt;IstanzaEsercizioDTO&gt; istanzeEsercizioDto, String nome,
+                                                  Long idPreparatore, Integer frequenza) {
+<span class="fc" id="L32">        SchedaAllenamento schedaAllenamento = new SchedaAllenamento();</span>
+<span class="fc" id="L33">        schedaAllenamento.setNome(nome);</span>
+<span class="fc" id="L34">        List&lt;IstanzaEsercizio&gt; istanzeEsercizio = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for(IstanzaEsercizioDTO istanzaEsercizioDTO: istanzeEsercizioDto){</span>
+<span class="fc" id="L36">            IstanzaEsercizio istanzaEsercizio = new IstanzaEsercizio();</span>
+<span class="fc" id="L37">            Optional&lt;Esercizio&gt; esercizio = esercizioRepository.findById(istanzaEsercizioDTO.getIdEsercizio());</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">            if(esercizio.isEmpty()){</span>
+<span class="nc" id="L39">                throw new IllegalStateException(&quot;uno delle istanze esercizio fa riferimento ad un Esercizio insesistente&quot;);</span>
+            }
+<span class="fc" id="L41">            istanzaEsercizio.setSchedaAllenamento(schedaAllenamento);</span>
+<span class="fc" id="L42">            istanzaEsercizio.setEsercizio(esercizio.get());</span>
+<span class="fc" id="L43">            istanzaEsercizio.setGiornoDellaSettimana(istanzaEsercizioDTO.getGiornoDellaSettimana());</span>
+<span class="fc" id="L44">            istanzaEsercizio.setDescrizione(istanzaEsercizioDTO.getDescrizione());</span>
+<span class="fc" id="L45">            istanzaEsercizio.setRecupero(istanzaEsercizioDTO.getRecupero());</span>
+<span class="fc" id="L46">            istanzaEsercizio.setSerie(istanzaEsercizioDTO.getSerie());</span>
+<span class="fc" id="L47">            istanzaEsercizio.setRipetizioni(istanzaEsercizioDTO.getRipetizioni());</span>
+<span class="fc" id="L48">            istanzeEsercizio.add(istanzaEsercizio);</span>
+<span class="fc" id="L49">        }</span>
+<span class="fc" id="L50">        schedaAllenamento.setListaEsercizi(istanzeEsercizio);</span>
+<span class="fc" id="L51">        Utente creatore = new Utente();</span>
+<span class="fc" id="L52">        creatore.setId(idPreparatore);</span>
+<span class="fc" id="L53">        schedaAllenamento.setPreparatore(creatore);</span>
+<span class="fc" id="L54">        schedaAllenamento.setFrequenza(frequenza);</span>
+
+<span class="fc" id="L56">        return schedaAllenamentoRepository.save(schedaAllenamento);</span>
+    }
+
+    @Transactional
+    @Override
+    public SchedaAllenamento modificaSchedaAllenamento(List&lt;IstanzaEsercizioDTO&gt; istanzeEsercizioDto, String nome,
+                                                       Long idPreparatoreRichiedente, Long idScheda, Integer frequenza) {
+
+<span class="fc" id="L64">        Optional&lt;SchedaAllenamento&gt; schedaAllenamentoDaModificareOptional = schedaAllenamentoRepository.findById(idScheda);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if(schedaAllenamentoDaModificareOptional.isEmpty()){</span>
+<span class="nc" id="L66">            throw new IllegalStateException(&quot;scheda da modifcare con id &quot; + idScheda + &quot; non esiste&quot;);</span>
+        }
+<span class="fc" id="L68">        SchedaAllenamento schedaAllenamentoDaModificare = schedaAllenamentoDaModificareOptional.get();</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if(!Objects.equals(schedaAllenamentoDaModificare.getPreparatore().getId(),</span>
+                idPreparatoreRichiedente))
+        {
+<span class="nc" id="L72">            throw new IllegalStateException(&quot;non hai i permessi per modificare la scheda con id &quot; + idScheda);</span>
+        }
+<span class="fc" id="L74">        schedaAllenamentoDaModificare.setNome(nome);</span>
+<span class="fc" id="L75">        List&lt;IstanzaEsercizio&gt; istanzeEsercizio = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (IstanzaEsercizioDTO istanzaEsercizioDTO: istanzeEsercizioDto) {</span>
+<span class="fc" id="L77">            IstanzaEsercizio istanzaEsercizio = new IstanzaEsercizio();</span>
+<span class="fc" id="L78">            Optional&lt;Esercizio&gt; esercizio = esercizioRepository.findById(istanzaEsercizioDTO.getIdEsercizio());</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if(esercizio.isEmpty())</span>
+            {
+<span class="nc" id="L81">                throw new IllegalStateException(&quot;uno delle istanze alimento fa riferimento ad un Alimento insesistente&quot;);</span>
+            }
+<span class="fc" id="L83">            istanzaEsercizio.setSchedaAllenamento(schedaAllenamentoDaModificare);</span>
+<span class="fc" id="L84">            istanzaEsercizio.setEsercizio(esercizio.get());</span>
+<span class="fc" id="L85">            istanzaEsercizio.setGiornoDellaSettimana(istanzaEsercizioDTO.getGiornoDellaSettimana());</span>
+<span class="fc" id="L86">            istanzaEsercizio.setDescrizione(istanzaEsercizioDTO.getDescrizione());</span>
+<span class="fc" id="L87">            istanzaEsercizio.setRecupero(istanzaEsercizioDTO.getRecupero());</span>
+<span class="fc" id="L88">            istanzaEsercizio.setSerie(istanzaEsercizioDTO.getSerie());</span>
+<span class="fc" id="L89">            istanzaEsercizio.setRipetizioni(istanzaEsercizioDTO.getRipetizioni());</span>
+<span class="fc" id="L90">            istanzeEsercizio.add(istanzaEsercizio);</span>
+<span class="fc" id="L91">        }</span>
+<span class="fc" id="L92">        istanzaEsercizioRepository.deleteAll(schedaAllenamentoDaModificare.getListaEsercizi());</span>
+<span class="fc" id="L93">        schedaAllenamentoDaModificare.setListaEsercizi(istanzeEsercizio);</span>
+<span class="fc" id="L94">        schedaAllenamentoDaModificare.setFrequenza(frequenza);</span>
+
+
+<span class="fc" id="L97">        return schedaAllenamentoRepository.save(schedaAllenamentoDaModificare);</span>
+    }
+
+    @Override
+    public List&lt;SchedaAllenamento&gt; getSchedeAllenamentoByPreparaore(Long idPreparatoreRichiedente) {
+<span class="fc" id="L102">        return schedaAllenamentoRepository.findAllByPreparatoreId(idPreparatoreRichiedente);</span>
+    }
+
+    @Override
+    public SchedaAllenamento getSchedeAllenamentoById(Long idScheda) {
+<span class="fc" id="L107">        Optional&lt;SchedaAllenamento&gt; schedaAllenamentoOptional = schedaAllenamentoRepository.findById(idScheda);</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if(schedaAllenamentoOptional.isEmpty())</span>
+        {
+<span class="nc" id="L110">            throw new IllegalStateException(&quot;scheda allenamento con id &quot; + idScheda + &quot; non trovata&quot;);</span>
+        }
+<span class="fc" id="L112">        return schedaAllenamentoOptional.get();</span>
+    }
+
+    @Override
+    public List&lt;IstanzaEsercizio&gt; getIstanzeEserciziBySchedaAndGiornoDellaSettimana(
+        SchedaAllenamento schedaAllenamento, int giorno_settimana) {
+<span class="nc" id="L118">        return istanzaEsercizioRepository.findAllBySchedaAllenamentoAndGiornoDellaSettimana(schedaAllenamento,giorno_settimana);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

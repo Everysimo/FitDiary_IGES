@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InseritoreDiAlimenti.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">it.fitdiary.backend.OnStartup</a> &gt; <span class="el_source">InseritoreDiAlimenti.java</span></div><h1>InseritoreDiAlimenti.java</h1><pre class="source lang-java linenums">package it.fitdiary.backend.OnStartup;
+
+import it.fitdiary.backend.entity.Alimento;
+import it.fitdiary.backend.gestionealimento.repository.AlimentoRepository;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class InseritoreDiAlimenti implements ApplicationListener&lt;ApplicationReadyEvent&gt; {
+
+  private final AlimentoRepository alimentoRepository;
+
+  private static final String DATASET_NAME = &quot;datasetAlimenti.csv&quot;;
+
+  @Autowired
+  public InseritoreDiAlimenti(
+<span class="fc" id="L27">      AlimentoRepository alimentoRepository) {</span>
+<span class="fc" id="L28">    this.alimentoRepository = alimentoRepository;</span>
+<span class="fc" id="L29">  }</span>
+
+  @Override
+  public void onApplicationEvent(ApplicationReadyEvent event) {
+<span class="fc" id="L33">    File file=new File(</span>
+<span class="fc" id="L34">        getClass().getClassLoader().getResource(DATASET_NAME).getFile());</span>
+<span class="fc" id="L35">    CSVFormat csvFormat = CSVFormat.Builder.create().setHeader(</span>
+                &quot;id&quot;, &quot;name&quot;, &quot;calories&quot;, &quot;total_fat&quot;,
+                &quot;protein&quot;, &quot;carbohydrate&quot;)
+<span class="fc" id="L38">            .setDelimiter(';').build();</span>
+    Iterable&lt;CSVRecord&gt; records;
+    try {
+<span class="fc" id="L41">      records =</span>
+<span class="fc" id="L42">          csvFormat.parse(new FileReader(file));</span>
+<span class="nc" id="L43">    } catch (IOException e) {</span>
+<span class="nc" id="L44">      throw new IllegalStateException(&quot;impossibile leggere il file &quot; + DATASET_NAME );</span>
+<span class="fc" id="L45">    }</span>
+
+<span class="fc" id="L47">    List&lt;Alimento&gt; alimenti = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L48">    Iterator&lt;CSVRecord&gt; recordIterator  = records.iterator();</span>
+<span class="fc" id="L49">    recordIterator.next();</span>
+<span class="fc" id="L50">    int i = 0;</span>
+<span class="pc bpc" id="L51" title="1 of 4 branches missed.">    while (recordIterator.hasNext() &amp;&amp; i &lt; 100) {</span>
+<span class="fc" id="L52">      CSVRecord record = recordIterator.next();</span>
+<span class="fc" id="L53">      Alimento alimento = new Alimento();</span>
+<span class="fc" id="L54">      System.out.println(record.get(&quot;id&quot;));</span>
+<span class="fc" id="L55">      alimento.setId(Long.valueOf(record.get(&quot;id&quot;)));</span>
+<span class="fc" id="L56">      alimento.setNome(record.get(&quot;name&quot;));</span>
+<span class="fc" id="L57">      alimento.setKcal(Float.valueOf(record.get(&quot;calories&quot;)));</span>
+<span class="fc" id="L58">      alimento.setProteine(Float.valueOf(record.get(&quot;protein&quot;)));</span>
+<span class="fc" id="L59">      alimento.setCarboidrati(Float.valueOf(record.get(&quot;carbohydrate&quot;)));</span>
+<span class="fc" id="L60">      alimento.setGrassi(Float.valueOf(record.get(&quot;total_fat&quot;)));</span>
+<span class="fc" id="L61">      alimento.setPathFoto(&quot;Alimenti/&quot; + alimento.getId() + &quot;.jpg&quot;);</span>
+<span class="fc" id="L62">      System.out.println(alimento);</span>
+<span class="fc" id="L63">      alimenti.add(alimento);</span>
+<span class="fc" id="L64">      i++;</span>
+
+<span class="fc" id="L66">    }</span>
+<span class="fc" id="L67">    alimentoRepository.saveAll(alimenti);</span>
+
+
+<span class="fc" id="L70">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

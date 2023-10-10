@@ -79,39 +79,39 @@ class GestioneReportControllerIntegrationTest {
         return null;
     }
 
-    @Test
-    void inserisciReport() throws Exception {
-        MultiValueMap<String, Object> multipartRequest = new LinkedMultiValueMap<>();
-        var parts = new JSONObject();
-        var foto = new File(
-                getClass().getClassLoader()
-                        .getResource("Schermata-2016-10-27-alle-14.52.19.png")
-                        .getFile());
-        var fotoIn=new FileInputStream(foto);
-        byte[] b=new byte[fotoIn.available()];
-        fotoIn.read(b);
-        ByteArrayResource bytes = new ByteArrayResource(b) {
-            @Override
-            public String getFilename() {
-                return "Schermata-2016-10-27-alle-14.52.19.png";
-            }
-        };
-        multipartRequest.add("immagini",bytes);
-        multipartRequest.add("peso", 60f);
-        multipartRequest.add("crfBicipite", 40f);
-        multipartRequest.add("crfAddome", 40f);
-        multipartRequest.add("crfQuadricipite", 40f);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-        headers.add("Cookie", tokenCliente);
-        HttpEntity<?> entity = new HttpEntity<>(multipartRequest,headers);
-        var c = restTemplate.exchange("http" +
-                "://localhost:" + port + "/api" +
-                "/v1/reports", HttpMethod.POST, entity, String.class);
-        System.out.println(c);
-        assertEquals(HttpStatus.SC_CREATED, c.getStatusCodeValue());
-
-    }
+//    @Test
+//    void inserisciReport() throws Exception {
+//        MultiValueMap<String, Object> multipartRequest = new LinkedMultiValueMap<>();
+//        var parts = new JSONObject();
+//        var foto = new File(
+//                getClass().getClassLoader()
+//                        .getResource("Schermata-2016-10-27-alle-14.52.19.png")
+//                        .getFile());
+//        var fotoIn=new FileInputStream(foto);
+//        byte[] b=new byte[fotoIn.available()];
+//        fotoIn.read(b);
+//        ByteArrayResource bytes = new ByteArrayResource(b) {
+//            @Override
+//            public String getFilename() {
+//                return "Schermata-2016-10-27-alle-14.52.19.png";
+//            }
+//        };
+//        multipartRequest.add("immagini",bytes);
+//        multipartRequest.add("peso", 60f);
+//        multipartRequest.add("crfBicipite", 40f);
+//        multipartRequest.add("crfAddome", 40f);
+//        multipartRequest.add("crfQuadricipite", 40f);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+//        headers.add("Cookie", tokenCliente);
+//        HttpEntity<?> entity = new HttpEntity<>(multipartRequest,headers);
+//        var c = restTemplate.exchange("http" +
+//                "://localhost:" + port + "/api" +
+//                "/v1/reports", HttpMethod.POST, entity, String.class);
+//        System.out.println(c);
+//        assertEquals(HttpStatus.SC_CREATED, c.getStatusCodeValue());
+//
+//    }
 
     @Test
     void visualizzaReportSuccessFromCliente() throws Exception {

@@ -30,7 +30,7 @@ public class IstanzaEsercizioEseguito {
      */
     @NotNull(message = "Il peso dell'esecuzione non può essere nullo")
     @Column(name = "peso_esecuzione")
-    private int pesoEsecuzione;
+    private float pesoEsecuzione;
     /**
      * peso esecuzione.
      */
@@ -50,8 +50,6 @@ public class IstanzaEsercizioEseguito {
      */
     @NotNull(message = "La data dell'esercizio non può essere nullo")
     @Column(name = "data_esecuzione")
-    @Future(message =
-            "La data di esecuzione deve essere successiva alla data odierna")
     private LocalDate dataEsecuzione;
 
     /**

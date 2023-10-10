@@ -15,6 +15,8 @@ INSERT INTO `utente` (`id`, `attivo`, `cap`, `citta`, `cognome`, `data_aggiornam
 /*Protocolli*/
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (1, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 4, 2);
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (2, '2022-01-11 20:40:59', '2022-01-11 20:41:00', '2024-09-13', 2, 4);
+INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (3, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 7, 2);
+INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`,`scheda_allenamento_id`) VALUES (4, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 7, 3,3);
 
 
 /*Scheda Alimentare*/
@@ -25,6 +27,7 @@ INSERT INTO `scheda_alimentare` (`id`, `kcal_assunte`, `nome`,`utente_id`) VALUE
 /*Scheda Allenamento*/
 INSERT INTO `scheda_allenamento` (`id`,`nome`, `frequenza`,`utente_id`) VALUES (1,"Test",4,2);
 INSERT INTO `scheda_allenamento` (`id`,`nome`, `frequenza`,`utente_id`) VALUES (2,"Test2",6,2);
+INSERT INTO `scheda_allenamento` (`id`,`nome`, `frequenza`,`utente_id`) VALUES (3,"Test",4,7);
 
 
 /*Istanze Alimento*/
@@ -33,12 +36,15 @@ INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alime
 INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alimento_id`, `scheda_alimentare_id`,`pasto`) VALUES (3,400, 3, 3, 2,2);
 INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alimento_id`, `scheda_alimentare_id`,`pasto`) VALUES (4,200, 4, 1, 2,3);
 
+
 -- Categoria Esercizio
 INSERT INTO categoria_esercizio(id,nome) VALUES(1,"Pettorali");
 INSERT INTO categoria_esercizio(id,nome) VALUES(2,"Braccia");
 INSERT INTO categoria_esercizio(id,nome) VALUES(3,"Gambe");
 INSERT INTO categoria_esercizio(id,nome) VALUES(4,"Lombari");
 INSERT INTO categoria_esercizio(id,nome) VALUES(5,"Spalle");
+
+-- Istanza esercizio eseguito
 
 -- `recupero`, `ripetizioni`, `serie`, `scheda_allenamento_id`
 /* Esercizi*/
@@ -71,3 +77,8 @@ INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (4, 'https://res
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (5, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--SGmo-p_X--/v1641863413/pdimpx91p5cyz86hppee.png', 1);
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (6, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--a8dfKwK9--/v1641863414/zoveedipdtfcz9zazdgz.jpg', 1);
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (7, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--DuJJQu8E--/v1641863415/fpugynqoqg2nbwbkfjwp.jpg', 1);
+
+INSERT INTO `istanza_esercizio` (`id`, `giorno_della_settimana`, `serie`, `ripetizioni`, `recupero`,`descrizione`,`esercizio_id`,`scheda_allenamento_id`) VALUES (1,4, 2, 1, 1,'istanza ese',1,3);
+
+INSERT INTO istanza_esercizio_eseguito(`id`,`peso_esecuzione`,`numero_serie`,`ripetizioni`,`data_esecuzione`,`protocollo_id`,`istanza_esercizio_id`)VALUES (1,3,4,5,'2023-01-09',3,1);
+--INSERT INTO istanza_esercizio_eseguito(`id`,`peso_esecuzione`,`numero_serie`,`ripetizioni`,`data_esecuzione`,`protocollo_id`,`istanzaEsercizio_id`)VALUES (2,3,4,5,'2023-01-09',4,2);

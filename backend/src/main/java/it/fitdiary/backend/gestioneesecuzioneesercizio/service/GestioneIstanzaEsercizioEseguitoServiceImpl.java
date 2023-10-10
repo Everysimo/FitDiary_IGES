@@ -3,6 +3,7 @@ package it.fitdiary.backend.gestioneesecuzioneesercizio.service;
 import it.fitdiary.backend.entity.IstanzaEsercizio;
 import it.fitdiary.backend.entity.IstanzaEsercizioEseguito;
 import it.fitdiary.backend.entity.Protocollo;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.VisualizzaEserciziDTO;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.repository.IstanzaEsercizioEseguitoRepository;
 import it.fitdiary.backend.gestioneprotocollo.repository.ProtocolloRepository;
 import it.fitdiary.backend.gestioneschedaallenamento.repository.IstanzaEsercizioRepository;
@@ -37,14 +38,15 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
         istanzaEsercizioEseguito.setDataEsecuzione(data);
 
         if(protocollo.isEmpty()){
-            throw new IllegalStateException("uno delle istanze alimento fa riferimento ad un Alimento insesistente");
+            throw new IllegalStateException("uno delle istanze protocollo non può essere null");
         }
         if(istanzaEsercizio.isEmpty()){
-            throw new IllegalStateException("uno delle istanze alimento fa riferimento ad un Alimento insesistente");
+            throw new IllegalStateException("uno delle istanze esercizio non può essere null");
         }
 
         istanzaEsercizioEseguito.setProtocollo(protocollo.get());
         istanzaEsercizioEseguito.setIstanzaEsercizio(istanzaEsercizio.get());
+        istanzaEsercizioEseguito.setPesoEsecuzione(pesoEsecuzione);
         istanzaEsercizioEseguito.setDataEsecuzione(data);
         istanzaEsercizioEseguito.setNumeroSerie(serie);
         istanzaEsercizioEseguito.setRipetizioni(ripetizioni);
@@ -52,16 +54,30 @@ public class GestioneIstanzaEsercizioEseguitoServiceImpl implements GestioneIsta
     }
 
     @Override
-    public List<IstanzaEsercizioEseguito> visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(Long idProtocollo,
-                                                                                                           Long idIstanzaEsercizio) {
+    public VisualizzaEserciziDTO visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(Long idProtocollo,
+                                                                                                  Long idIstanzaEsercizio) {
         Protocollo protocollo=new Protocollo(idProtocollo,null,null,null,null,null,null,null);
         IstanzaEsercizio istanza=new IstanzaEsercizio();
         istanza.setId(idIstanzaEsercizio);
-        ArrayList<IstanzaEsercizioEseguito> istanzaEsercizioEseguiti = (ArrayList<IstanzaEsercizioEseguito>)
-                instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
-                        protocollo,
-                        istanza);
-        return istanzaEsercizioEseguiti;
+
+        VisualizzaEserciziDTO visualizzaEserciziDTO = new VisualizzaEserciziDTO();
+
+        List<IstanzaEsercizioEseguito> listaEserciziEseguiti = instanzaEsercizioEseguitoRepository.findAllByProtocolloAndIstanzaEsercizio(
+              protocollo,
+              istanza);
+        visualizzaEserciziDTO.setListaEserciziEseguiti(listaEserciziEseguiti);
+        Optional<IstanzaEsercizio> istanzaEsercizio = istanzaEsercizioRepository.findById(idIstanzaEsercizio);
+        if(istanzaEsercizio.isPresent())
+        {
+            IstanzaEsercizio istanzaEsercizio1 = new IstanzaEsercizio();
+            IstanzaEsercizio istanzaEsercizio2 = istanzaEsercizio.get();
+            istanzaEsercizio1.setRipetizioni(istanzaEsercizio2.getRipetizioni());
+            istanzaEsercizio1.setSerie(istanzaEsercizio2.getSerie());
+            istanzaEsercizio1.setRecupero(istanzaEsercizio2.getRecupero());
+            visualizzaEserciziDTO.setIstanzaEsercizio(istanzaEsercizio1);
+        }
+
+        return visualizzaEserciziDTO;
     }
 
 
