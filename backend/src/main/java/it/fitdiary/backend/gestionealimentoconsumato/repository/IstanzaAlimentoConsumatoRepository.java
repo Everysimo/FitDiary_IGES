@@ -16,4 +16,8 @@ public interface IstanzaAlimentoConsumatoRepository extends JpaRepository<Istanz
     List<IstanzaAlimentoConsumato> findAllByProtocolloAndDataConsumazione(
         @NotNull(message = "Il protocollo non può essere nullo") Protocollo protocollo,
         @NotNull(message = "La data dell'esercizio non può essere nullo")  LocalDate dataConsumazione);
+
+    List<IstanzaAlimentoConsumato> deleteAllByProtocolloAndDataConsumazione(
+        @NotNull(message = "Il protocollo non può essere nullo") Protocollo protocollo,
+        @NotNull(message = "La data dell'esercizio non può essere nullo") LocalDate dataConsumazione);
 }

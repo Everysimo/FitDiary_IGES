@@ -57,31 +57,38 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
   public List<IstanzaAlimentoConsumato> creazioneIstanzeEsercizio(Long protocolloId,List<CreazioneIstanzaAlimentoConsumatoDto> list)
   {
     List<IstanzaAlimentoConsumato> istanzaAlimentoConsumatoList=new ArrayList<>();
-
+    Optional<Protocollo> protocollo = protocolloRepository.findById(protocolloId);
+    if(protocollo.isEmpty()){
+      throw new IllegalStateException("l'id fa riferimento ad un protocollo non esistente");
+    }
+    Protocollo protocollo1 = protocollo.get();
+    LocalDate date = null;
     for(CreazioneIstanzaAlimentoConsumatoDto elem:list)
     {
-      Optional<Protocollo> protocollo = protocolloRepository.findById(protocolloId);
       Optional<IstanzaAlimento> istanzaAlimento = istanzaAlimentoRepository.findById(elem.getIstanzaAlimentoId());
 
 
       IstanzaAlimentoConsumato istanzaAlimentoConsumato = new IstanzaAlimentoConsumato();
       istanzaAlimentoConsumato.setDataConsumazione(elem.getData());
+      date = elem.getData();
 
-      if(protocollo.isEmpty()){
-        throw new IllegalStateException("l'id fa riferimento ad un protocollo non esistente");
-      }
+
       if(istanzaAlimento.isEmpty()){
         throw new IllegalStateException("l'id fa riferimento ad un istanza alimento non esistente");
       }
 
-      istanzaAlimentoConsumato.setProtocollo(protocollo.get());
+      istanzaAlimentoConsumato.setProtocollo(protocollo1);
       istanzaAlimentoConsumato.setIstanzaAlimento(istanzaAlimento.get());
       istanzaAlimentoConsumato.setGrammiConsumati(elem.getGrammi());
       istanzaAlimentoConsumatoList.add(istanzaAlimentoConsumato);
-      istanzaAlimentoConsumatoRepository.save(istanzaAlimentoConsumato);
+
+    }
+    if(date != null)
+    {
+      istanzaAlimentoConsumatoRepository.deleteAllByProtocolloAndDataConsumazione(protocollo1,date);
     }
 
-    return istanzaAlimentoConsumatoList;
+    return istanzaAlimentoConsumatoRepository.saveAll(istanzaAlimentoConsumatoList);
   }
 
   @Override
