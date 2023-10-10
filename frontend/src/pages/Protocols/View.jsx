@@ -152,33 +152,29 @@ export default function View() {
                             ) : (<Text>Non hai allenamenti oggi....</Text>)}
                         </SimpleGrid>
                         <Flex p={5}>
-                            <VStack alignContent={"center"} w={"full"}>
-                                    <ButtonGroup>
-                                        {report && report !== null && (
-                                            <ReactLink to={`/reports/${report.report.id}`}>
-                                                <Button colorScheme={"fitdiary"}>Visualizza Report</Button>
-                                            </ReactLink>
-                                        )}
-                                    </ButtonGroup>
-                                {authContext.isCustomer() && (
-                                    <ButtonGroup>
-                                        <Tooltip label="Hai completato il protocollo?">
-                                            <Button onClick={() => {
-                                                navigate("/reports/create")
-                                            }} colorScheme='fitdiary'>Inserisci report</Button>
-                                        </Tooltip>
-                                        <Tooltip label="Allenati con la tua scheda">
-                                            <Button onClick={() => {
-                                                navigate("/allenamenti/"+protocollo.id+"/" + protocollo.schedaAllenamento.id)
-                                            }} colorScheme='fitdiary'> Allenati </Button>
-                                        </Tooltip>
-                                        <Tooltip label="Tieni traccia della tua dieta">
-                                            <Button onClick={() => {
-                                                navigate("/dieta")
-                                            }} colorScheme='fitdiary'> Segna Dieta</Button>
-                                        </Tooltip>
-                                    </ButtonGroup>
-                                )}
+                            <VStack>
+                                <ButtonGroup>
+                                    {report && report !== null && (
+                                        <ReactLink to={`/reports/${report.report.id}`}>
+                                            <Button colorScheme={"fitdiary"}>Visualizza Report</Button>
+                                        </ReactLink>
+                                    )}
+                                    <Tooltip label="Hai completato il protocollo?">
+                                        <Button onClick={() => {
+                                            navigate("/reports/create")
+                                        }} colorScheme='fitdiary'>Inserisci report</Button>
+                                    </Tooltip>
+                                    <Tooltip label="Vuoi inserire una nuova esercitazione?">
+                                        <Button onClick={() => {
+                                            navigate("/allenamenti/"+protocollo.schedaAllenamento.id)
+                                        }} colorScheme='fitdiary'>Allenati</Button>
+                                    </Tooltip>
+                                    <Tooltip label="Vuoi inserire un nuovo reporto sulla dieta?">
+                                        <Button onClick={() => {
+                                            navigate("/dieta/?idProtocollo="+protocollo.id+"&idSchedaAlimentare="+protocollo.schedaAlimentare.id)
+                                        }} colorScheme='fitdiary'>Mangia</Button>
+                                    </Tooltip>
+                                </ButtonGroup>
                             </VStack>
                         </Flex>
                     </Box>

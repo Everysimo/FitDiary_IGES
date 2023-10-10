@@ -43,6 +43,9 @@ import EserciziIndex from "./pages/Esercizio/Index.jsx";
 import ReportAllenamentoView from "./pages/ReportAllenamento/View";
 import ReportAllenamentoCreate from "./pages/ReportAllenamento/Create";
 
+import ActiveDietCardIndex from "./pages/ActiveDietCard/Index";
+import ActiveDietCardCreate from "./pages/ActiveDietCard/Create";
+
 
 import CustomersView from "./pages/User/Customers/View";
 import CustomerInsertInfo from "./pages/User/Customers/CustomerInsertInfo";
@@ -89,6 +92,8 @@ const AppRoutes = () => {
                 <Route path={"allenamenti/:idProtocollo/:id"} element={<ReportAllenamentoView/>}/>
                 <Route path={"allenamenti/esegui"} element={<ReportAllenamentoCreate/>}/>
 
+                <Route path={"dieta/"} element={<ActiveDietCardIndex/>}/>
+                <Route path={"dieta/esegui"} element={<ActiveDietCardCreate/>}/>
 
                 <Route path="alimenti" element={<AlimentiIndex />} />
                 <Route path="esercizi" element={<EserciziIndex />} />
