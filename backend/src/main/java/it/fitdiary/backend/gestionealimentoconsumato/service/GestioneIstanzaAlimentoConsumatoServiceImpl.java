@@ -34,16 +34,17 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
                                                                     Long istanzaAlimentoId,
                                                                     int grammi, LocalDate data) {
     Optional<Protocollo> protocollo = protocolloRepository.findById(protocolloId);
-    Optional<IstanzaAlimento> istanzaAlimento = istanzaAlimentoRepository.findById(istanzaAlimentoId);
+    Optional<IstanzaAlimento> istanzaAlimento =
+        istanzaAlimentoRepository.findById(istanzaAlimentoId);
 
 
     IstanzaAlimentoConsumato istanzaAlimentoConsumato = new IstanzaAlimentoConsumato();
     istanzaAlimentoConsumato.setDataConsumazione(data);
 
-    if(protocollo.isEmpty()){
+    if (protocollo.isEmpty()) {
       throw new IllegalStateException("l'id fa riferimento ad un protocollo non esistente");
     }
-    if(istanzaAlimento.isEmpty()){
+    if (istanzaAlimento.isEmpty()) {
       throw new IllegalStateException("l'id fa riferimento ad un istanza alimento non esistente");
     }
 
@@ -54,26 +55,25 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
   }
 
   @Override
-  public List<IstanzaAlimentoConsumato> creazioneIstanzeEsercizio(Long protocolloId,List<CreazioneIstanzaAlimentoConsumatoDto> list)
-  {
-    List<IstanzaAlimentoConsumato> istanzaAlimentoConsumatoList=new ArrayList<>();
+  public List<IstanzaAlimentoConsumato> creazioneIstanzeEsercizio(Long protocolloId,
+                                                                  List<CreazioneIstanzaAlimentoConsumatoDto> list,
+                                                                  LocalDate date) {
+    List<IstanzaAlimentoConsumato> istanzaAlimentoConsumatoList = new ArrayList<>();
     Optional<Protocollo> protocollo = protocolloRepository.findById(protocolloId);
-    if(protocollo.isEmpty()){
+    if (protocollo.isEmpty()) {
       throw new IllegalStateException("l'id fa riferimento ad un protocollo non esistente");
     }
     Protocollo protocollo1 = protocollo.get();
-    LocalDate date = null;
-    for(CreazioneIstanzaAlimentoConsumatoDto elem:list)
-    {
-      Optional<IstanzaAlimento> istanzaAlimento = istanzaAlimentoRepository.findById(elem.getIstanzaAlimentoId());
+    for (CreazioneIstanzaAlimentoConsumatoDto elem : list) {
+      Optional<IstanzaAlimento> istanzaAlimento =
+          istanzaAlimentoRepository.findById(elem.getIstanzaAlimentoId());
 
 
       IstanzaAlimentoConsumato istanzaAlimentoConsumato = new IstanzaAlimentoConsumato();
-      istanzaAlimentoConsumato.setDataConsumazione(elem.getData());
-      date = elem.getData();
+      istanzaAlimentoConsumato.setDataConsumazione(date);
 
 
-      if(istanzaAlimento.isEmpty()){
+      if (istanzaAlimento.isEmpty()) {
         throw new IllegalStateException("l'id fa riferimento ad un istanza alimento non esistente");
       }
 
@@ -83,19 +83,17 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
       istanzaAlimentoConsumatoList.add(istanzaAlimentoConsumato);
 
     }
-    if(date != null)
-    {
-      istanzaAlimentoConsumatoRepository.deleteAllByProtocolloAndDataConsumazione(protocollo1,date);
-    }
+    istanzaAlimentoConsumatoRepository.deleteAllByProtocolloAndDataConsumazione(protocollo1, date);
 
     return istanzaAlimentoConsumatoRepository.saveAll(istanzaAlimentoConsumatoList);
   }
 
   @Override
   public List<IstanzaAlimentoConsumato> visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(
-      Long idProtocollo,LocalDate dataConsumazione) {
+      Long idProtocollo, LocalDate dataConsumazione) {
     Protocollo protocollo = new Protocollo();
     protocollo.setId(idProtocollo);
-    return istanzaAlimentoConsumatoRepository.findAllByProtocolloAndDataConsumazione(protocollo,dataConsumazione);
+    return istanzaAlimentoConsumatoRepository.findAllByProtocolloAndDataConsumazione(protocollo,
+        dataConsumazione);
   }
 }

@@ -75,7 +75,7 @@ public class GestioneIstanzaAlimentiConsumatiController {
       List<IstanzaAlimentoConsumato> newIstanzaAlimentoConsumato =
           gestioneIstanzaAlimentoConsumatoService.
               creazioneIstanzeEsercizio(creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),
-                  creazioneIstanzaAlimentoConsumatoDto.getListaAlimenti());
+                  creazioneIstanzaAlimentoConsumatoDto.getListaAlimenti(),creazioneIstanzaAlimentoConsumatoDto.getData());
       return ResponseHandler.generateResponse(HttpStatus.CREATED,
           "istanzaAlimentoConsumato", newIstanzaAlimentoConsumato);
     } catch (IllegalArgumentException e) {
