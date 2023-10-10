@@ -98,7 +98,7 @@ public class GestioneIstanzaAlimentiConsumatiController {
       List<IstanzaAlimentoConsumato> istanzaEsercizioEseguitoList =
           gestioneIstanzaAlimentoConsumatoService.
               visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(idProtocollo, dataConsumazione);
-      int calorieConsumate = 0;
+      float calorieConsumate = 0;
       for (IstanzaAlimentoConsumato al : istanzaEsercizioEseguitoList) {
         calorieConsumate += al.getGrammiConsumati() * al.getIstanzaAlimento().getAlimento().getKcal()/100;
       }
@@ -106,7 +106,7 @@ public class GestioneIstanzaAlimentiConsumatiController {
       List<IstanzaAlimento> istanzeAlimentoDellaGiornata =
           gestioneSchedaAlimentareService.getAlimentiBySchedaAlimentareAndGiornoDellaSettimana(
               protocollo.getSchedaAlimentare(), GiornoSettimanaToDayOfWeek(dataConsumazione.getDayOfWeek()));
-      int calorieAspettate = 0;
+      float calorieAspettate = 0;
       for (IstanzaAlimento istanzaAlimento : istanzeAlimentoDellaGiornata)
       {
         calorieAspettate += istanzaAlimento.getGrammi() * istanzaAlimento.getAlimento().getKcal()/100;

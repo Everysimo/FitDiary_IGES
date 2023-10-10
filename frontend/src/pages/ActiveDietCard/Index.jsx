@@ -48,6 +48,7 @@ const Index = () => {
   const [toastMessage, setToastMessage] = useState(undefined);
 
   const localizer = momentLocalizer(moment);
+  const [currentDate, setCurrentDate] = useState(moment()); // Aggiungi uno stato per tenere traccia della data corrente
 
   const [giorniScheda, setGiorniScheda] = useState([
     {
@@ -90,7 +91,7 @@ const Index = () => {
   useEffect(() => {
     const url = new URL(window.location.href);
     setIdProtocollo(url.searchParams.get("idProtocollo"));
-    const currentDate = moment(); // Ottieni la data corrente
+
     const daysInMonth = currentDate.daysInMonth(); // Ottieni il numero di giorni nel mese corrente
     const promises = [];
 
@@ -104,8 +105,8 @@ const Index = () => {
       const promise = fetchContext.authAxios(`${urlScheda}?idProtocollo=${url.searchParams.get("idProtocollo")}&dataConsumazione=${formattedDate}`)
           .then((response) => response.data)
           .then((data) => {
-            console.log(data)
-            if(data.data.result.calorieConsumate === 0){
+
+            if(parseFloat(data.data.result.calorieConsumate) === 0.00){
               return {
                 title: 'Vuoto',
                 start: formattedDate,
@@ -139,12 +140,17 @@ const Index = () => {
           console.error(`Errore nella gestione delle promesse: ${error.message}`);
           setisLoading(false);
         });
-  }, [fetchContext]);
+  }, [fetchContext,currentDate]);
 
   // Funzione per gestire il clic su un evento
   const handleEventClick = (event) => {
     navigate("../dieta/esegui?dataConsumazione="+event.start+"&idProtocollo="+idProtocollo);
   };
+
+  // Funzione per gestire la navigazione del calendario
+  const handleNavigate = useCallback((newDate, view) => {
+    setCurrentDate(moment(newDate)); // Aggiorna la data corrente quando si cambia mese
+  }, []);
 
   const CustomEvent = ({ event }) => (
       <div
@@ -191,6 +197,8 @@ const Index = () => {
                   }}
                   views={['month']}
                   defaultView="month"
+                  date={currentDate} // Imposta la data corrente del calendario
+                  onNavigate={handleNavigate} // Gestisci la navigazione del calendario
               />
             </div>
           </div>
