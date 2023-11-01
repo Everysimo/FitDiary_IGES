@@ -22,6 +22,18 @@ public class ListCreazioneIstanzaAlimentoConsumatoDto {
   public ListCreazioneIstanzaAlimentoConsumatoDto() {
   }
 
+  public void setIdProtocollo(Long idProtocollo) {
+    this.idProtocollo = idProtocollo;
+  }
+
+  public void setListaAlimenti(List<CreazioneIstanzaAlimentoConsumatoDto> listaAlimenti) {
+    this.listaAlimenti = listaAlimenti;
+  }
+
+  public void setData(LocalDate data) {
+    this.data = data;
+  }
+
   public Long getIdProtocollo() {
     return idProtocollo;
   }
