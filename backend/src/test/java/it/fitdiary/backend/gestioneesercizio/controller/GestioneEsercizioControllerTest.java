@@ -1,9 +1,6 @@
 package it.fitdiary.backend.gestioneesercizio.controller;
 
-import it.fitdiary.backend.entity.CategoriaEsercizio;
 import it.fitdiary.backend.entity.Esercizio;
-import it.fitdiary.backend.gestionecategoriaesercizio.controller.GestioneCategoriaEsercizioController;
-import it.fitdiary.backend.gestionecategoriaesercizio.service.GestioneCategoriaEsercizioService;
 import it.fitdiary.backend.gestioneesercizio.service.GestioneEsercizioService;
 import it.fitdiary.backend.gestioneschedaalimentare.controller.TestObjectMapperConfig;
 import org.junit.jupiter.api.BeforeEach;
@@ -75,7 +72,7 @@ public class GestioneEsercizioControllerTest {
     }
 
     @Test
-    public void visualizzaAlimentoBadRequest() throws Exception{
+    public void visualizzaEsercizioBadRequest() throws Exception{
         when(service.getById(esercizio.getId())).thenReturn(Optional.of(esercizio));
 
 
@@ -93,7 +90,7 @@ public class GestioneEsercizioControllerTest {
     }
 
     @Test
-    public void visualizzaListaAlimentiSuccess() throws Exception{
+    public void visualizzaListaEserciziSuccess() throws Exception{
         when(service.getAll()).thenReturn(listaEsercizi);
 
 
