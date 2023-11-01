@@ -135,7 +135,7 @@ public class GestioneSchedaAlimentareImplTest {
     }
 
     @Test
-    public void getSchedeAlimentariByPreparaore(){
+    public void getSchedeAlimentariByPreparatore(){
         alimento = new Alimento(1L,"Maiale",100f,21f,46f,
                 3f,"Alimenti/1.jpg");
 
@@ -175,7 +175,7 @@ public class GestioneSchedaAlimentareImplTest {
     }
 
     @Test
-    public void getSchedeAlimentariById(){
+    public void getSchedeAlimentareById(){
         alimento = new Alimento(1L,"Maiale",100f,21f,46f,
                 3f,"Alimenti/1.jpg");
 

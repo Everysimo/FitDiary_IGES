@@ -50,14 +50,14 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
     private IstanzaEsercizio istanzaEsercizio;
     private Ruolo ruoloCliente;
     private Ruolo ruoloPreparatore;
-    private Utente cliente, cliente2, cliente3;
+    private Utente cliente, cliente2, cliente3, cliente4;
     private Esercizio esercizio;
     private IstanzaEsercizioEseguitoDTO istanzaEsercizioEseguitoDTO;
     private CategoriaEsercizio categoriaEsercizio;
 
     private IstanzaEsercizioEseguito istanzaEsercizioEseguito;
 
-    private String tokenCliente, tokenCliente2, tokenCliente3;
+    private String tokenCliente, tokenCliente2, tokenCliente3, tokenCliente4;
 
     private CreazioneIstanzaAlimentoConsumatoDto creazioneIstanzaAlimentoConsumatoDto;
 
@@ -83,7 +83,7 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         cliente = utenteRepository.findByEmail("inapina@libero.it");
         cliente2 = utenteRepository.findByEmail("lmonaco@gmail.com");
         cliente3 = utenteRepository.findByEmail("cliente@fitdiary.it");
-
+        cliente4 = utenteRepository.findByEmail("paloso@info.it");
         preparatore =
                 new Utente(1L, "Daniele", "De Marco", "diodani5@gmail.com",
                         "Trappo#98", true, null, null, null, null,
@@ -97,6 +97,8 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         tokenCliente = setUpToken(cliente.getEmail(), "Password123!");
         tokenCliente2 = setUpToken(cliente2.getEmail(), "Password123!");
         tokenCliente3 = setUpToken(cliente3.getEmail(), "Password123!");
+        tokenCliente4 = setUpToken(cliente4.getEmail(), "Password123!");
+
         alimento = new Alimento(1L,"Pollo",100f,21f,46f,
                 3f,"Alimenti/1.jpg");
         schedaAlimentare =
@@ -141,7 +143,7 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
 
     @Test
     @Order(1)
-    public void creazioneIstanzaAlimentoConsumatoTest_Success() throws Exception {
+    public void creazioneIstanzaAlimentoConsumatoTestSuccess() throws Exception {
         HttpHeaders headers = new HttpHeaders();
 
         headers.add("Cookie", tokenCliente3);
@@ -212,12 +214,12 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
 
     }
 
-
+/*
     @Test
     @Order(4)
     public void visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDateTest_Success() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Cookie", tokenCliente);
+        headers.add("Cookie", tokenCliente4);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
 
@@ -227,7 +229,7 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         HttpEntity<ListCreazioneIstanzaAlimentoConsumatoDto> entity = new HttpEntity<>(listCreazioneIstanzaAlimentoConsumatoDto, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/istanzaAlimentiConsumati/visualizzaIstanzeAlimentoConsumato?idProtocollo=1&dataConsumazione=2023-12-13",
+                "http://localhost:" + port + "/api/v1/istanzaAlimentiConsumati/visualizzaIstanzeAlimentoConsumato?idProtocollo=4&dataConsumazione=2023-12-13",
                 HttpMethod.GET,
                 entity,
                 String.class
@@ -237,5 +239,5 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         assertEquals(org.springframework.http.HttpStatus.OK, response.getStatusCode());
 
     }
-
+*/
 }

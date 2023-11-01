@@ -33,6 +33,11 @@ INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_sc
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`,`scheda_alimentare_id`,`scheda_allenamento_id`) VALUES (1, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2022-02-24', 4, 2,1,1);
 
 
+INSERT INTO `alimento` (`id`, `carboidrati`, `grassi`, `kcal`, `nome`, `path_foto`, `proteine`) VALUES (1, 13.86, 72, 691, "Nuts, pecans", "Alimenti/1.jpg",9.17);
+INSERT INTO `alimento` (`id`, `carboidrati`, `grassi`, `kcal`, `nome`, `path_foto`, `proteine`) VALUES (2, 50, 87, 423, "KEEBLER, Waffle Cones", "Alimenti/50.jpg",5);
+INSERT INTO `alimento` (`id`, `carboidrati`, `grassi`, `kcal`, `nome`, `path_foto`, `proteine`) VALUES (3, 13.86, 72, 691, "Nuts, pecans", "Alimenti/1.jpg",9.17);
+
+
 /*Istanze Alimento*/
 INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alimento_id`, `scheda_alimentare_id`,`pasto`) VALUES (1,100, 2, 1, 1,1);
 INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alimento_id`, `scheda_alimentare_id`,`pasto`) VALUES (2,200, 0, 2, 1,0);
@@ -82,7 +87,6 @@ INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (4, 'https://res
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (5, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--SGmo-p_X--/v1641863413/pdimpx91p5cyz86hppee.png', 1);
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (6, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--a8dfKwK9--/v1641863414/zoveedipdtfcz9zazdgz.jpg', 1);
 INSERT INTO `immagini_report` (`id`, `url`, `report_id`) VALUES (7, 'https://res.cloudinary.com/hdjxm4zyg/image/upload/s--DuJJQu8E--/v1641863415/fpugynqoqg2nbwbkfjwp.jpg', 1);
-
 
 INSERT INTO `istanza_esercizio` (`id`, `giorno_della_settimana`, `serie`, `ripetizioni`, `recupero`,`descrizione`,`esercizio_id`,`scheda_allenamento_id`) VALUES (1,4, 2, 1, 1,'istanza ese',1,1);
 INSERT INTO `istanza_esercizio` (`id`, `giorno_della_settimana`, `serie`, `ripetizioni`, `recupero`,`descrizione`,`esercizio_id`,`scheda_allenamento_id`) VALUES (2,4, 2, 1, 1,'istanza ese',1,3);

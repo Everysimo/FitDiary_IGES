@@ -39,7 +39,7 @@ public class GestioneAlimentoServiceImplTest {
 
     }
     @Test
-    public void getByIdTest(){
+    public void getById(){
         alimento = new Alimento();
         alimento.setId(1L);
         when(alimentoRepository.findById(alimento.getId())).thenReturn(Optional.ofNullable(alimento));
@@ -49,7 +49,7 @@ public class GestioneAlimentoServiceImplTest {
     }
 
     @Test
-    public void getAllAlimentiTest(){
+    public void getAllAlimenti(){
         List<Alimento> alimenti =  new ArrayList<>();
         Alimento alimento = new Alimento(1L,"Pollo",100f,21f,46f,
                 3f,"Alimenti/1.jpg");

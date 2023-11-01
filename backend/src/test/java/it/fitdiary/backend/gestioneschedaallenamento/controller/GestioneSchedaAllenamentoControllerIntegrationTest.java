@@ -218,6 +218,8 @@ public class GestioneSchedaAllenamentoControllerIntegrationTest {
                 String.class
         );
 
+        System.out.println("Errore_"+response);
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 

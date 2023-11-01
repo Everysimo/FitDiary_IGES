@@ -281,6 +281,7 @@ public class GestioneSchedaAlimentareControllerIntegrationTest {
                 String.class
         );
 
+        System.out.println("error:"+response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
