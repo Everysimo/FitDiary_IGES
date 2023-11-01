@@ -1,7 +1,6 @@
 package it.fitdiary.backend.gestioneesercizio.service;
 
 import it.fitdiary.BackendApplicationTest;
-import it.fitdiary.backend.entity.CategoriaEsercizio;
 import it.fitdiary.backend.entity.Esercizio;
 import it.fitdiary.backend.gestioneesercizio.repository.EsercizioRepository;
 import org.junit.Test;
@@ -35,7 +34,7 @@ public class GestioneEsercizioServiceTest {
     private Esercizio esercizio;
     private List<Esercizio> listaEsercizi;
     @Test
-    public void getByIdTest(){
+    public void getById(){
         esercizio = new Esercizio();
         esercizio.setId(1L);
 
@@ -46,7 +45,7 @@ public class GestioneEsercizioServiceTest {
     }
 
     @Test
-    public void getAllEserciziTest(){
+    public void getAllEsercizi(){
         listaEsercizi = new ArrayList<>();
         esercizio = new Esercizio();
         esercizio.setId(1L);

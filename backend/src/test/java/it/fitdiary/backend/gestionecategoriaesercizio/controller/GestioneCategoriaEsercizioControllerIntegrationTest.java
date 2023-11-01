@@ -76,26 +76,31 @@ public class GestioneCategoriaEsercizioControllerIntegrationTest {
 
     @Test
     public void visualizzaAlimentoSuccess() throws Exception{
+        int idCategoria = 1;
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenPreparatore2);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
         var c = restTemplate.exchange("http" +
                 "://localhost:" + port + "/api" +
-                "/v1/categorieEsercizi/getCategoriaEsercizio?idCategoria=1", HttpMethod.GET, entity, String.class);
+                "/v1/categorieEsercizi/getCategoriaEsercizio?idCategoria="+idCategoria, HttpMethod.GET, entity, String.class);
 
         assertEquals(HttpStatus.OK, c.getStatusCode());
     }
 
     @Test
     public void visualizzaAlimentoBadRequest() throws Exception{
+        int idCategoria = 999;
+
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenPreparatore2);
 
         HttpEntity<?> entity = new HttpEntity<>(headers);
         var c = restTemplate.exchange("http" +
                 "://localhost:" + port + "/api" +
-                "/v1/categorieEsercizi/getCategoriaEsercizio?idCategoria=999", HttpMethod.GET, entity, String.class);
+                "/v1/categorieEsercizi/getCategoriaEsercizio?idCategoria="+idCategoria, HttpMethod.GET, entity, String.class);
 
         assertEquals(HttpStatus.BAD_REQUEST, c.getStatusCode());
     }

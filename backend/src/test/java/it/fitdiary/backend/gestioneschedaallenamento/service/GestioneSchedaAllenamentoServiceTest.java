@@ -2,7 +2,6 @@ package it.fitdiary.backend.gestioneschedaallenamento.service;
 
 import it.fitdiary.BackendApplicationTest;
 import it.fitdiary.backend.entity.*;
-import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
 import it.fitdiary.backend.gestioneesercizio.repository.EsercizioRepository;
 import it.fitdiary.backend.gestioneschedaallenamento.controller.dto.IstanzaEsercizioDTO;
 import it.fitdiary.backend.gestioneschedaallenamento.repository.IstanzaEsercizioRepository;
@@ -159,7 +158,7 @@ public class GestioneSchedaAllenamentoServiceTest {
     }
 
     @Test
-    public void getSchedeAllenamentoByPreparaore() {
+    public void getSchedeAllenamentoByPreparatore() {
         categoriaEsercizio = new CategoriaEsercizio(1L,"Pettorali");
         istanzeEsercizioDto = new ArrayList<>();
         istanzeEsercizio = new ArrayList<>();
@@ -207,7 +206,7 @@ public class GestioneSchedaAllenamentoServiceTest {
     }
 
     @Test
-    public void getSchedeAllenamentoById() {
+    public void getSchedaAllenamentoById() {
         categoriaEsercizio = new CategoriaEsercizio(1L,"Pettorali");
         istanzeEsercizioDto = new ArrayList<>();
         istanzeEsercizio = new ArrayList<>();

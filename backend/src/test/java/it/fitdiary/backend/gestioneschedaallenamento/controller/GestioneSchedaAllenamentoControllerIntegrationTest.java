@@ -280,13 +280,15 @@ public class GestioneSchedaAllenamentoControllerIntegrationTest {
     @Test
     @Order(8)
     public void getSchedaAllenamentoByIdSuccess() throws Exception {
+        int idScheda = 1;
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenPreparatore);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
         var c = restTemplate.exchange("http" +
                 "://localhost:" + port + "/api" +
-                "/v1/schedaAllenamento/getSchedaAllenamentoById?idScheda=1", HttpMethod.GET, entity, String.class);
+                "/v1/schedaAllenamento/getSchedaAllenamentoById?idScheda="+idScheda, HttpMethod.GET, entity, String.class);
 
         assertEquals(HttpStatus.OK, c.getStatusCode());
     }
