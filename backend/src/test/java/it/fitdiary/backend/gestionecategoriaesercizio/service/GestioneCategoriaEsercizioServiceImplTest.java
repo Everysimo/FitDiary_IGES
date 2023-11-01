@@ -34,7 +34,7 @@ public class GestioneCategoriaEsercizioServiceImplTest {
     private CategoriaEsercizio categoriaEsercizio;
     private List<CategoriaEsercizio> categorieEsercizi;
     @Test
-    public void getByIdTest(){
+    public void getById(){
         categoriaEsercizio = new CategoriaEsercizio();
         categoriaEsercizio.setId(1L);
         when(gestioneCategoriaEsercizioRepository.findById(categoriaEsercizio.getId())).
@@ -44,7 +44,7 @@ public class GestioneCategoriaEsercizioServiceImplTest {
                         categoriaEsercizio.getId()).get());
     }
     @Test
-    public void getAllCategorieTest(){
+    public void getAllCategorie(){
         categorieEsercizi = new ArrayList<>();
         categoriaEsercizio = new CategoriaEsercizio();
         categoriaEsercizio.setId(1L);

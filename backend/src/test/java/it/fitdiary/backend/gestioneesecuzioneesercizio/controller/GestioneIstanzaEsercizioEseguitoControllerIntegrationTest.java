@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.fitdiary.backend.entity.*;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.IstanzaEsercizioEseguitoDTO;
 import it.fitdiary.backend.gestioneprotocollo.repository.ProtocolloRepository;
-import it.fitdiary.backend.gestioneschedaalimentare.controller.dto.CreaSchedaAlimentareDTO;
 import it.fitdiary.backend.gestioneutenza.repository.UtenteRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -113,7 +112,7 @@ public class GestioneIstanzaEsercizioEseguitoControllerIntegrationTest {
     }
 
     @Test
-    public void creazioneIstanzaEsercizioTest_Success() throws Exception {
+    public void creazioneIstanzaEsercizioSuccess() throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenCliente);
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -141,7 +140,7 @@ public class GestioneIstanzaEsercizioEseguitoControllerIntegrationTest {
     }
 
     @Test
-    public void creazioneIstanzaEsercizioTestErrorNoIdProtocollo() throws Exception {
+    public void creazioneIstanzaEsercizioErrorNoIdProtocollo() throws Exception {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenCliente);
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -197,6 +196,10 @@ public class GestioneIstanzaEsercizioEseguitoControllerIntegrationTest {
 
     @Test
     public void visualizzaIstanzaEsercizioEseguitoSuccess() throws Exception {
+        int idProtocollo = 3;
+
+        int idIstanzaEsercizio = 1;
+
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenCliente);
@@ -205,7 +208,7 @@ public class GestioneIstanzaEsercizioEseguitoControllerIntegrationTest {
         HttpEntity<IstanzaEsercizioEseguitoDTO> entity = new HttpEntity<>(istanzaEsercizioEseguitoDTO, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/istanzaEserciziEseguiti/visualizzaIstanzaEsercizio?idProtocollo=3&idIstanzaEsercizio=1",
+                "http://localhost:" + port + "/api/v1/istanzaEserciziEseguiti/visualizzaIstanzaEsercizio?idProtocollo="+idProtocollo+"&idIstanzaEsercizio="+idIstanzaEsercizio,
                 HttpMethod.GET,
                 entity,
                 String.class
