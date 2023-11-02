@@ -57,7 +57,7 @@ public class GestioneCategoriaEsercizioControllerTest {
         categorieEsercizi.add(categoriaEsercizio);
     }
     @Test
-    public void visualizzaAlimentoSuccess() throws Exception{
+    public void visualizzaCategoriaEsercizioSuccess() throws Exception{
         when(service.getById(categoriaEsercizio.getId())).thenReturn(Optional.of(categoriaEsercizio));
 
 
@@ -76,7 +76,7 @@ public class GestioneCategoriaEsercizioControllerTest {
     }
 
     @Test
-    public void visualizzaAlimentoBadRequest() throws Exception{
+    public void visualizzaCategoriaEsercizioBadRequest() throws Exception{
         when(service.getById(categoriaEsercizio.getId())).thenReturn(Optional.of(categoriaEsercizio));
 
 
@@ -94,7 +94,7 @@ public class GestioneCategoriaEsercizioControllerTest {
     }
 
     @Test
-    public void visualizzaListaAlimentiSuccess() throws Exception{
+    public void visualizzaListaCategoriaEserciziSuccess() throws Exception{
         when(service.getAllCategorie()).thenReturn(categorieEsercizi);
 
 

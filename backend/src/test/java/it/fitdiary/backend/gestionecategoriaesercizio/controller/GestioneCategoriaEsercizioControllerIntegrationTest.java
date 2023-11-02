@@ -75,7 +75,7 @@ public class GestioneCategoriaEsercizioControllerIntegrationTest {
     }
 
     @Test
-    public void visualizzaAlimentoSuccess() throws Exception{
+    public void visualizzaCategoriaEsercizioSuccess() throws Exception{
         int idCategoria = 1;
 
         HttpHeaders headers = new HttpHeaders();
@@ -90,7 +90,7 @@ public class GestioneCategoriaEsercizioControllerIntegrationTest {
     }
 
     @Test
-    public void visualizzaAlimentoBadRequest() throws Exception{
+    public void visualizzaCategoriaEsercizioBadRequest() throws Exception{
         int idCategoria = 999;
 
 
@@ -106,7 +106,7 @@ public class GestioneCategoriaEsercizioControllerIntegrationTest {
     }
 
     @Test
-    public void visualizzaListaAlimentiSuccess() throws Exception{
+    public void visualizzaListaCategoriaEserciziSuccess() throws Exception{
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cookie", tokenPreparatore2);
 
