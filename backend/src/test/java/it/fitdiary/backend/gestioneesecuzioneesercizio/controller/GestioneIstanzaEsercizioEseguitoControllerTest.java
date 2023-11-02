@@ -106,7 +106,7 @@ public class GestioneIstanzaEsercizioEseguitoControllerTest {
     }
 
     @Test
-    public void creazioneIstanzaEsercizioTest_Success() throws Exception {
+    public void creazioneIstanzaEsercizioSuccess() throws Exception {
 
         categoriaEsercizio = new CategoriaEsercizio(1L,"TipoEsercizio");
 
@@ -171,7 +171,7 @@ public class GestioneIstanzaEsercizioEseguitoControllerTest {
 
 
     @Test
-    public void creazioneIstanzaEsercizioTestUnauthorized() throws Exception {
+    public void creazioneIstanzaEsercizioUnauthorized() throws Exception {
 
         categoriaEsercizio = new CategoriaEsercizio(1L,"TipoEsercizio");
 
@@ -426,7 +426,7 @@ public class GestioneIstanzaEsercizioEseguitoControllerTest {
                 MockMvcRequestBuilders.get(
                                 "/api/v1/istanzaEserciziEseguiti/visualizzaIstanzaEsercizio?idProtocollo="+
                                         istanzaEsercizioEseguito.getProtocollo().getId().toString()+
-                                        "&idIstanzaEsercizio="+istanzaEsercizioEseguito.getProtocollo().getId().toString())
+                                        "&idIstanzaEsercizio="+istanzaEsercizioEseguito.getIstanzaEsercizio().getId())
                         .principal(principal);
         ResultActions actualPerformResult =
                 MockMvcBuilders.standaloneSetup(gestioneIstanzaEsercizioEseguitoController)

@@ -181,7 +181,7 @@ public class GestioneAlimentoConsumatoControllerTest {
     }
 
     @Test
-    public void creazioneIstanzaAlimentoConsumatoTestUnauthorized() throws Exception {
+    public void creazioneIstanzaAlimentoConsumatoUnauthorized() throws Exception {
         ruoloCliente = new Ruolo(3L, "CLIENTE", null, null);
         ruoloPreparatore = new Ruolo(2L, "PREPARATORE", null, null);
         cliente = new Utente(1L, "Rebecca", "Di Matteo",
