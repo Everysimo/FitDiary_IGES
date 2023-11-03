@@ -135,7 +135,7 @@ public class GestioneAlimentoConsumatoServiceImplTest {
         when(istanzaAlimentoConsumatoRepository.saveAll(any())).thenReturn(istanzaAlimentoConsumatoList);
 
         assertEquals(istanzaAlimentoConsumatoList,
-                gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeEsercizio(
+                gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeAlimentoConsumato(
                         protocollo.getId(),
                         istanzaAlimentoConsumatoDtos,
                         LocalDate.parse("2023-10-18")

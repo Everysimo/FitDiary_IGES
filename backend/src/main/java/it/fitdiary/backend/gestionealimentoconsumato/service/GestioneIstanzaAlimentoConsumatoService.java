@@ -9,7 +9,7 @@ import java.util.List;
 public interface GestioneIstanzaAlimentoConsumatoService {
   IstanzaAlimentoConsumato creazioneIstanzaAlimentoConsumato(Long protocolloId, Long istanzaAlimentoId, int grammi, LocalDate data);
 
-  List<IstanzaAlimentoConsumato> creazioneIstanzeEsercizio(Long protocolloId,List<CreazioneIstanzaAlimentoConsumatoDto> list,LocalDate date);
+  List<IstanzaAlimentoConsumato> creazioneIstanzeAlimentoConsumato(Long protocolloId, List<CreazioneIstanzaAlimentoConsumatoDto> list, LocalDate date);
 
   List<IstanzaAlimentoConsumato> visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(
       Long idProtocollo,LocalDate dataConsumazione);

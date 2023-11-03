@@ -55,9 +55,9 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
   }
 
   @Override
-  public List<IstanzaAlimentoConsumato> creazioneIstanzeEsercizio(Long protocolloId,
-                                                                  List<CreazioneIstanzaAlimentoConsumatoDto> list,
-                                                                  LocalDate date) {
+  public List<IstanzaAlimentoConsumato> creazioneIstanzeAlimentoConsumato(Long protocolloId,
+                                                                          List<CreazioneIstanzaAlimentoConsumatoDto> list,
+                                                                          LocalDate date) {
     List<IstanzaAlimentoConsumato> istanzaAlimentoConsumatoList = new ArrayList<>();
     Optional<Protocollo> protocollo = protocolloRepository.findById(protocolloId);
     if (protocollo.isEmpty()) {
@@ -74,7 +74,7 @@ public class GestioneIstanzaAlimentoConsumatoServiceImpl
 
 
       if (istanzaAlimento.isEmpty()) {
-        throw new IllegalStateException("l'id fa riferimento ad un istanza alimento non esistente");
+        throw new IllegalStateException("l'id " + elem.getIstanzaAlimentoId() +" fa riferimento ad un istanza alimento non esistente");
       }
 
       istanzaAlimentoConsumato.setProtocollo(protocollo1);

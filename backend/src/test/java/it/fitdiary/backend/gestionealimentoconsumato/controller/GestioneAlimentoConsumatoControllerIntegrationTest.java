@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.fitdiary.backend.entity.*;
 import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
 import it.fitdiary.backend.entity.enums.PASTO;
+import it.fitdiary.backend.gestionealimento.repository.AlimentoRepository;
 import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.CreazioneIstanzaAlimentoConsumatoDto;
 import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.ListCreazioneIstanzaAlimentoConsumatoDto;
 import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.IstanzaEsercizioEseguitoDTO;
@@ -43,6 +44,8 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
     private UtenteRepository utenteRepository;
     @Autowired
     private ProtocolloRepository protocolloRepository;
+    @Autowired
+    private AlimentoRepository alimentoRepository;
 
 
     private Utente preparatore;
@@ -50,14 +53,14 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
     private IstanzaEsercizio istanzaEsercizio;
     private Ruolo ruoloCliente;
     private Ruolo ruoloPreparatore;
-    private Utente cliente, cliente2, cliente3, cliente4;
+    private Utente cliente, cliente2, cliente3;
     private Esercizio esercizio;
     private IstanzaEsercizioEseguitoDTO istanzaEsercizioEseguitoDTO;
     private CategoriaEsercizio categoriaEsercizio;
 
     private IstanzaEsercizioEseguito istanzaEsercizioEseguito;
 
-    private String tokenCliente, tokenCliente2, tokenCliente3, tokenCliente4;
+    private String tokenCliente, tokenCliente2, tokenCliente3;
 
     private CreazioneIstanzaAlimentoConsumatoDto creazioneIstanzaAlimentoConsumatoDto;
 
@@ -83,7 +86,6 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         cliente = utenteRepository.findByEmail("inapina@libero.it");
         cliente2 = utenteRepository.findByEmail("lmonaco@gmail.com");
         cliente3 = utenteRepository.findByEmail("cliente@fitdiary.it");
-        cliente4 = utenteRepository.findByEmail("paloso@info.it");
         preparatore =
                 new Utente(1L, "Daniele", "De Marco", "diodani5@gmail.com",
                         "Trappo#98", true, null, null, null, null,
@@ -97,10 +99,10 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         tokenCliente = setUpToken(cliente.getEmail(), "Password123!");
         tokenCliente2 = setUpToken(cliente2.getEmail(), "Password123!");
         tokenCliente3 = setUpToken(cliente3.getEmail(), "Password123!");
-        tokenCliente4 = setUpToken(cliente4.getEmail(), "Password123!");
 
         alimento = new Alimento(1L,"Pollo",100f,21f,46f,
                 3f,"Alimenti/1.jpg");
+
         schedaAlimentare =
                 new SchedaAlimentare();
         istanzaAlimento = new IstanzaAlimento(1L, GIORNO_SETTIMANA.LUNEDI, PASTO.COLAZIONE,16

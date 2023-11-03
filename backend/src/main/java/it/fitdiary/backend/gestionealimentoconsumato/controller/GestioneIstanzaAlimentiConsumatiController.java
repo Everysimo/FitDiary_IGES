@@ -74,7 +74,7 @@ public class GestioneIstanzaAlimentiConsumatiController {
     try {
       List<IstanzaAlimentoConsumato> newIstanzaAlimentoConsumato =
           gestioneIstanzaAlimentoConsumatoService.
-              creazioneIstanzeEsercizio(creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),
+              creazioneIstanzeAlimentoConsumato(creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),
                   creazioneIstanzaAlimentoConsumatoDto.getListaAlimenti(),creazioneIstanzaAlimentoConsumatoDto.getData());
       return ResponseHandler.generateResponse(HttpStatus.CREATED,
           "istanzaAlimentoConsumato", newIstanzaAlimentoConsumato);

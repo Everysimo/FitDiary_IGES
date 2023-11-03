@@ -1,21 +1,15 @@
 package it.fitdiary.backend.gestionealimentoconsumato.controller;
 
-import com.cloudinary.api.exceptions.BadRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.fitdiary.backend.entity.*;
 import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
 import it.fitdiary.backend.entity.enums.PASTO;
 import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.CreazioneIstanzaAlimentoConsumatoDto;
 import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.ListCreazioneIstanzaAlimentoConsumatoDto;
-import it.fitdiary.backend.gestionealimentoconsumato.service.GestioneIstanzaAlimentoConsumatoService;
 import it.fitdiary.backend.gestionealimentoconsumato.service.GestioneIstanzaAlimentoConsumatoServiceImpl;
-import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.GestioneIstanzaEsercizioEseguitoController;
 import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloServiceImpl;
 import it.fitdiary.backend.gestioneschedaalimentare.controller.TestObjectMapperConfig;
-import it.fitdiary.backend.gestioneschedaalimentare.service.GestioneSchedaAlimentareService;
 import it.fitdiary.backend.gestioneschedaalimentare.service.GestioneSchedaAlimentareServiceImpl;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -159,7 +153,7 @@ public class GestioneAlimentoConsumatoControllerTest {
 
         Principal principal = () -> "1";
         when(gestioneProtocolloService.getByIdProtocollo(anyLong())).thenReturn(protocollo);
-        when(gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeEsercizio(
+        when(gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeAlimentoConsumato(
                 listCreazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),
                 listCreazioneIstanzaAlimentoConsumatoDto.getListaAlimenti(),
                 listCreazioneIstanzaAlimentoConsumatoDto.getData())).thenReturn(listIstanzaAlimentoConsumato);
@@ -220,7 +214,7 @@ public class GestioneAlimentoConsumatoControllerTest {
 
         Principal principal = () -> "2";
         when(gestioneProtocolloService.getByIdProtocollo(anyLong())).thenReturn(protocollo);
-        when(gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeEsercizio(
+        when(gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeAlimentoConsumato(
                 listCreazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),
                 listCreazioneIstanzaAlimentoConsumatoDto.getListaAlimenti(),
                 listCreazioneIstanzaAlimentoConsumatoDto.getData())).thenReturn(listIstanzaAlimentoConsumato);
@@ -281,7 +275,7 @@ public class GestioneAlimentoConsumatoControllerTest {
 
         Principal principal = () -> "1";
         when(gestioneProtocolloService.getByIdProtocollo(anyLong())).thenReturn(protocollo);
-        when(gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeEsercizio(
+        when(gestioneIstanzaAlimentoConsumatoService.creazioneIstanzeAlimentoConsumato(
                 listCreazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),
                 listCreazioneIstanzaAlimentoConsumatoDto.getListaAlimenti(),
                 listCreazioneIstanzaAlimentoConsumatoDto.getData())).thenReturn(listIstanzaAlimentoConsumato);

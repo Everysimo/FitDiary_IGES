@@ -33,6 +33,10 @@ INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_sc
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`,`scheda_alimentare_id`,`scheda_allenamento_id`) VALUES (1, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2022-02-24', 4, 2,1,1);
 
 
+/*Alimenti*/
+INSERT INTO `alimento` (`id`,`nome`,`kcal`,`proteine`,`grassi`,`carboidrati`,`path_foto` ) VALUES (1,'pollo', 100, 10, 10,11,'pollo.jpg');
+
+
 /*Istanze Alimento*/
 INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alimento_id`, `scheda_alimentare_id`,`pasto`) VALUES (1,100, 2, 1, 1,1);
 INSERT INTO `istanza_alimento` (`id`, `grammi`, `giorno_della_settimana`, `alimento_id`, `scheda_alimentare_id`,`pasto`) VALUES (2,200, 0, 2, 1,0);

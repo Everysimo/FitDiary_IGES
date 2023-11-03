@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -70,5 +72,8 @@ public class IstanzaEsercizio {
     @ManyToOne
     @JoinColumn(name = "scheda_allenamento_id")
     private SchedaAllenamento schedaAllenamento;
+
+    @OneToMany(mappedBy = "istanzaEsercizio", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    private List<IstanzaEsercizioEseguito> istanzeEsercizioEseguito = new ArrayList<IstanzaEsercizioEseguito>();
 
 }

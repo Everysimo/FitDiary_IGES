@@ -66,7 +66,7 @@ public class IstanzaEsercizioEseguito {
      * Istanza esercizio.
      */
     @NotNull(message = "L'istanza dell'esercizio non può essere nullo")
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "istanzaEsercizio_id")
     @EqualsAndHashCode.Exclude
     private IstanzaEsercizio istanzaEsercizio;
