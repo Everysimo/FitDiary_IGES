@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestioneIstanzaEsercizioEseguitoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">it.fitdiary.backend.gestioneesecuzioneesercizio.controller</a> &gt; <span class="el_source">GestioneIstanzaEsercizioEseguitoController.java</span></div><h1>GestioneIstanzaEsercizioEseguitoController.java</h1><pre class="source lang-java linenums">package it.fitdiary.backend.gestioneesecuzioneesercizio.controller;
+
+import it.fitdiary.backend.entity.IstanzaEsercizioEseguito;
+import it.fitdiary.backend.entity.Protocollo;
+import it.fitdiary.backend.entity.Utente;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.IstanzaEsercizioEseguitoDTO;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.controller.dto.VisualizzaEserciziDTO;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.service.GestioneIstanzaEsercizioEseguitoService;
+import it.fitdiary.backend.gestioneesecuzioneesercizio.service.GestioneIstanzaEsercizioEseguitoServiceImpl;
+import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloService;
+import it.fitdiary.backend.gestioneutenza.service.GestioneUtenzaService;
+import it.fitdiary.backend.utility.ResponseHandler;
+import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.GATEWAY_TIMEOUT;
+
+@RestController
+<span class="fc" id="L32">@Slf4j</span>
+@RequestMapping(path = &quot;api/v1/istanzaEserciziEseguiti&quot;)
+public class GestioneIstanzaEsercizioEseguitoController {
+
+  public final GestioneIstanzaEsercizioEseguitoService gestioneIstanzaEsercizioEseguitoService;
+
+  private final GestioneProtocolloService gestioneProtocolloService;
+
+  @Autowired
+  public GestioneIstanzaEsercizioEseguitoController(
+      GestioneIstanzaEsercizioEseguitoService gestioneIstanzaEsercizioEseguitoService,
+<span class="fc" id="L43">      GestioneProtocolloService gestioneProtocolloService) {</span>
+<span class="fc" id="L44">    this.gestioneIstanzaEsercizioEseguitoService = gestioneIstanzaEsercizioEseguitoService;</span>
+<span class="fc" id="L45">    this.gestioneProtocolloService = gestioneProtocolloService;</span>
+<span class="fc" id="L46">  }</span>
+
+
+  @PostMapping(&quot;creaIstanzaEsercizio&quot;)
+  private ResponseEntity&lt;Object&gt; creazioneIstanzaEsercizio(@RequestBody
+                                                           IstanzaEsercizioEseguitoDTO esercizioEseguitoDTO) {
+
+
+    HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L55">        RequestContextHolder.getRequestAttributes()).getRequest();</span>
+
+
+
+<span class="fc" id="L59">    Long idCliente = Long.parseLong(</span>
+<span class="fc" id="L60">        request.getUserPrincipal().getName());</span>
+
+
+<span class="fc" id="L63">    Protocollo protocollo =</span>
+<span class="fc" id="L64">        gestioneProtocolloService.getByIdProtocollo(esercizioEseguitoDTO.getIdProtocollo());</span>
+
+
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">    if (!Objects.equals(protocollo.getCliente().getId(), idCliente)) {</span>
+<span class="nc" id="L68">      return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,</span>
+          &quot;Il cliente non può creare un'istanza di esercizio per questo &quot;
+              + &quot;protocollo poichè non gli appartiene&quot;);
+    }
+
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">    if ((esercizioEseguitoDTO.getIdProtocollo() == null ||</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        esercizioEseguitoDTO.getIdIstanzaEsercizio() == null)) {</span>
+<span class="fc" id="L75">      return ResponseHandler.generateResponse(BAD_REQUEST, (Object)</span>
+          &quot;idProtocollo e idIstanzaEsercizio non possono essere null &quot;);
+    }
+
+
+    try {
+<span class="fc" id="L81">      IstanzaEsercizioEseguito newIstanzaEsercizioEseguito =</span>
+          gestioneIstanzaEsercizioEseguitoService.
+<span class="fc" id="L83">              creazioneIstanzaEsercizio(</span>
+<span class="fc" id="L84">                  esercizioEseguitoDTO.getIdProtocollo(),</span>
+<span class="fc" id="L85">                  esercizioEseguitoDTO.getIdIstanzaEsercizio(),</span>
+<span class="fc" id="L86">                  esercizioEseguitoDTO.getPesoEsecuzione(), LocalDate.now(),</span>
+<span class="fc" id="L87">                  esercizioEseguitoDTO.getSerie(), esercizioEseguitoDTO.getRipetizioni());</span>
+<span class="fc" id="L88">      return ResponseHandler.generateResponse(HttpStatus.CREATED,</span>
+          &quot;istanzaEsercizio&quot;, newIstanzaEsercizioEseguito);
+<span class="nc" id="L90">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L91">      return ResponseHandler.generateResponse(BAD_REQUEST,</span>
+<span class="nc" id="L92">          (Object) e.getMessage());</span>
+<span class="nc" id="L93">    } catch (Exception e) {</span>
+<span class="nc" id="L94">      return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR,</span>
+<span class="nc" id="L95">          (Object) e.getMessage());</span>
+    }
+  }
+
+  @GetMapping(&quot;visualizzaIstanzaEsercizio&quot;)
+  private ResponseEntity&lt;Object&gt; visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(
+      @RequestParam(&quot;idProtocollo&quot;) final Long idProtocollo,
+      @RequestParam(&quot;idIstanzaEsercizio&quot;) final Long idIstanzaEsercizio) {
+<span class="pc bpc" id="L103" title="2 of 4 branches missed.">    if ((idProtocollo == null || idIstanzaEsercizio == null)) {</span>
+<span class="nc" id="L104">      return ResponseHandler.generateResponse(BAD_REQUEST, (Object)</span>
+          &quot;idProtocollo e idIstanzaEsercizio non possono essere null &quot;);
+    }
+    try {
+<span class="fc" id="L108">      VisualizzaEserciziDTO visualizzaEserciziDTO =</span>
+          gestioneIstanzaEsercizioEseguitoService.
+<span class="fc" id="L110">              visualizzaIstanzaEserciziEseguitiByProtocolloAndIstanzaEsercizio(idProtocollo,</span>
+                  idIstanzaEsercizio);
+<span class="fc" id="L112">      return ResponseHandler.generateResponse(HttpStatus.OK,</span>
+          &quot;istanzeEserciziEseguiti&quot;, visualizzaEserciziDTO);
+<span class="nc" id="L114">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L115">      return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+<span class="nc" id="L116">          (Object) e.getMessage());</span>
+    }
+  }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

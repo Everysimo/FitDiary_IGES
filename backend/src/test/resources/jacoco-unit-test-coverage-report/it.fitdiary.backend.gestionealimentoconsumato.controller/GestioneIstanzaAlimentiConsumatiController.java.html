@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="it"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestioneIstanzaAlimentiConsumatiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">backend</a> &gt; <a href="index.source.html" class="el_package">it.fitdiary.backend.gestionealimentoconsumato.controller</a> &gt; <span class="el_source">GestioneIstanzaAlimentiConsumatiController.java</span></div><h1>GestioneIstanzaAlimentiConsumatiController.java</h1><pre class="source lang-java linenums">package it.fitdiary.backend.gestionealimentoconsumato.controller;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
+import it.fitdiary.backend.entity.IstanzaAlimento;
+import it.fitdiary.backend.entity.IstanzaAlimentoConsumato;
+import it.fitdiary.backend.entity.Protocollo;
+import it.fitdiary.backend.entity.enums.GIORNO_SETTIMANA;
+import it.fitdiary.backend.gestionealimentoconsumato.controller.dto.ListCreazioneIstanzaAlimentoConsumatoDto;
+import it.fitdiary.backend.gestionealimentoconsumato.service.GestioneIstanzaAlimentoConsumatoService;
+import it.fitdiary.backend.gestioneprotocollo.service.GestioneProtocolloService;
+import it.fitdiary.backend.gestioneschedaalimentare.service.GestioneSchedaAlimentareService;
+import it.fitdiary.backend.utility.ResponseHandler;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+@RestController
+<span class="fc" id="L36">@Slf4j</span>
+@RequestMapping(path = &quot;api/v1/istanzaAlimentiConsumati&quot;)
+public class GestioneIstanzaAlimentiConsumatiController {
+
+  public final GestioneIstanzaAlimentoConsumatoService gestioneIstanzaAlimentoConsumatoService;
+
+  public final GestioneSchedaAlimentareService gestioneSchedaAlimentareService;
+
+  private final GestioneProtocolloService gestioneProtocolloService;
+
+  @Autowired
+  public GestioneIstanzaAlimentiConsumatiController(
+      GestioneIstanzaAlimentoConsumatoService gestioneIstanzaAlimentoConsumatoService,
+      GestioneSchedaAlimentareService gestioneSchedaAlimentareService,
+<span class="fc" id="L50">      GestioneProtocolloService gestioneProtocolloService) {</span>
+<span class="fc" id="L51">    this.gestioneIstanzaAlimentoConsumatoService = gestioneIstanzaAlimentoConsumatoService;</span>
+<span class="fc" id="L52">    this.gestioneSchedaAlimentareService = gestioneSchedaAlimentareService;</span>
+<span class="fc" id="L53">    this.gestioneProtocolloService = gestioneProtocolloService;</span>
+<span class="fc" id="L54">  }</span>
+
+
+  @PostMapping(&quot;creaIstanzaAlimentoConsumato&quot;)
+  private ResponseEntity&lt;Object&gt; creazioneIstanzaAlimentoConsumato(@RequestBody
+                                                                       ListCreazioneIstanzaAlimentoConsumatoDto creazioneIstanzaAlimentoConsumatoDto) {
+
+    HttpServletRequest request = ((ServletRequestAttributes)
+<span class="fc" id="L62">        RequestContextHolder.getRequestAttributes()).getRequest();</span>
+
+<span class="fc" id="L64">    Long idCliente = Long.parseLong(</span>
+<span class="fc" id="L65">        request.getUserPrincipal().getName());</span>
+<span class="fc" id="L66">    Protocollo protocollo = gestioneProtocolloService.getByIdProtocollo(</span>
+<span class="fc" id="L67">        creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo());</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    if (!Objects.equals(protocollo.getCliente().getId(), idCliente)) {</span>
+<span class="fc" id="L69">      return ResponseHandler.generateResponse(HttpStatus.UNAUTHORIZED,</span>
+          &quot;Il cliente non può creare un'istanza di alimento consumato per questo &quot;
+              + &quot;protocollo poichè non gli appartiene&quot;);
+    }
+
+    try {
+<span class="fc" id="L75">      List&lt;IstanzaAlimentoConsumato&gt; newIstanzaAlimentoConsumato =</span>
+          gestioneIstanzaAlimentoConsumatoService.
+<span class="fc" id="L77">              creazioneIstanzeAlimentoConsumato(creazioneIstanzaAlimentoConsumatoDto.getIdProtocollo(),</span>
+<span class="fc" id="L78">                  creazioneIstanzaAlimentoConsumatoDto.getListaAlimenti(),creazioneIstanzaAlimentoConsumatoDto.getData());</span>
+<span class="fc" id="L79">      return ResponseHandler.generateResponse(HttpStatus.CREATED,</span>
+          &quot;istanzaAlimentoConsumato&quot;, newIstanzaAlimentoConsumato);
+<span class="nc" id="L81">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L82">      return ResponseHandler.generateResponse(BAD_REQUEST,</span>
+<span class="nc" id="L83">          (Object) e.getMessage());</span>
+<span class="nc" id="L84">    } catch (Exception e) {</span>
+<span class="nc" id="L85">      System.out.println(e);</span>
+<span class="nc" id="L86">      return ResponseHandler.generateResponse(HttpStatus.INTERNAL_SERVER_ERROR,</span>
+<span class="nc" id="L87">          (Object) e.getMessage());</span>
+    }
+  }
+
+  @GetMapping(&quot;visualizzaIstanzeAlimentoConsumato&quot;)
+  private ResponseEntity&lt;Object&gt; visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDate(
+      @RequestParam(&quot;idProtocollo&quot;) final Long idProtocollo,
+      @RequestParam(&quot;dataConsumazione&quot;) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+          LocalDate dataConsumazione) {
+
+    try {
+<span class="nc" id="L98">      List&lt;IstanzaAlimentoConsumato&gt; istanzaEsercizioEseguitoList =</span>
+          gestioneIstanzaAlimentoConsumatoService.
+<span class="nc" id="L100">              visualizzaIstanzaAlimentiConsumatiByProtocolloAndDate(idProtocollo, dataConsumazione);</span>
+<span class="nc" id="L101">      float calorieConsumate = 0;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">      for (IstanzaAlimentoConsumato al : istanzaEsercizioEseguitoList) {</span>
+<span class="nc" id="L103">        calorieConsumate += al.getGrammiConsumati() * al.getIstanzaAlimento().getAlimento().getKcal()/100;</span>
+<span class="nc" id="L104">      }</span>
+<span class="nc" id="L105">      Protocollo protocollo = gestioneProtocolloService.getByIdProtocollo(idProtocollo);</span>
+<span class="nc" id="L106">      List&lt;IstanzaAlimento&gt; istanzeAlimentoDellaGiornata =</span>
+<span class="nc" id="L107">          gestioneSchedaAlimentareService.getAlimentiBySchedaAlimentareAndGiornoDellaSettimana(</span>
+<span class="nc" id="L108">              protocollo.getSchedaAlimentare(), GiornoSettimanaToDayOfWeek(dataConsumazione.getDayOfWeek()));</span>
+<span class="nc" id="L109">      float calorieAspettate = 0;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">      for (IstanzaAlimento istanzaAlimento : istanzeAlimentoDellaGiornata)</span>
+      {
+<span class="nc" id="L112">        calorieAspettate += istanzaAlimento.getGrammi() * istanzaAlimento.getAlimento().getKcal()/100;</span>
+<span class="nc" id="L113">      }</span>
+
+<span class="nc" id="L115">      Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L117">      map.put(&quot;calorieConsumate&quot;, calorieConsumate);</span>
+<span class="nc" id="L118">      map.put(&quot;calorieAspettate&quot;, calorieAspettate);</span>
+<span class="nc" id="L119">      map.put(&quot;istanzeAlimentiConsumati&quot;, istanzaEsercizioEseguitoList);</span>
+<span class="nc" id="L120">      map.put(&quot;istanzeAlimenti&quot;,istanzeAlimentoDellaGiornata);</span>
+
+<span class="nc" id="L122">      return ResponseHandler.generateResponse(HttpStatus.OK,</span>
+          &quot;result&quot;, map);
+<span class="nc" id="L124">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L125">      return ResponseHandler.generateResponse(HttpStatus.BAD_REQUEST,</span>
+<span class="nc" id="L126">          (Object) e.getMessage());</span>
+    }
+  }
+
+  private GIORNO_SETTIMANA GiornoSettimanaToDayOfWeek(DayOfWeek dayOfWeek) {
+<span class="nc bnc" id="L131" title="All 8 branches missed.">    switch (dayOfWeek) {</span>
+
+      case MONDAY:
+<span class="nc" id="L134">        return GIORNO_SETTIMANA.LUNEDI;</span>
+      case TUESDAY:
+<span class="nc" id="L136">        return GIORNO_SETTIMANA.MARTEDI;</span>
+      case WEDNESDAY:
+<span class="nc" id="L138">        return GIORNO_SETTIMANA.MERCOLEDI;</span>
+      case THURSDAY:
+
+<span class="nc" id="L141">        return GIORNO_SETTIMANA.GIOVEDI;</span>
+
+      case FRIDAY:
+<span class="nc" id="L144">        return GIORNO_SETTIMANA.VENERDI;</span>
+
+      case SATURDAY:
+<span class="nc" id="L147">        return GIORNO_SETTIMANA.SABATO;</span>
+      case SUNDAY:
+<span class="nc" id="L149">        return GIORNO_SETTIMANA.DOMENICA;</span>
+      default:
+<span class="nc" id="L151">        throw new IllegalStateException(&quot;Unexpected value: &quot; + dayOfWeek);</span>
+    }
+  }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
