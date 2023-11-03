@@ -216,12 +216,12 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
 
     }
 
-/*
+
     @Test
     @Order(4)
     public void visualizzaIstanzaAlimentiConsumatiByProtocolloAndIstanzaAlimentoAndDateTest_Success() throws Exception {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Cookie", tokenCliente4);
+        headers.add("Cookie", tokenCliente);
         headers.setContentType(MediaType.APPLICATION_JSON);
 
 
@@ -231,7 +231,7 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         HttpEntity<ListCreazioneIstanzaAlimentoConsumatoDto> entity = new HttpEntity<>(listCreazioneIstanzaAlimentoConsumatoDto, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/istanzaAlimentiConsumati/visualizzaIstanzeAlimentoConsumato?idProtocollo=4&dataConsumazione=2023-12-13",
+                "http://localhost:" + port + "/api/v1/istanzaAlimentiConsumati/visualizzaIstanzeAlimentoConsumato?idProtocollo=1&dataConsumazione=2023-12-14",
                 HttpMethod.GET,
                 entity,
                 String.class
@@ -241,5 +241,5 @@ public class GestioneAlimentoConsumatoControllerIntegrationTest {
         assertEquals(org.springframework.http.HttpStatus.OK, response.getStatusCode());
 
     }
-*/
+
 }

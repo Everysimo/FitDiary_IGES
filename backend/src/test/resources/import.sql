@@ -29,8 +29,6 @@ INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_sc
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (3, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 7, 2);
 INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`) VALUES (4, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2024-02-24', 7, 3);
 
-/*Protocolli*/
-INSERT INTO `protocollo` (`id`, `data_aggiornamento`, `data_creazione`, `data_scadenza`, `cliente_id`, `preparatore_id`,`scheda_alimentare_id`,`scheda_allenamento_id`) VALUES (1, '2022-01-09 20:40:59', '2022-01-09 20:41:00', '2022-02-24', 4, 2,1,1);
 
 
 /*Alimenti*/
@@ -93,3 +91,6 @@ INSERT INTO `istanza_esercizio` (`id`, `giorno_della_settimana`, `serie`, `ripet
 
 INSERT INTO `istanza_esercizio_eseguito`(`id`,`peso_esecuzione`,`numero_serie`,`ripetizioni`,`data_esecuzione`,`protocollo_id`,`istanza_esercizio_id`)VALUES (1,3,4,5,'2023-01-09',1,1);
 INSERT INTO `istanza_esercizio_eseguito`(`id`,`peso_esecuzione`,`numero_serie`,`ripetizioni`,`data_esecuzione`,`protocollo_id`,`istanza_esercizio_id`)VALUES (2,3,4,5,'2023-01-09',1,1);
+
+INSERT INTO `istanza_alimento_consumato`(`id`,`data_esecuzione`,`grammi_consumati`,`istanza_alimento`,`protocollo_id`)VALUES (1,'2023-12-13',4,1,4);
+INSERT INTO `istanza_alimento_consumato`(`id`,`data_esecuzione`,`grammi_consumati`,`istanza_alimento`,`protocollo_id`)VALUES (2,'2023-12-13',4,1,4);
